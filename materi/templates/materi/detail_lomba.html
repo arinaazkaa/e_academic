@@ -1,0 +1,62 @@
+{% extends 'materi/base.html' %}
+{% load static %}
+
+{% block title %}{{ lomba.judul }} - Detail Lomba{% endblock %}
+
+{% block content %}
+<section class="spad" style="background-color: #f4f6f9; min-height: 80vh;">
+    <div class="container">
+        
+        <a href="{% url 'home' %}" class="btn btn-link text-muted mb-4 pl-0">
+            <i class="fa fa-arrow-left"></i> Kembali ke Beranda
+        </a>
+
+        <div class="row">
+            <div class="col-lg-5 mb-4">
+                <div class="card shadow-sm border-0 rounded overflow-hidden">
+                    {% if lomba.pamflet %}
+                        <img src="{{ lomba.pamflet.url }}" class="img-fluid w-100" alt="{{ lomba.judul }}">
+                    {% else %}
+                        <div class="bg-light text-center py-5">
+                            <i class="fa fa-image fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">Pamflet belum tersedia</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="card shadow-sm border-0 p-4 rounded">
+                    <span class="badge bg-primary mb-2 w-auto" style="width: fit-content;">Info Lomba</span>
+                    
+                    <h2 class="fw-bold text-dark mb-3">{{ lomba.judul }}</h2>
+                    
+                    <div class="mb-4 text-muted">
+                        <p class="mb-1"><i class="fa fa-building me-2"></i> Penyelenggara: <strong>{{ lomba.penyelenggara }}</strong></p>
+                        <p class="mb-1"><i class="fa fa-calendar me-2"></i> Pelaksanaan: <strong>{{ lomba.tanggal_pelaksanaan|date:"d F Y" }}</strong></p>
+                    </div>
+
+                    <hr>
+
+                    <h5 class="fw-bold mt-4 mb-3">Deskripsi / Syarat & Ketentuan:</h5>
+                    <div class="text-secondary" style="line-height: 1.8;">
+                        {{ lomba.deskripsi_lengkap|linebreaksbr }}
+                    </div>
+
+                    <div class="mt-5">
+                        {% if lomba.link_pendaftaran %}
+                            <a href="{{ lomba.link_pendaftaran }}" target="_blank" class="btn btn-primary btn-lg px-5 w-100">
+                                <i class="fa fa-paper-plane me-2"></i> Daftar Sekarang
+                            </a>
+                            <small class="text-muted d-block text-center mt-2">*Anda akan dialihkan ke formulir pendaftaran.</small>
+                        {% else %}
+                            <button class="btn btn-secondary btn-lg px-5 w-100" disabled>Pendaftaran Ditutup / Belum Dibuka</button>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

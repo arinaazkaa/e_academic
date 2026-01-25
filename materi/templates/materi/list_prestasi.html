@@ -1,0 +1,218 @@
+{% extends 'materi/base.html' %}
+{% load static %}
+
+{% block title %}Hall of Fame - Elektro Bangga{% endblock %}
+
+{% block content %}
+
+<section class="breadcrumb-option" style="padding: 80px 0; margin-top: 80px; background: linear-gradient(135deg, #003366 0%, #0056b3 100%); position: relative; overflow: hidden;">
+    <div style="position: absolute; top: -50%; left: -10%; width: 500px; height: 500px; background: rgba(255,255,255,0.05); border-radius: 50%;"></div>
+    <div style="position: absolute; bottom: -20%; right: -5%; width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 50%;"></div>
+
+    <div class="container" style="position: relative; z-index: 2;">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2 style="color: white; font-weight: 800; font-size: 3.5rem; text-shadow: 0 4px 10px rgba(0,0,0,0.2);">ELEKTRO BANGGA</h2>
+                    <div class="breadcrumb__links">
+                        <span style="color: #e3f2fd; font-size: 1.2rem; font-weight: 300; letter-spacing: 1px;">Hall of Fame Mahasiswa Berprestasi di Lingkungan Teknik Elektro FT UNNES</span>
+                    </div>
+                    <div class="mt-4">
+                        <a href="{% url 'input_prestasi' %}" class="btn btn-warning fw-bold shadow-lg" style="border-radius: 50px; padding: 12px 35px; transition: transform 0.2s;">
+                            <i class="fa fa-plus-circle me-2"></i> Pendataan Prestasi
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="shop spad" style="background-color: #f8f9fa; min-height: 80vh;">
+    <div class="container">
+        
+        <div class="row mb-5" style="margin-top: -40px; position: relative; z-index: 10;">
+            <div class="col-lg-8 mx-auto">
+                <div class="card border-0 shadow-lg p-4 rounded-pill" style="background: white;">
+                    <form action="" method="GET" class="d-flex gap-2 align-items-center">
+                        <i class="fa fa-search text-muted ms-2"></i>
+                        <input type="text" name="keyword" class="form-control border-0 bg-transparent shadow-none" placeholder="Cari nama mahasiswa atau lomba..." value="{{ request.GET.keyword|default:'' }}">
+                        
+                        <div class="vr mx-2"></div>
+                        
+                        <select name="prodi" class="form-select border-0 bg-transparent shadow-none" style="width: 30%; cursor: pointer;">
+                            <option value="">Semua Prodi</option>
+                            <option value="PTIK" {% if request.GET.prodi == 'PTIK' %}selected{% endif %}>PTIK</option>
+                            <option value="PTE" {% if request.GET.prodi == 'PTE' %}selected{% endif %}>PTE</option>
+                            <option value="TE" {% if request.GET.prodi == 'TE' %}selected{% endif %}>TE</option>
+                            <option value="TK" {% if request.GET.prodi == 'TK' %}selected{% endif %}>TK</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary rounded-circle" style="width: 45px; height: 45px;"><i class="fa fa-arrow-right"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for p in prestasi_list %}
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-4 card-item" style="opacity: 0; animation: fadeUp 0.6s ease forwards; animation-delay: {{ forloop.counter0 }}00ms;">
+                <div class="card border-0 h-100 overflow-hidden prestasi-card">
+                    
+                    <div class="img-wrapper">
+                        {% if p.foto_diri %}
+                            <img src="{{ p.foto_diri.url }}" alt="{{ p.nama_mahasiswa }}">
+                        {% else %}
+                            <div class="d-flex align-items-center justify-content-center h-100 bg-light text-muted">
+                                <i class="fa fa-user fa-4x"></i>
+                            </div>
+                        {% endif %}
+
+                        <div class="overlay"></div>
+
+                        <div class="badge-juara shadow-sm">
+                            <i class="fa fa-trophy text-warning"></i> {{ p.juara }}
+                        </div>
+                        
+                        <div class="badge-tingkat shadow-sm">
+                            {{ p.tingkat }}
+                        </div>
+                    </div>
+
+                    <div class="card-body text-center p-4 relative">
+                        <h6 class="fw-bold mb-1 title-name">
+                            <a href="{% url 'detail_prestasi' p.id %}" class="stretched-link text-decoration-none text-dark">
+                                {{ p.nama_mahasiswa }}
+                            </a>
+                        </h6>
+                        
+                        <p class="text-muted small mb-3 text-uppercase fw-bold" style="font-size: 11px; letter-spacing: 1px; color: #adb5bd !important;">
+                            {{ p.get_prodi_display }}
+                        </p>
+
+                        <div class="lomba-box">
+                            <p class="mb-0 text-dark small">{{ p.nama_lomba }}</p>
+                        </div>
+                        
+                        <div class="mt-3 opacity-0 action-arrow">
+                            <span class="text-primary small fw-bold">Lihat Detail <i class="fa fa-arrow-right ms-1"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <div style="opacity: 0.5;">
+                    <i class="fa fa-folder-open fa-5x text-muted mb-3"></i>
+                </div>
+                <h4 class="mt-3 text-muted fw-bold">Belum ada data prestasi.</h4>
+                <p class="text-muted">Jadilah yang pertama mengharumkan nama departemen!</p>
+                <a href="{% url 'input_prestasi' %}" class="btn btn-outline-primary mt-2 rounded-pill px-4">Lapor Prestasi Sekarang</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+    /* 1. Animasi Kartu Muncul (Fade Up) */
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 2. Styling Kartu Dasar */
+    .prestasi-card {
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+    }
+
+    /* 3. Efek Hover pada Kartu (Lift Up) */
+    .prestasi-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    /* 4. Styling Wrapper Gambar */
+    .img-wrapper {
+        height: 260px;
+        overflow: hidden;
+        position: relative;
+        border-bottom: 5px solid #ffc107; /* Garis kuning khas */
+    }
+
+    .img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        transition: transform 0.5s ease;
+    }
+
+    /* 5. Zoom Effect Gambar saat Hover */
+    .prestasi-card:hover .img-wrapper img {
+        transform: scale(1.1); /* Zoom in 10% */
+    }
+
+    /* 6. Badges */
+    .badge-juara {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: #fff;
+        color: #000;
+        padding: 6px 15px;
+        border-radius: 30px;
+        font-weight: 800;
+        font-size: 12px;
+        z-index: 2;
+    }
+
+    .badge-tingkat {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        background: #0d6efd; /* Bootstrap Primary Blue */
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        z-index: 2;
+    }
+
+    /* 7. Text Styles */
+    .title-name {
+        font-size: 1.1rem;
+        transition: color 0.3s;
+    }
+    
+    .prestasi-card:hover .title-name a {
+        color: #0d6efd !important; /* Nama berubah biru saat hover */
+    }
+
+    .lomba-box {
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 10px;
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #eee;
+    }
+
+    /* 8. Panah Action muncul saat hover */
+    .action-arrow {
+        transition: opacity 0.3s ease;
+    }
+    .prestasi-card:hover .action-arrow {
+        opacity: 1 !important;
+    }
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends 'materi/base.html' %}
+{% load static %}
+
+{% block title %}Pendataan Prestasi - Elektro Bangga{% endblock %}
+
+{% block content %}
+<section class="spad" style="background: #f4f6f9;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm p-4 p-md-5 rounded">
+                    <h3 class="fw-bold mb-4 text-center" style="color: #003366;">Form Pendataan Prestasi</h3>
+                    <p class="text-center text-muted mb-5">Isi data prestasimu dengan lengkap untuk divalidasi dan ditampilkan di <strong>ELEKTRO BANGGA</strong>.</p>
+
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <h5 class="mb-3 text-primary fw-bold">1. Data Mahasiswa</h5>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nama Lengkap & NIM</label>
+                            <input type="text" name="nama_mahasiswa" class="form-control" placeholder="Contoh: Budi Santoso (5101419001)" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Program Studi</label>
+                                <select name="prodi" class="form-control" required>
+                                    <option value="">-- Pilih Prodi --</option>
+                                    <option value="PTIK">Pend. Teknik Informatika & Komputer</option>
+                                    <option value="PTE">Pend. Teknik Elektro</option>
+                                    <option value="TE">Teknik Elektro</option>
+                                    <option value="TK">Teknik Komputer</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">No. HP / WhatsApp</label>
+                                <input type="text" name="no_hp" class="form-control" placeholder="08xxxxxxxxxx" required>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h5 class="mb-3 text-primary fw-bold">2. Detail Perlombaan</h5>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nama Perlombaan</label>
+                            <input type="text" name="nama_lomba" class="form-control" placeholder="Contoh: Lomba Inovasi Teknologi Nasional 2025" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Penyelenggara</label>
+                                <input type="text" name="penyelenggara" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">URL Penyelenggara</label>
+                                <input type="url" name="url_penyelenggara" class="form-control" placeholder="https://instagram.com/..." >
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Jenis Lomba</label>
+                                <select name="jenis_lomba" class="form-control">
+                                    <option value="Sains">Sains & Teknologi</option>
+                                    <option value="Olahraga">Olahraga</option>
+                                    <option value="Seni">Seni & Budaya</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Tingkat</label>
+                                <select name="tingkat" class="form-control">
+                                    <option value="Internasional">Internasional</option>
+                                    <option value="Nasional">Nasional</option>
+                                    <option value="Provinsi">Provinsi</option>
+                                    <option value="Kota">Kota/Kabupaten</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Kategori</label>
+                                <select name="kategori" class="form-control">
+                                    <option value="Individu">Individu</option>
+                                    <option value="Kelompok">Kelompok/Tim</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Perolehan Juara</label>
+                            <input type="text" name="juara" class="form-control" placeholder="Contoh: Juara 1, Medali Emas" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Tempat & Tanggal</label>
+                                <input type="text" name="tempat_tanggal" class="form-control" placeholder="Semarang, 1-2 Agustus 2025">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">No. SK (Jika ada)</label>
+                                <input type="text" name="no_sk" class="form-control" placeholder="Nomor Surat Keputusan / Tugas">
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h5 class="mb-3 text-primary fw-bold">3. Berkas & Foto</h5>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Foto Diri (Untuk Website)</label>
+                            <input type="file" name="foto_diri" class="form-control" accept="image/*" required>
+                            <small class="text-muted">Upload foto terbaikmu (Formal/Bebas Rapi). Akan ditampilkan di halaman depan.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Link Google Drive (Sertifikat & Dokumentasi)</label>
+                            <input type="url" name="link_sertifikat" class="form-control" placeholder="https://drive.google.com/..." required>
+                            <small class="text-muted">Pastikan link folder drive sudah di-setting "Anyone with the link can view".</small>
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" name="is_public" id="is_public" checked>
+                            <label class="form-check-label" for="is_public">
+                                Saya bersedia data dan foto ini diposting di Website & Media Sosial Himprote FT UNNES.
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 py-3 fw-bold">KIRIM DATA PRESTASI 🚀</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
