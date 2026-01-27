@@ -1,69 +1,201 @@
 {% extends 'materi/base.html' %}
+{% load static %}
 
-{% block title %}Upload Karya Inovasi{% endblock %}
+{% block title %}Upload Karya - E-Academic{% endblock %}
 
 {% block content %}
 
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card shadow border-0">
-            <div class="card-header bg-success text-white border-bottom-0 pt-4 pb-3">
-                <h3 class="fw-bold"><i class="bi bi-lightbulb-fill"></i> Upload Karya Inovasi</h3>
-                <p class="mb-0 opacity-75">Punya alat Tugas Akhir atau Project keren? Pamerkan di sini!</p>
-            </div>
-            
-            <div class="card-body p-4 bg-white">
+<section style="
+    background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
+                url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed;
+    padding-top: 160px; padding-bottom: 140px; margin-top: -85px; 
+    text-align: center; color: white;
+    position: relative; overflow: hidden;">
+    
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+                background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); 
+                opacity: 0.1; z-index: 0;"></div>
+
+    <div class="container animate-up position-relative" style="z-index: 2;">
+        <div class="mb-3">
+            <i class="fa fa-lightbulb-o text-warning" style="font-size: 50px; text-shadow: 0 0 25px rgba(255,193,7,0.6);"></i>
+        </div>
+        <h1 class="fw-bold display-5 mb-3 text-white" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5); letter-spacing: 1px;">
+            UPLOAD KARYA INOVASI
+        </h1>
+        <p class="lead text-white-50 mx-auto" style="max-width: 700px; font-size: 1.1rem;">
+            Punya alat Tugas Akhir atau Project keren? Jangan biarkan berdebu!<br>
+            Pamerkan karyamu di sini agar menginspirasi mahasiswa lainnya.
+        </p>
+    </div>
+</section>
+
+<section class="py-5" style="background-color: #f8f9fa;">
+    <div class="container" style="margin-top: -100px; position: relative; z-index: 10;">
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-9 animate-up delay-1">
                 
-                <form method="post">
-                    {% csrf_token %}
-
-                    {% if form.non_field_errors %}
-                        <div class="alert alert-danger">{{ form.non_field_errors }}</div>
-                    {% endif %}
-
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Judul Karya / Nama Alat</label>
-                        {{ form.judul_karya }}
-                        <div class="form-text">Berikan nama yang menarik untuk karyamu.</div>
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
+                    
+                    <div class="card-header bg-white border-bottom p-4">
+                        <h5 class="fw-bold text-dark m-0 d-flex align-items-center">
+                            <i class="fa fa-pencil-square-o text-primary me-2"></i> Formulir Data Karya
+                        </h5>
                     </div>
 
-                    <div class="row mb-3">
-                        <div class="col-md-7">
-                            <label class="form-label fw-bold">Nama Pembuat (Mahasiswa/Tim)</label>
-                            {{ form.pembuat }}
-                        </div>
-                        <div class="col-md-5">
-                            <label class="form-label fw-bold">Asal Prodi</label>
-                            {{ form.prodi }}
-                        </div>
-                    </div>
+                    <div class="card-body p-4 p-md-5">
+                        
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} rounded-pill text-center small mb-4 shadow-sm border-0">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
 
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Deskripsi Singkat & Cara Kerja</label>
-                        {{ form.deskripsi }}
-                        <div class="form-text">Jelaskan fungsi alat ini dan masalah apa yang diselesaikannya.</div>
-                    </div>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
 
-                    <div class="mb-4">
-                        <label class="form-label fw-bold text-success">Link Video Demo / Repository</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light"><i class="bi bi-youtube text-danger"></i></span>
-                            {{ form.link_demo }}
-                        </div>
-                        <div class="form-text">
-                            Masukkan link YouTube (Video Demo) atau GitHub (Source Code).
-                        </div>
-                    </div>
+                            <h6 class="fw-bold text-primary text-uppercase mb-4" style="font-size: 0.8rem; letter-spacing: 1px;">
+                                <i class="fa fa-info-circle me-1"></i> Identitas Karya
+                            </h6>
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{% url 'home' %}" class="btn btn-light me-md-2">Batal</a>
-                        <button type="submit" class="btn btn-success fw-bold px-5">Upload Karya 🚀</button>
-                    </div>
+                            <div class="row g-4 mb-4">
+                                <div class="col-12">
+                                    <label class="form-label small fw-bold text-muted">Judul Karya / Nama Alat <span class="text-danger">*</span></label>
+                                    <input type="text" name="judul_karya" class="form-control bg-light border-0 py-3 px-3" placeholder="Contoh: Sistem Monitoring Banjir Berbasis IoT" required>
+                                </div>
 
-                </form>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted">Nama Pembuat <span class="text-danger">*</span></label>
+                                    <input type="text" name="pembuat" class="form-control bg-light border-0 py-3 px-3" placeholder="Nama Individu / Ketua Tim" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted">Program Studi <span class="text-danger">*</span></label>
+                                    <select name="prodi" class="form-select bg-light border-0 py-3 px-3" style="cursor: pointer;" required>
+                                        <option value="" selected disabled>-- Pilih Prodi --</option>
+                                        <option value="PTIK">Pendidikan Teknik Informatika & Komputer</option>
+                                        <option value="PTE">Pendidikan Teknik Elektro</option>
+                                        <option value="TE">Teknik Elektro</option>
+                                        <option value="TK">Teknik Komputer</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label small fw-bold text-muted">Deskripsi Singkat <span class="text-danger">*</span></label>
+                                    <textarea name="deskripsi" class="form-control bg-light border-0 px-3 py-3" rows="4" placeholder="Jelaskan fungsi, cara kerja, dan keunggulan karyamu..." required></textarea>
+                                </div>
+                            </div>
+
+                            <hr class="border-light my-5">
+
+                            <h6 class="fw-bold text-success text-uppercase mb-4" style="font-size: 0.8rem; letter-spacing: 1px;">
+                                <i class="fa fa-image me-1"></i> Visualisasi & Demo
+                            </h6>
+
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <label class="form-label small fw-bold text-muted">Foto Cover Alat <span class="text-danger">*</span></label>
+                                    
+                                    <div class="upload-area p-5 text-center rounded-3 border-2 border-dashed bg-light position-relative cursor-pointer hover-effect">
+                                        <input type="file" name="gambar_cover" class="file-input-absolute" required onchange="updateFileName(this)">
+                                        
+                                        <div id="upload-placeholder">
+                                            <div class="mb-3">
+                                                <i class="fa fa-cloud-upload fa-3x text-primary opacity-50"></i>
+                                            </div>
+                                            <h6 class="fw-bold text-dark">Klik untuk Upload Foto</h6>
+                                            <p class="small text-muted mb-0">Format: JPG, PNG. Maksimal 2MB.</p>
+                                        </div>
+
+                                        <div id="file-info" class="d-none mt-2">
+                                            <span class="badge bg-success px-3 py-2 rounded-pill">
+                                                <i class="fa fa-check me-1"></i> <span id="filename-text">foto.jpg</span>
+                                            </span>
+                                            <p class="small text-muted mt-2 mb-0">Klik lagi untuk mengganti</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label small fw-bold text-muted">Link Video Demo (Opsional)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-0 ps-3"><i class="fa fa-link text-muted"></i></span>
+                                        <input type="url" name="link_video" class="form-control bg-light border-0 py-3" placeholder="https://youtube.com/...">
+                                    </div>
+                                    <div class="form-text small mt-2 text-muted">
+                                        <i class="fa fa-info-circle me-1"></i> Disarankan link YouTube atau Google Drive (Public).
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-5 pt-3">
+                                <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 fw-bold shadow-lg hover-scale" 
+                                        style="background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%); border: none;">
+                                    <i class="fa fa-paper-plane me-2"></i> Kirim Karya Sekarang
+                                </button>
+                                <div class="text-center mt-3">
+                                    <a href="{% url 'list_karya' %}" class="text-muted fw-bold small text-decoration-none hover-text-primary">
+                                        Batal, kembali ke galeri
+                                    </a>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<style>
+    /* 1. Upload Area Custom */
+    .border-dashed { border-style: dashed !important; border-color: #cbd5e1 !important; }
+    .upload-area { transition: all 0.3s ease; background-color: #f8f9fa; }
+    .upload-area:hover { border-color: #0d6efd !important; background-color: #eef2ff; }
+    
+    /* Trik menyembunyikan input file tapi tetap bisa diklik */
+    .file-input-absolute {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        opacity: 0; cursor: pointer; z-index: 5;
+    }
+
+    /* 2. Form Styles */
+    .form-control:focus, .form-select:focus {
+        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+        border: 1px solid #0d6efd;
+        background-color: #fff;
+    }
+    
+    .hover-scale:hover { transform: scale(1.02); transition: 0.3s; }
+    .hover-text-primary:hover { color: #0d6efd !important; }
+
+    /* Animasi */
+    .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
+    .delay-1 { animation-delay: 0.2s; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+</style>
+
+<script>
+    function updateFileName(input) {
+        const file = input.files[0];
+        const placeholder = document.getElementById('upload-placeholder');
+        const fileInfo = document.getElementById('file-info');
+        const filenameText = document.getElementById('filename-text');
+
+        if (file) {
+            placeholder.classList.add('d-none'); // Sembunyikan placeholder
+            fileInfo.classList.remove('d-none'); // Munculkan info file
+            filenameText.textContent = file.name; // Ganti teks nama file
+        }
+    }
+</script>
 
 {% endblock %}

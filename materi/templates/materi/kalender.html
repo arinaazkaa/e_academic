@@ -1,0 +1,174 @@
+{% extends 'materi/base.html' %}
+{% load static %}
+
+{% block title %}Kalender Akademik - E-Academic{% endblock %}
+
+{% block content %}
+
+<section style="
+    background: linear-gradient(to right, rgba(0, 30, 60, 0.98) 20%, rgba(0, 51, 102, 0.9) 100%), 
+                url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover; background-position: center; background-attachment: fixed;
+    padding-top: 180px; padding-bottom: 100px; margin-top: -85px; 
+    color: white; position: relative;">
+    
+    <div class="container animate-up text-center" style="position: relative; z-index: 2;">
+        <h1 class="fw-bold display-5 mb-2 text-white" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+            <i class="fa fa-calendar-alt me-3"></i>Kalender Akademik
+        </h1>
+        <p class="text-white opacity-75 fs-5">Timeline kegiatan akademik resmi semester ini.</p>
+    </div>
+</section>
+
+<section class="py-5" style="background-color: #f8f9fa; min-height: 80vh;">
+    <div class="container" style="margin-top: -60px; position: relative; z-index: 10;">
+        
+        <div class="row g-5">
+            
+            <div class="col-lg-8 animate-up delay-1">
+                
+                <div class="bg-white rounded-4 shadow-sm overflow-hidden p-4">
+                    
+                    {% regroup agenda_list by tanggal_mulai|date:"F Y" as agenda_by_month %}
+
+                    {% for month in agenda_by_month %}
+                        <div class="d-flex align-items-center mb-3 mt-2">
+                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold text-uppercase border border-primary border-opacity-25" style="font-size: 0.85rem; letter-spacing: 0.5px;">
+                                {{ month.grouper }}
+                            </span>
+                            <div class="flex-grow-1 ms-3 border-bottom"></div>
+                        </div>
+
+                        <div class="mb-4">
+                            {% for agenda in month.list %}
+                            <div class="row g-0 py-2 border-bottom border-light hover-item transition rounded-3 align-items-center">
+                                
+                                <div class="col-auto ps-3 pe-3">
+                                    <div class="date-box bg-white border border-2 border-{{ agenda.warna }} text-{{ agenda.warna }} rounded-3 text-center shadow-sm d-flex flex-column justify-content-center">
+                                        <span class="d-block fw-bold fs-4 lh-1">{{ agenda.tanggal_mulai|date:"d" }}</span>
+                                        <span class="d-block fw-bold text-uppercase" style="font-size: 0.6rem; margin-top: 2px;">{{ agenda.tanggal_mulai|date:"M" }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col py-1 pe-2">
+                                    <h6 class="fw-bold text-dark mb-1" style="font-size: 1rem; line-height: 1.2;">
+                                        {{ agenda.kegiatan }}
+                                    </h6>
+                                    
+                                    <div class="text-muted d-flex align-items-center flex-wrap gap-2 mt-1" style="font-size: 0.85rem;">
+                                        
+                                        <span class="d-flex align-items-center text-secondary">
+                                            <i class="fa fa-clock-o me-3 text-secondary"></i> 
+                                            
+                                            {% if agenda.tanggal_selesai %}
+                                                {{ agenda.tanggal_mulai|date:"d M" }} 
+                                                <i class="fa fa-arrow-right mx-2 text-muted" style="font-size: 0.7rem;"></i> 
+                                                {{ agenda.tanggal_selesai|date:"d M Y" }}
+                                            {% else %}
+                                                {{ agenda.tanggal_mulai|date:"d F Y" }}
+                                            {% endif %}
+                                        </span>
+
+                                        {% if agenda.warna == 'danger' %}
+                                            <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-2 py-0 ms-2" style="font-size: 0.7rem;">Penting</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    {% empty %}
+                        <div class="text-center py-5">
+                            <div class="bg-light rounded-circle d-inline-flex p-3 mb-3">
+                                <i class="fa fa-calendar-o fa-2x text-muted opacity-25"></i>
+                            </div>
+                            <h6 class="text-muted fw-bold">Belum ada agenda</h6>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 animate-up delay-2">
+                <div class="sticky-lg-top" style="top: 100px;">
+                    
+                    <div class="card border-0 shadow rounded-4 overflow-hidden text-center mb-3 text-white" 
+                         style="background: linear-gradient(135deg, #0d6efd 0%, #004085 100%);">
+                        
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; 
+                                    background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 10px 10px;"></div>
+                        
+                        <div class="card-body p-4 position-relative" style="z-index: 2;">
+                            <div class="bg-white bg-opacity-20 rounded-circle d-inline-flex p-3 mb-3 backdrop-blur">
+                                <i class="fa fa-file-pdf-o fa-2x"></i>
+                            </div>
+                            
+                            <h6 class="fw-bold mb-2">Dokumen Resmi PDF</h6>
+                            <p class="text-white-50 small mb-3 px-2">
+                                Download kalender akademik versi lengkap (SK Rektor).
+                            </p>
+                            
+                            {% if file_kalender %}
+                                <a href="{{ file_kalender.file_pdf.url }}" target="_blank" class="btn btn-white text-primary w-100 rounded-pill fw-bold py-2 shadow-lg hover-scale btn-sm">
+                                    <i class="fa fa-download me-2"></i> Download File
+                                </a>
+                                <div class="mt-2 small text-white-50" style="font-size: 0.7rem;">
+                                    Update: {{ file_kalender.updated_at|date:"d M Y" }}
+                                </div>
+                            {% else %}
+                                <button class="btn btn-secondary w-100 rounded-pill fw-bold py-2 disabled border-0 bg-opacity-50 btn-sm">
+                                    PDF Belum Tersedia
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="alert alert-light border shadow-sm rounded-4 d-flex align-items-start p-3">
+                        <i class="fa fa-info-circle fs-6 me-3 text-primary mt-1"></i>
+                        <span class="small text-muted" style="line-height: 1.4; font-size: 0.8rem;">
+                            <strong>Catatan:</strong> Jadwal dapat berubah sewaktu-waktu mengikuti kebijakan Fakultas.
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Styling Date Box */
+    .date-box {
+        width: 55px;
+        height: 55px;
+        transition: transform 0.2s ease;
+    }
+    
+    .hover-item {
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border-left: 3px solid transparent; 
+    }
+
+    .hover-item:hover { 
+        background-color: #f1f5f9; 
+        transform: translateX(10px); 
+        border-left-color: #0d6efd; 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    }
+    
+    .hover-item:hover .date-box {
+        transform: scale(1.1); 
+        border-color: #0d6efd !important; 
+    }
+
+    .btn-white { background-color: white; color: #0d6efd; border: none; }
+    .hover-scale:hover { transform: scale(1.02); }
+    .backdrop-blur { backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+    .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
+    .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+</style>
+
+{% endblock %}

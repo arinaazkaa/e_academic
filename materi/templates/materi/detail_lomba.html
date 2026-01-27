@@ -4,59 +4,182 @@
 {% block title %}{{ lomba.judul }} - Detail Lomba{% endblock %}
 
 {% block content %}
-<section class="spad" style="background-color: #f4f6f9; min-height: 80vh;">
-    <div class="container">
-        
-        <a href="{% url 'home' %}" class="btn btn-link text-muted mb-4 pl-0">
-            <i class="fa fa-arrow-left"></i> Kembali ke Beranda
-        </a>
 
-        <div class="row">
-            <div class="col-lg-5 mb-4">
-                <div class="card shadow-sm border-0 rounded overflow-hidden">
-                    {% if lomba.pamflet %}
-                        <img src="{{ lomba.pamflet.url }}" class="img-fluid w-100" alt="{{ lomba.judul }}">
-                    {% else %}
-                        <div class="bg-light text-center py-5">
-                            <i class="fa fa-image fa-3x text-muted mb-3"></i>
-                            <p class="text-muted">Pamflet belum tersedia</p>
+<section style="
+    background: linear-gradient(to right, rgba(0, 30, 60, 0.98) 20%, rgba(0, 51, 102, 0.85) 100%), 
+                url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover; background-position: center; background-attachment: fixed;
+    padding-top: 220px; padding-bottom: 100px; margin-top: -85px; 
+    color: white; position: relative;">
+    
+    <div class="container animate-up text-start" style="position: relative; z-index: 2;">
+        
+        <h1 class="fw-bold display-5 mb-3 text-white" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5); letter-spacing: 1px;">
+            {{ lomba.judul }}
+        </h1>
+        
+        <p class="text-white opacity-75 fs-5 mb-4">
+            <i class="fa fa-building-o me-2"></i> Diselenggarakan oleh <strong>{{ lomba.penyelenggara }}</strong>
+        </p>
+
+        <div class="d-flex flex-wrap align-items-center gap-3">
+            
+            <span class="badge rounded-pill text-white fw-bold px-4 py-2 shadow-sm text-uppercase border-0" style="background-color: #0dcaf0; font-size: 0.85rem;">
+                <i class="fa fa-trophy me-2"></i> {{ lomba.kategori|default:"Nasional" }}
+            </span>
+
+            {% if lomba.is_active %}
+                <span class="badge rounded-pill bg-success text-white fw-bold px-4 py-2 shadow-sm border-0" style="font-size: 0.85rem;">
+                    <i class="fa fa-check-circle me-2"></i> Pendaftaran Buka
+                </span>
+            {% else %}
+                <span class="badge rounded-pill bg-danger text-white fw-bold px-4 py-2 shadow-sm border-0" style="font-size: 0.85rem;">
+                    <i class="fa fa-lock me-2"></i> Pendaftaran Tutup
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+
+<section class="py-5" style="background-color: #f8f9fa; min-height: 70vh;">
+    <div class="container" style="margin-top: -60px; position: relative; z-index: 10;">
+        
+        <div class="row g-5">
+            
+            <div class="col-lg-4 animate-up delay-1">
+                <div class="sticky-lg-top" style="top: 100px;">
+                    
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white mb-4">
+                        <div class="p-2 bg-white position-relative group-zoom">
+                            {% if lomba.poster %}
+                                <a href="{{ lomba.poster.url }}" target="_blank" class="d-block">
+                                    <img src="{{ lomba.poster.url }}" class="w-100 rounded-3 shadow-sm" alt="{{ lomba.judul }}">
+                                    <div class="overlay-zoom d-flex align-items-center justify-content-center rounded-3">
+                                        <span class="badge bg-dark bg-opacity-75 rounded-pill px-3 py-2"><i class="fa fa-search-plus"></i> Perbesar</span>
+                                    </div>
+                                </a>
+                            {% else %}
+                                <div class="ratio ratio-4x5 bg-light d-flex align-items-center justify-content-center text-muted rounded-3">
+                                    <div class="text-center">
+                                        <i class="fa fa-image fa-4x mb-2 opacity-25"></i>
+                                        <p class="small">Poster belum tersedia</p>
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
+                    </div>
+
+                    <div class="d-flex flex-column">
+                        
+                        <div class="mb-3">
+                            {% if lomba.link_pendaftaran %}
+                                <a href="{{ lomba.link_pendaftaran }}" target="_blank" class="btn btn-primary rounded-pill fw-bold py-3 shadow-lg gradient-btn hover-scale w-100 fs-6 border-0">
+                                    Daftar Sekarang <i class="fa fa-paper-plane ms-2"></i>
+                                </a>
+                            {% else %}
+                                <button class="btn btn-secondary rounded-pill fw-bold py-3 w-100 disabled fs-6 border-0">Pendaftaran Tutup</button>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            {% if lomba.url_penyelenggara %} 
+                                <a href="{{ lomba.url_penyelenggara }}" target="_blank" class="btn btn-outline-primary rounded-pill fw-bold py-3 hover-fill w-100 bg-white shadow-sm fs-6 border-2">
+                                    <i class="fa fa-info-circle me-1"></i> More Info
+                                </a>
+                            {% else %}
+                                 <button class="btn btn-outline-secondary rounded-pill fw-bold py-3 w-100 disabled bg-white shadow-sm border-2" title="Info lebih lanjut cek poster">
+                                    <i class="fa fa-info-circle me-1"></i> Info di Poster
+                                </button>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
 
-            <div class="col-lg-7">
-                <div class="card shadow-sm border-0 p-4 rounded">
-                    <span class="badge bg-primary mb-2 w-auto" style="width: fit-content;">Info Lomba</span>
-                    
-                    <h2 class="fw-bold text-dark mb-3">{{ lomba.judul }}</h2>
-                    
-                    <div class="mb-4 text-muted">
-                        <p class="mb-1"><i class="fa fa-building me-2"></i> Penyelenggara: <strong>{{ lomba.penyelenggara }}</strong></p>
-                        <p class="mb-1"><i class="fa fa-calendar me-2"></i> Pelaksanaan: <strong>{{ lomba.tanggal_pelaksanaan|date:"d F Y" }}</strong></p>
+            <div class="col-lg-8 animate-up delay-2">
+                
+                <div class="row g-4 mb-5">
+                    <div class="col-md-6">
+                        <div class="bg-white p-4 rounded-4 shadow-sm border-start border-4 border-danger h-100">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fa fa-calendar-times-o text-danger fs-4 me-2"></i>
+                                <span class="text-muted text-uppercase fw-bold small" style="letter-spacing: 1px;">Deadline Pendaftaran</span>
+                            </div>
+                            <h5 class="fw-bold text-danger m-0" style="font-size: 1.1rem;">
+                                {% if lomba.tanggal_deadline %}
+                                    {{ lomba.tanggal_deadline|date:"d F Y" }}
+                                {% else %}
+                                    Lihat Poster
+                                {% endif %}
+                            </h5>
+                        </div>
                     </div>
 
-                    <hr>
-
-                    <h5 class="fw-bold mt-4 mb-3">Deskripsi / Syarat & Ketentuan:</h5>
-                    <div class="text-secondary" style="line-height: 1.8;">
-                        {{ lomba.deskripsi_lengkap|linebreaksbr }}
+                    <div class="col-md-6">
+                        <div class="bg-white p-4 rounded-4 shadow-sm border-start border-4 border-primary h-100">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fa fa-flag-checkered text-primary fs-4 me-2"></i>
+                                <span class="text-muted text-uppercase fw-bold small" style="letter-spacing: 1px;">Pelaksanaan Lomba</span>
+                            </div>
+                            <h5 class="fw-bold text-dark m-0" style="font-size: 1.1rem;">
+                                {{ lomba.tanggal_pelaksanaan|date:"d F Y" }}
+                            </h5>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="mt-5">
-                        {% if lomba.link_pendaftaran %}
-                            <a href="{{ lomba.link_pendaftaran }}" target="_blank" class="btn btn-primary btn-lg px-5 w-100">
-                                <i class="fa fa-paper-plane me-2"></i> Daftar Sekarang
-                            </a>
-                            <small class="text-muted d-block text-center mt-2">*Anda akan dialihkan ke formulir pendaftaran.</small>
+                <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm">
+                    <h4 class="fw-bold text-dark mb-4 border-bottom pb-3">Deskripsi & Ketentuan</h4>
+                    
+                    <div class="text-secondary description-content" style="line-height: 1.8; font-size: 1.05rem; text-align: justify;">
+                        {% if lomba.deskripsi_lengkap %}
+                            {{ lomba.deskripsi_lengkap|linebreaks }}
                         {% else %}
-                            <button class="btn btn-secondary btn-lg px-5 w-100" disabled>Pendaftaran Ditutup / Belum Dibuka</button>
+                            <div class="alert alert-light border d-flex align-items-center">
+                                <i class="fa fa-info-circle text-primary me-3 fs-4"></i>
+                                <div>
+                                    Belum ada deskripsi teks. Silakan mengacu pada <strong>Poster</strong> atau klik tombol <strong>More Info</strong>.
+                                </div>
+                            </div>
                         {% endif %}
                     </div>
-
                 </div>
+
             </div>
+
         </div>
     </div>
 </section>
+
+<style>
+    /* Gradient Button */
+    .gradient-btn {
+        background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%); border: none;
+    }
+    .hover-scale:hover { transform: scale(1.02); transition: 0.2s; }
+    
+    /* Tombol Outline Hover */
+    .hover-fill:hover {
+        background-color: #0d6efd !important;
+        color: white !important;
+        border-color: #0d6efd !important;
+    }
+
+    /* Zoom Poster */
+    .overlay-zoom {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.3); opacity: 0; transition: 0.3s;
+    }
+    .group-zoom:hover .overlay-zoom { opacity: 1; }
+
+    /* Animasi */
+    .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+</style>
+
 {% endblock %}

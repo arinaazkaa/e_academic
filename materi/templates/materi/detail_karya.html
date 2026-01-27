@@ -1,0 +1,154 @@
+{% extends 'materi/base.html' %}
+{% load static %}
+
+{% block title %}{{ karya.judul_karya }} - Detail Karya{% endblock %}
+
+{% block content %}
+
+<section style="
+    /* Background Gradient + Foto Teknologi */
+    background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
+                url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed;
+    position: relative;
+    /* KUNCI AGAR MENYATU DENGAN NAVBAR: */
+    margin-top: -85px; 
+    padding-top: 150px; 
+    padding-bottom: 80px; 
+    color: white;">
+
+    <div class="container position-relative" style="z-index: 2;">
+        
+        <nav aria-label="breadcrumb" class="mb-4 position-relative" style="z-index: 1050;">
+            <ol class="breadcrumb" style="--bs-breadcrumb-divider-color: rgba(255,255,255,0.6);">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'home' %}" class="text-white-50 text-decoration-none fw-bold breadcrumb-link">
+                        <i class="fa fa-home"></i> Beranda
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'list_karya' %}" class="text-white-50 text-decoration-none fw-bold breadcrumb-link">
+                        Galeri Karya
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-white fw-bold" aria-current="page">Detail</li>
+            </ol>
+        </nav>
+
+        <div class="row align-items-center animate-up">
+            <div class="col-lg-10">
+                <span class="badge bg-info text-dark fw-bold px-3 py-2 rounded-pill mb-3 shadow-sm">
+                    <i class="fa fa-code-fork me-1"></i> {{ karya.get_prodi_display }}
+                </span>
+                
+                <h1 class="fw-bold display-4 text-white mb-2" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                    {{ karya.judul_karya }}
+                </h1>
+                
+                <p class="fs-5 text-white-50 mb-0">
+                    <i class="fa fa-user-circle me-2"></i> Dibuat oleh: <strong class="text-white">{{ karya.pembuat }}</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5" style="background-color: #f8f9fa; min-height: 80vh;">
+    <div class="container" style="margin-top: -60px; position: relative; z-index: 10;">
+        <div class="row gx-lg-5 gy-4">
+            
+            <div class="col-lg-7 animate-up delay-1">
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4 bg-white">
+                    {% if karya.gambar_cover %}
+                        <img src="{{ karya.gambar_cover.url }}" class="img-fluid w-100" alt="{{ karya.judul_karya }}">
+                    {% else %}
+                        <div class="bg-white d-flex align-items-center justify-content-center text-muted" style="height: 400px;">
+                            <i class="fa fa-image fa-4x opacity-25"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm">
+                    <h4 class="fw-bold text-dark mb-4 border-bottom pb-3">Tentang Karya Ini</h4>
+                    <div class="text-secondary description-content" style="line-height: 1.8; font-size: 1.1rem; white-space: pre-wrap;">{{ karya.deskripsi }}</div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 animate-up delay-2">
+                <div class="sticky-lg-top" style="top: 100px;">
+                    
+                    <div class="bg-white p-4 rounded-4 shadow-sm mb-4 border-top border-5 border-info">
+                        <h5 class="fw-bold mb-3">Lihat Demo</h5>
+                        <p class="text-muted small mb-4">Jika tersedia, kamu bisa melihat video demonstrasi cara kerja alat ini melalui link di bawah.</p>
+                        
+                        {% if karya.link_video %}
+                            <a href="{{ karya.link_video }}" target="_blank" class="btn btn-danger w-100 rounded-pill py-3 fw-bold shadow-sm mb-2 gradient-btn-red">
+                                <i class="fa fa-youtube-play me-2"></i> Tonton Video Demo
+                            </a>
+                        {% else %}
+                            <button class="btn btn-secondary w-100 rounded-pill py-3 fw-bold disabled mb-2">
+                                <i class="fa fa-video-camera-slash me-2"></i> Demo Tidak Tersedia
+                            </button>
+                        {% endif %}
+                        
+                        <a href="{% url 'list_karya' %}" class="btn btn-outline-primary w-100 rounded-pill py-3 fw-bold mt-2">
+                            <i class="fa fa-arrow-left me-2"></i> Kembali ke Galeri
+                        </a>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-4 shadow-sm">
+                        <ul class="list-unstyled mb-0">
+                            <li class="d-flex justify-content-between py-2 border-bottom">
+                                <span class="text-muted">Tanggal Upload</span>
+                                <span class="fw-bold text-dark">{{ karya.created_at|date:"d M Y" }}</span>
+                            </li>
+                            <li class="d-flex justify-content-between py-2 border-bottom">
+                                <span class="text-muted">Status</span>
+                                <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3">Approved</span>
+                            </li>
+                            <li class="d-flex justify-content-between py-2 pt-3">
+                                <span class="text-muted">Kategori</span>
+                                <span class="fw-bold text-dark">Inovasi Mahasiswa</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Styling Breadcrumb */
+    .breadcrumb { background-color: transparent !important; padding: 0; margin: 0; }
+    
+    .breadcrumb-link { 
+        transition: all 0.2s ease;
+        position: relative;
+        padding: 5px 0; 
+    }
+    
+    .breadcrumb-link:hover {
+        color: #ffffff !important; 
+        text-decoration: underline !important;
+        text-shadow: 0 0 10px rgba(255,255,255,0.8);
+    }
+
+    /* Animasi */
+    .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
+    .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* Tombol Youtube Gradient */
+    .gradient-btn-red {
+        background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%); border: none;
+        transition: transform 0.2s;
+    }
+    .gradient-btn-red:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3); }
+</style>
+
+{% endblock %}

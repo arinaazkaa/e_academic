@@ -3,18 +3,20 @@ Django settings for config project.
 """
 
 from pathlib import Path
-import os  # <--- Wajib ada untuk pengaturan folder
+import os   # <--- Wajib ada untuk pengaturan folder
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# (Gunakan key yang aman saat produksi nanti)
 SECRET_KEY = 'django-insecure-6b1aet$bi)nn=63kz#m)xlfknqk28!9%5e$sh4nf)@e%t0csi9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Saya tambahkan '*' agar bisa diakses di berbagai environment sementara ini
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -102,13 +104,20 @@ USE_I18N = True
 USE_TZ = True
 
 
-# --- PENGATURAN STATIC (CSS/JS/IMAGES) ---
+# --- PERBAIKAN PENGATURAN STATIC (SOLUSI ERROR E002) ---
+
 STATIC_URL = 'static/'
 
-# Folder tempat menyimpan file CSS/JS bawaan template
+# 1. STATICFILES_DIRS: Folder "Gudang" (Tempat kamu menaruh/edit file CSS & JS saat coding)
+# Biarkan ini tetap 'static' karena file aslimu ada di sini.
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / 'static',
 ]
+
+# 2. STATIC_ROOT: Folder "Etalase" (Tempat Django mengumpulkan hasil akhir saat collectstatic)
+# Saya ubah namanya jadi 'staticfiles' agar TIDAK BENTROK dengan folder di atas.
+# Nanti Django akan membuat folder ini otomatis.
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 # --- PENGATURAN MEDIA (UPLOAD USER) ---
@@ -116,7 +125,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 
 # Folder fisik di komputer tempat gambar disimpan
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Default primary key field type

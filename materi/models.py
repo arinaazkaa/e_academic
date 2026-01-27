@@ -1,8 +1,8 @@
 from django.db import models
+from datetime import date 
 
 # --- PILIHAN UMUM (Bisa dipakai di model mana saja) ---
 
-# 1. Update Prodi sesuai request (4 Prodi + MKU)
 PRODI_CHOICES = [
     ('PTIK', 'Pendidikan Teknik Informatika dan Komputer'),
     ('PTE', 'Pendidikan Teknik Elektro'),
@@ -42,7 +42,17 @@ class Materi(models.Model):
     # Data File
     judul = models.CharField(max_length=200)
     deskripsi = models.TextField(blank=True, null=True)
-    link_materi = models.URLField(help_text="Masukkan Link Google Drive (Pastikan akses Public/Anyone with link)")
+    
+    # --- PEMISAHAN LINK & FILE ---
+    link_google_drive = models.URLField(
+        blank=True, null=True, 
+        help_text="Isi jika materi ada di Google Drive (Pastikan akses Public)"
+    )
+    file_materi = models.FileField(
+        upload_to='dokumen_materi/', 
+        blank=True, null=True, 
+        help_text="Upload file PDF/PPT langsung ke server (Opsional)"
+    )
     
     # System
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
@@ -53,9 +63,7 @@ class Materi(models.Model):
 
 
 # --- MODEL 2: PRESTASI (ELEKTRO BANGGA) ---
-# Diupdate Besar-besaran Sesuai Request
 class Prestasi(models.Model):
-    # Pilihan Dropdown Baru
     JENIS_CHOICES = [
         ('Sains', 'Sains & Teknologi'),
         ('Olahraga', 'Olahraga'),
@@ -97,10 +105,12 @@ class Prestasi(models.Model):
     no_sk = models.CharField("No. SK / Surat Tugas", max_length=100, blank=True, null=True)
 
     # --- C. BUKTI DUKUNG ---
-    # Foto Diri (ImageField) agar bisa tampil langsung di Beranda/Card
-    foto_diri = models.ImageField(upload_to='foto_prestasi/', help_text="Upload foto terbaik (Formal/Bebas Sopan)", blank=True, null=True)
+    foto_diri = models.ImageField(
+        upload_to='foto_prestasi/', 
+        help_text="Upload foto terbaik (Formal/Bebas Sopan). Maksimal 2MB.", 
+        blank=True, null=True
+    )
     
-    # Link Drive untuk berkas berat (Sertifikat/Dokumentasi)
     link_sertifikat = models.URLField("Link Drive (Sertifikat & Foto Kegiatan)", help_text="Pastikan link Google Drive bersifat Public")
     
     # Persetujuan
@@ -121,7 +131,18 @@ class Karya(models.Model):
     prodi = models.CharField(max_length=50, choices=PRODI_CHOICES)
     deskripsi = models.TextField()
     
-    link_demo = models.URLField("Link Video/Demo", blank=True, null=True)
+    # --- FOTO COVER KARYA ---
+    gambar_cover = models.ImageField(
+        upload_to='cover_karya/', 
+        blank=True, null=True, 
+        help_text="Upload Foto Alat/Karya (Maksimal 2MB)"
+    )
+    
+    link_video = models.URLField(
+        "Link Google Drive Video", 
+        blank=True, null=True,
+        help_text="Paste link Google Drive Video Demo di sini (Pastikan akses 'Public')"
+    )
     
     # System
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
@@ -133,18 +154,82 @@ class Karya(models.Model):
 
 # --- MODEL 4: INFO LOMBA ---
 class InfoLomba(models.Model):
+    # Pilihan untuk Kategori/Tingkatan Lomba
+    TINGKAT_LOMBA_CHOICES = [
+        ('Internasional', 'Internasional'),
+        ('Nasional', 'Nasional'),
+        ('Provinsi', 'Provinsi'),
+        ('Kota', 'Kota/Kabupaten'),
+        ('Kampus', 'Internal Kampus'),
+        ('Umum', 'Umum'),
+    ]
+
     judul = models.CharField(max_length=200)
     penyelenggara = models.CharField(max_length=100)
-    tanggal_pelaksanaan = models.DateField()
     
-    # Field upload gambar pamflet
-    pamflet = models.ImageField(upload_to='pamflet_lomba/', blank=True, null=True)
+    # UPDATE 1: Kategori menggunakan Choices agar konsisten
+    kategori = models.CharField(
+        max_length=50, 
+        choices=TINGKAT_LOMBA_CHOICES, 
+        default='Nasional', 
+        help_text="Pilih tingkatan lomba untuk label (Badge)"
+    )
+
+    # Waktu
+    tanggal_buka_pendaftaran = models.DateField(null=True, blank=True)
+    tanggal_deadline = models.DateField(null=True, blank=True, help_text="Batas akhir pendaftaran") 
+    tanggal_pelaksanaan = models.DateField(help_text="Tanggal Lomba Dimulai")
     
-    # Field deskripsi panjang
+    poster = models.ImageField(upload_to='poster_lomba/', blank=True, null=True) 
+    
+    # Deskripsi
     deskripsi_lengkap = models.TextField(blank=True, null=True)
     
-    link_pendaftaran = models.URLField(blank=True, null=True, help_text="Link Google Form / Website Lomba")
+    # Link Pendaftaran (Google Form, dll)
+    link_pendaftaran = models.URLField(blank=True, null=True, help_text="Link untuk mendaftar (Tombol Daftar)")
+    
+    # UPDATE 2: Link Info Tambahan (Sosmed/Web Penyelenggara)
+    url_penyelenggara = models.URLField(
+        "Link Info/Sosmed", 
+        blank=True, null=True, 
+        help_text="Link Website, Instagram, atau Guidebook Lomba (Untuk tombol More Info)"
+    )
+    
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.judul
+
+    # --- LOGIKA OTOMATIS STATUS (BUKA/TUTUP) ---
+    @property
+    def is_active(self):
+        if self.tanggal_deadline:
+            return date.today() <= self.tanggal_deadline
+        return True
+
+
+# --- MODEL 5: KALENDER AKADEMIK (BARU) ---
+class AgendaKalender(models.Model):
+    kegiatan = models.CharField(max_length=200)
+    tanggal_mulai = models.DateField()
+    tanggal_selesai = models.DateField(blank=True, null=True)
+    
+    # Warna label agar cantik di tampilan (Hijau, Biru, Kuning, Merah)
+    WARNA_CHOICES = [
+        ('primary', 'Biru (Normal)'),
+        ('success', 'Hijau (Penting)'),
+        ('warning', 'Kuning (Warning)'),
+        ('danger', 'Merah (Libur/Deadline)'),
+    ]
+    warna = models.CharField(max_length=20, choices=WARNA_CHOICES, default='primary')
+    
+    def __str__(self):
+        return self.kegiatan
+
+class FileKalender(models.Model):
+    nama_file = models.CharField(max_length=100, default="Kalender Akademik PDF")
+    file_pdf = models.FileField(upload_to='dokumen_kalender/', help_text="Upload PDF Kalender Akademik Resmi di sini")
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.nama_file
