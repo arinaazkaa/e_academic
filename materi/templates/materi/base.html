@@ -41,7 +41,7 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
-        /* HOVER STATE: KEMBALI KE KUNING EMAS (GOLD) */
+        /* HOVER STATE */
         .nav-link:hover, .nav-link.active {
             color: #ffc107 !important; /* Gold/Yellow */
         }
@@ -66,7 +66,7 @@
         }
         .btn-nav-upload:hover {
             background: white !important;
-            color: #003366 !important; /* Teks jadi biru saat hover */
+            color: #003366 !important;
             transform: translateY(-2px);
         }
         .btn-nav-upload::after { display: none; }
@@ -88,16 +88,13 @@
             text-shadow: none;
         } 
         
-        /* Saat background putih, hover tetap Kuning atau Biru? 
-           Biar konsisten dengan hero text, kita pakai Biru Navy sebagai default active, 
-           tapi Kuning sebagai aksen */
         .navbar-luxury.scrolled .nav-link:hover, 
         .navbar-luxury.scrolled .nav-link.active { 
-            color: #003366 !important; /* Biru Gelap */
+            color: #003366 !important; 
         }
-        .navbar-luxury.scrolled .nav-link::after { background-color: #ffc107; } /* Garis tetap kuning */
+        .navbar-luxury.scrolled .nav-link::after { background-color: #ffc107; }
         
-        /* Tombol Upload saat Scrolled: Gradasi Biru */
+        /* Tombol Upload saat Scrolled */
         .navbar-luxury.scrolled .btn-nav-upload {
             background: linear-gradient(135deg, #003366 0%, #0056b3 100%) !important;
             border: none;
@@ -126,16 +123,10 @@
         #scrollTopBtn[style*="display: block"] { display: flex !important; }
         #scrollTopBtn:hover { transform: translateY(-5px); }
 
-        /* Footer */
-        .footer { background: #003366 !important; padding-top: 60px; }
-        .footer__option__item h5 { color: #ffc107 !important; font-weight: 700; margin-bottom: 20px; }
-        .footer__option__item ul li a { color: #ccc; transition: 0.2s; text-decoration: none; }
-        .footer__option__item ul li a:hover { color: #ffc107; padding-left: 5px; }
-
     </style>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <div id="preloder"><div class="loader"></div></div>
 
     <nav class="navbar navbar-expand-lg navbar-luxury fixed-top">
@@ -178,43 +169,17 @@
     </div>
     {% endif %}
 
-    <div>
+    <main class="flex-grow-1">
         {% block content %}{% endblock %}
-    </div>
+    </main>
 
     <button onclick="topFunction()" id="scrollTopBtn"><i class="fa fa-arrow-up"></i></button>
 
-    <footer class="footer text-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4">
-                    <h3 class="mb-3 fw-bold">E-ACADEMIC</h3>
-                    <p class="text-white-50">Portal resmi Teknik Elektro Fakultas Teknik UNNES.</p>
-                </div>
-                <div class="col-lg-2 mb-4 footer__option__item">
-                    <h5>Menu Pintas</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="{% url 'list_materi' %}">E-Library</a></li>
-                        <li><a href="{% url 'list_karya' %}">Galeri Karya</a></li>
-                        <li><a href="{% url 'list_prestasi' %}">Hall of Fame</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-2 mb-4 footer__option__item">
-                    <h5>Program Studi</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">PTE</a></li>
-                        <li><a href="#">PTIK</a></li>
-                        <li><a href="#">Teknik Elektro</a></li>
-                        <li><a href="#">Teknik Komputer</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4 mb-4 footer__option__item">
-                    <h5>Hubungi Kami</h5>
-                    <p class="text-white-50">Gedung PKM FT UNNES | departemenpenailmu@gmail.com</p>
-                </div>
-            </div>
-            <hr style="border-color: rgba(255,255,255,0.1);">
-            <div class="text-center"><small class="text-white-50">Copyright &copy; <script>document.write(new Date().getFullYear());</script> E-Academic.</small></div>
+    <footer class="py-4 mt-auto" style="background-color: #0f172a; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container text-center">
+            <small class="text-white-50">
+                Copyright &copy; 2026 <strong class="text-white">E-Academic</strong>. All Rights Reserved.
+            </small>
         </div>
     </footer>
 

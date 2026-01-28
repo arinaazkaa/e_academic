@@ -1,189 +1,106 @@
 {% extends 'materi/base.html' %}
 {% load static %}
 
-{% block title %}Prestasi: {{ prestasi.nama_mahasiswa|default:"Detail Prestasi" }} - E-Academic{% endblock %}
+{% block title %}Selamat & Sukses: {{ prestasi.nama_mahasiswa }} - E-Academic{% endblock %}
 
 {% block content %}
 
-<section style="
-    background: linear-gradient(to right, rgba(0, 30, 60, 0.98) 20%, rgba(0, 51, 102, 0.9) 100%), 
-                url('https://images.unsplash.com/photo-1561489413-985b06da5bee?q=80&w=1920&auto=format&fit=crop');
-    background-size: cover; background-position: center; background-attachment: fixed;
-    padding-top: 220px; padding-bottom: 100px; margin-top: -85px; 
-    color: white; position: relative;">
+<div style="
+    background-color: #0f172a;
+    background-image: radial-gradient(at top center, #1e293b 0%, #0f172a 80%);
+    min-height: 100vh;
+    padding-top: 100px; 
+    padding-bottom: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+">
     
-    <div class="container animate-up text-start" style="position: relative; z-index: 2;">
+    <div class="container animate-up" style="max-width: 800px;">
         
-        <nav aria-label="breadcrumb" class="mb-4">
-            <ol class="breadcrumb p-0 m-0 align-items-center bg-transparent">
-                <li class="breadcrumb-item">
-                    <a href="{% url 'home' %}" class="text-white-50 text-decoration-none fw-bold small hover-white">Beranda</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="{% url 'list_prestasi' %}" class="text-white-50 text-decoration-none fw-bold small hover-white">Hall of Fame</a>
-                </li>
-                <li class="breadcrumb-item active text-white fw-bold small border-start border-2 border-white ps-3 ms-2">
-                    Detail
-                </li>
-            </ol>
-        </nav>
-
-        <div class="mb-2">
-            <span class="badge bg-warning text-dark fw-bold mb-2 shadow-sm">
-                {{ prestasi.juara|default:"Juara ?" }}
-            </span>
-        </div>
-        
-        <h1 class="fw-bold display-5 mb-2 text-white" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-            {{ prestasi.nama_lomba|default:"Nama Lomba Tidak Terbaca" }}
-        </h1>
-        
-        <div class="d-flex flex-wrap align-items-center gap-3 mt-4">
-            <div class="d-flex align-items-center text-white-50 small border rounded-pill px-3 py-1 bg-white bg-opacity-10 backdrop-blur">
-                <i class="fa fa-globe me-2 text-warning"></i> 
-                <span class="text-white fw-bold text-uppercase">{{ prestasi.tingkat|default:"-" }}</span>
-            </div>
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white position-relative">
             
-            <div class="d-flex align-items-center text-white-50 small border rounded-pill px-3 py-1 bg-white bg-opacity-10 backdrop-blur">
-                <i class="fa fa-tag me-2 text-info"></i> 
-                <span class="text-white fw-bold text-uppercase">{{ prestasi.kategori|default:"-" }}</span>
-            </div>
-
-            <span class="text-white-50 small ms-2">
-                <i class="fa fa-clock-o me-1"></i> Diposting {{ prestasi.created_at|date:"d M Y" }}
-            </span>
-        </div>
-
-    </div>
-</section>
-
-<section class="py-5" style="background-color: #f8f9fa; min-height: 70vh;">
-    <div class="container" style="margin-top: -80px; position: relative; z-index: 10;">
-        
-        <div class="row g-5">
-            
-            <div class="col-lg-5 animate-up delay-1">
-                <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white p-2">
-                    {% if prestasi.foto_diri %}
-                        <div class="position-relative overflow-hidden rounded-3 group-zoom">
-                            <img src="{{ prestasi.foto_diri.url }}" class="w-100 object-fit-cover shadow-sm" alt="Dokumentasi" style="min-height: 300px; max-height: 500px;">
-                            <a href="{{ prestasi.foto_diri.url }}" target="_blank" class="overlay-zoom d-flex align-items-center justify-content-center text-decoration-none">
-                                <span class="badge bg-dark bg-opacity-75 rounded-pill px-3 py-2">
-                                    <i class="fa fa-search-plus"></i> Perbesar Foto
-                                </span>
-                            </a>
-                        </div>
-                    {% else %}
-                        <div class="ratio ratio-4x3 bg-light d-flex align-items-center justify-content-center text-muted rounded-3">
-                            <div class="text-center">
-                                <i class="fa fa-image fa-4x mb-2 opacity-25"></i>
-                                <p class="small">Foto dokumentasi tidak tersedia</p>
-                            </div>
-                        </div>
-                    {% endif %}
-                    
-                    <div class="p-3 text-center">
-                        <p class="small text-muted mb-0 fst-italic">
-                            "Bukti nyata prestasi mahasiswa {{ prestasi.get_prodi_display }}."
-                        </p>
+            <div class="position-relative bg-light" style="height: 450px; overflow: hidden;">
+                {% if prestasi.foto_diri %}
+                    <img src="{{ prestasi.foto_diri.url }}" class="w-100 h-100 object-fit-cover" alt="Foto Pemenang">
+                    <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);"></div>
+                {% else %}
+                    <div class="d-flex align-items-center justify-content-center h-100 text-muted flex-column">
+                        <i class="fa fa-trophy fa-5x opacity-25 mb-3"></i>
+                        <p>Dokumentasi Foto Tidak Tersedia</p>
                     </div>
-                </div>
+                {% endif %}
             </div>
 
-            <div class="col-lg-7 animate-up delay-2">
+            <div class="card-body p-5 text-center position-relative z-1" style="margin-top: -30px;">
                 
-                <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
-                    <div class="card-body p-4 p-md-5">
-                        <h5 class="fw-bold text-primary mb-4 border-bottom pb-3">
-                            <i class="fa fa-user-graduate me-2"></i> Profil Mahasiswa
-                        </h5>
+                <h5 class="text-primary fw-bold text-uppercase ls-2 mb-3 opacity-75">CONGRATULATIONS</h5>
+                <h1 class="fw-bold text-dark display-6 mb-4">Selamat & Sukses</h1>
+
+                <div class="mx-auto" style="max-width: 680px;">
+                    <p class="fs-5 text-secondary lh-lg mb-4">
+                        Diucapkan kepada 
+                        <strong class="text-dark fs-4 d-block my-1">{{ prestasi.nama_mahasiswa }}</strong>
+                        <span class="text-muted small d-block mb-3">({{ prestasi.get_prodi_display }})</span>
                         
-                        <div class="row g-4">
-                            <div class="col-12">
-                                <label class="small text-muted fw-bold text-uppercase">Nama Lengkap / Tim</label>
-                                <h4 class="fw-bold text-dark m-0">
-                                    {{ prestasi.nama_mahasiswa|default:"Data Nama Kosong" }}
-                                </h4>
-                            </div>
-                            
-                            <div class="col-12">
-                                <label class="small text-muted fw-bold text-uppercase">Program Studi</label>
-                                <h6 class="fw-bold text-secondary m-0">
-                                    {{ prestasi.get_prodi_display|default:"-" }}
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
+                        atas pencapaian luar biasa yang telah diraih sebagai
+                        <strong class="text-dark">{{ prestasi.juara }}</strong>
+                        
+                        dalam ajang bergengsi
+                        <strong class="text-primary">{{ prestasi.nama_lomba }}</strong> 
+                        tingkat <span class="text-dark fw-bold">{{ prestasi.tingkat }}</span>.
+                        
+                        <br><br>
+                        <span class="d-block fs-6 text-muted">
+                            Kompetisi ini diselenggarakan oleh 
+                            <strong class="text-dark">{{ prestasi.penyelenggara }}</strong> 
+                            pada tanggal <span class="text-dark fw-bold">{{ prestasi.tempat_tanggal }}</span>.
+                        </span>
+                    </p>
                 </div>
 
-                <div class="card border-0 shadow-sm rounded-4 bg-white mb-4">
-                    <div class="card-body p-4 p-md-5">
-                        <h5 class="fw-bold text-warning mb-4 border-bottom pb-3">
-                            <i class="fa fa-trophy me-2"></i> Detail Kompetisi
-                        </h5>
+                <hr class="w-25 mx-auto border-secondary opacity-25 my-4">
 
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <label class="small text-muted fw-bold text-uppercase mb-1">Penyelenggara</label>
-                                <div class="d-flex align-items-center">
-                                    <i class="fa fa-building-o text-muted me-2"></i>
-                                    <span class="fw-bold text-dark">{{ prestasi.penyelenggara|default:"-" }}</span>
-                                </div>
-                            </div>
+                <p class="small text-muted fst-italic mb-4">
+                    "Terima kasih telah mengharumkan nama Jurusan Teknik Elektro dan Universitas Negeri Semarang."
+                </p>
 
-                            <div class="col-md-6">
-                                <label class="small text-muted fw-bold text-uppercase mb-1">Waktu & Tempat</label>
-                                <div class="d-flex align-items-center">
-                                    <i class="fa fa-map-marker text-muted me-2"></i>
-                                    <span class="fw-bold text-dark">{{ prestasi.tempat_tanggal|default:"-" }}</span>
-                                </div>
-                            </div>
-
-                            {% if prestasi.url_penyelenggara %}
-                            <div class="col-12 pt-2">
-                                <a href="{{ prestasi.url_penyelenggara }}" target="_blank" class="btn btn-outline-primary rounded-pill w-100 fw-bold border-2 hover-fill">
-                                    <i class="fa fa-external-link me-2"></i> Kunjungi Website Penyelenggara
-                                </a>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="alert alert-success border-0 shadow-sm d-flex align-items-center rounded-3 bg-success bg-opacity-10 text-success" role="alert">
-                    <i class="fa fa-check-circle fs-4 me-3"></i>
-                    <div>
-                        <span class="fw-bold d-block">Terverifikasi Kampus</span>
-                        <span class="small opacity-75">Data prestasi ini telah divalidasi oleh Admin Kemahasiswaan dan tercatat di Database.</span>
-                    </div>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{% url 'list_prestasi' %}" class="btn btn-outline-secondary rounded-pill px-4 fw-bold">
+                        &larr; Kembali
+                    </a>
+                    
+                    {% if prestasi.url_penyelenggara %}
+                    <a href="{{ prestasi.url_penyelenggara }}" target="_blank" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm hover-scale">
+                        Kunjungi Website <i class="fa fa-external-link ms-2"></i>
+                    </a>
+                    {% endif %}
                 </div>
 
             </div>
+
         </div>
+        
+        <div class="text-center mt-4">
+            <span class="text-white-50 small">
+                <i class="fa fa-check-circle text-success me-1"></i> Data Terverifikasi | Diposting: {{ prestasi.created_at|date:"d M Y" }}
+            </span>
+        </div>
+
     </div>
-</section>
+</div>
 
 <style>
-    /* 1. Backdrop Blur untuk Badge Header */
-    .backdrop-blur { backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+    /* Tipografi & Layout */
+    .ls-2 { letter-spacing: 2px; }
+    .lh-lg { line-height: 1.8; }
+    .object-fit-cover { object-fit: cover; }
 
-    /* 2. Hover Effect untuk Breadcrumb */
-    .hover-white:hover { color: white !important; text-decoration: underline !important; }
+    /* Hover Effect Button */
+    .hover-scale:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3) !important; transition: 0.3s; }
 
-    /* 3. Image Zoom Overlay */
-    .overlay-zoom {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.3); opacity: 0; transition: 0.3s;
-    }
-    .group-zoom:hover .overlay-zoom { opacity: 1; }
-
-    /* 4. Button Hover Fill */
-    .hover-fill:hover { background-color: #0d6efd; color: white; }
-
-    /* 5. Animasi Masuk */
-    .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
-    .delay-1 { animation-delay: 0.2s; }
-    .delay-2 { animation-delay: 0.4s; }
+    /* Animation Load */
+    .animate-up { opacity: 0; transform: translateY(40px); animation: fadeInUp 0.8s ease forwards; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 </style>
 
