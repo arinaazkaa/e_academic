@@ -6,12 +6,10 @@
 {% block content %}
 
 <style>
-    /* Sembunyikan Navbar Utama */
     nav.navbar, .navbar, header {
         display: none !important;
     }
     
-    /* Reset margin karena navbar hilang */
     body {
         padding-top: 0 !important;
     }
@@ -131,13 +129,10 @@
 </div>
 
 <style>
-    /* LAYOUT & BACKGROUND UTAMA */
     .prestasi-wrapper {
         background-color: #0f172a;
         background-image: radial-gradient(at top center, #1e293b 0%, #0f172a 80%);
         min-height: 100vh;
-        
-        /* Padding disesuaikan agar pas di tengah layar karena navbar hilang */
         padding-top: 40px; 
         padding-bottom: 40px;
         display: flex;
@@ -147,13 +142,11 @@
 
     .object-fit-cover { object-fit: cover; }
     
-    /* Laptop */
     @media (min-width: 992px) {
         .photo-column { min-height: 650px; }
         .absolute-img { position: absolute; top: 0; left: 0; height: 100%; }
     }
 
-    /* HP */
     @media (max-width: 991px) {
         .photo-column { height: 400px; }
         .title-responsive { font-size: 2rem; }
