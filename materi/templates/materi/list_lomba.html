@@ -5,63 +5,87 @@
 
 {% block content %}
 
-<section style="
-    background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
-                url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1920&auto=format&fit=crop');
-    background-size: cover; 
-    background-position: center; 
-    background-attachment: fixed;
-    padding-top: 160px; padding-bottom: 120px; margin-top: -85px; 
-    text-align: center; color: white;
-    position: relative; overflow: hidden;">
-    
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-                background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); 
-                opacity: 0.1; z-index: 0;"></div>
+<section class="hero-section">
+    <div class="hero-pattern"></div>
 
     <div class="container animate-up position-relative" style="z-index: 2;">
-        <div class="mb-3">
-            <i class="fa fa-bullhorn text-warning" style="font-size: 50px; text-shadow: 0 0 25px rgba(255,193,7,0.6);"></i>
+        
+        <div class="mb-4">
+            <div class="icon-wrapper mx-auto">
+                <i class="fa fa-bullhorn text-warning" style="font-size: 45px; text-shadow: 0 0 25px rgba(255,193,7,0.8);"></i>
+            </div>
         </div>
-        <h1 class="fw-bold display-5 mb-3 text-white" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5); letter-spacing: 1px;">
+
+        <h1 class="fw-bold display-5 mb-3 text-white hero-title">
             INFORMASI KOMPETISI
         </h1>
-        <p class="lead text-white-50 mx-auto" style="max-width: 700px; font-size: 1.1rem;">
-            Wadah informasi kompetisi akademik, riset, dan inovasi teknologi <br>
+        
+        <p class="lead text-white-50 mx-auto hero-desc">
+            Wadah informasi kompetisi akademik, riset, dan inovasi teknologi<br class="d-none d-md-block">
             untuk mahasiswa berprestasi.
         </p>
+
+        <div class="mt-5 d-flex justify-content-center">
+            <form action="" method="GET" class="search-form w-100" style="max-width: 500px;">
+                <input type="text" name="q" class="form-control rounded-pill py-3 px-4 border-0 shadow-lg text-center" 
+                       placeholder="Cari info lomba..." value="{{ request.GET.q }}">
+                
+                {% if request.GET.sort %}
+                <input type="hidden" name="sort" value="{{ request.GET.sort }}">
+                {% endif %}
+            </form>
+        </div>
+
     </div>
 </section>
 
-<section class="py-5" style="background-color: #f8f9fa; min-height: 80vh;">
-    <div class="container" style="margin-top: -60px; position: relative; z-index: 10;">
+<section class="py-5 bg-light-gray" style="min-height: 80vh;">
+    <div class="container content-container">
         
-        <div class="d-flex justify-content-end mb-3 animate-up">
-            <span class="badge bg-white text-muted border shadow-sm px-3 py-2 rounded-pill">
-                Total: {{ lomba_list.count }} Lomba
-            </span>
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-5 pb-3 border-bottom border-2 animate-up delay-1">
+            
+            <div class="mb-3 mb-md-0">
+                <span class="badge bg-white text-dark border shadow-sm px-3 py-2 rounded-pill fw-bold" style="font-size: 0.9rem;">
+                    <i class="fa fa-flag-checkered text-danger me-2"></i> {{ lomba_list.count }} Lomba Tersedia
+                </span>
+            </div>
+
+            <form method="GET" class="d-flex align-items-center bg-white px-3 py-1 rounded-pill border shadow-sm">
+                {% if request.GET.q %}
+                <input type="hidden" name="q" value="{{ request.GET.q }}">
+                {% endif %}
+                
+                <span class="text-muted fw-bold text-uppercase me-2 small ls-1">URUTKAN:</span>
+                <select name="sort" 
+                        class="form-select form-select-sm border-0 bg-transparent shadow-none fw-bold text-dark p-0 pe-4 cursor-pointer" 
+                        style="width: auto; font-size: 0.95rem;" 
+                        onchange="this.form.submit()">
+                    <option value="deadline" {% if request.GET.sort == 'deadline' %}selected{% endif %}>Deadline Terdekat</option>
+                    <option value="terbaru" {% if request.GET.sort == 'terbaru' %}selected{% endif %}>Terbaru Diupload</option>
+                </select>
+            </form>
+
         </div>
 
         <div class="row g-4">
             {% for lomba in lomba_list %}
             <div class="col-lg-3 col-md-6 col-sm-12 reveal-on-scroll">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden lomba-card bg-white group">
-                    
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden lomba-card bg-white">
                     <div class="position-relative overflow-hidden" style="height: 180px;">
-                        {% if lomba.poster %}
-                            <img src="{{ lomba.poster.url }}" class="w-100 h-100 object-fit-cover zoom-effect" alt="{{ lomba.judul }}">
-                        {% else %}
-                            <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center text-muted">
-                                <i class="fa fa-picture-o fa-3x opacity-25"></i>
-                            </div>
-                        {% endif %}
-                        
+                        <a href="{% url 'detail_lomba' lomba.id %}" class="d-block w-100 h-100">
+                            {% if lomba.poster %}
+                                <img src="{{ lomba.poster.url }}" class="w-100 h-100 object-fit-cover zoom-effect" alt="{{ lomba.judul }}">
+                            {% else %}
+                                <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center text-muted">
+                                    <i class="fa fa-picture-o fa-3x opacity-25"></i>
+                                </div>
+                            {% endif %}
+                        </a>
                         <div class="position-absolute top-0 start-0 m-2">
                             <span class="badge bg-dark bg-opacity-50 backdrop-blur shadow-sm px-2 py-1 rounded-3 fw-bold" style="font-size: 0.65rem;">
                                 {{ lomba.kategori|default:"Umum" }}
                             </span>
                         </div>
-
                         <div class="position-absolute top-0 end-0 m-2">
                             {% if lomba.is_active %}
                                 <span class="badge bg-success shadow-sm px-2 py-1 rounded-3 fw-bold d-flex align-items-center gap-1" style="font-size: 0.65rem;">
@@ -76,38 +100,30 @@
                     </div>
 
                     <div class="card-body p-3 d-flex flex-column">
-                        <h6 class="fw-bold text-dark mb-2 text-truncate-2 title-hover" style="min-height: 2.6em; line-height: 1.3; font-size: 1rem;">
-                            <a href="{% url 'detail_lomba' lomba.id %}" class="text-decoration-none text-dark">
+                        <h6 class="fw-bold text-dark mb-2 text-truncate-2 card-title-link">
+                            <a href="{% url 'detail_lomba' lomba.id %}" class="text-decoration-none text-dark title-hover">
                                 {{ lomba.judul }}
                             </a>
                         </h6>
-                        
                         <div class="d-flex align-items-center text-muted small mb-3">
                             <i class="fa fa-university me-1 text-warning"></i>
-                            <span class="text-truncate" style="font-size: 0.85rem;">{{ lomba.penyelenggara }}</span>
+                            <span class="text-truncate fw-medium" style="font-size: 0.85rem;">{{ lomba.penyelenggara }}</span>
                         </div>
-
                         <hr class="border-light my-2 opacity-50">
-
-                        <div class="mt-2">
+                        <div class="mt-2 small">
                             <div class="d-flex justify-content-between align-items-center mb-1">
-                                <span class="text-muted small" style="font-size: 0.75rem;">Deadline Daftar:</span>
-                                <span class="text-danger fw-bold small" style="font-size: 0.8rem;">
-                                    {% if lomba.tanggal_deadline %}
-                                        {{ lomba.tanggal_deadline|date:"d M Y" }}
-                                    {% else %}
-                                        -
-                                    {% endif %}
+                                <span class="text-muted" style="font-size: 0.75rem;">Deadline:</span>
+                                <span class="text-danger fw-bold" style="font-size: 0.8rem;">
+                                    {{ lomba.tanggal_deadline|date:"d M Y"|default:"-" }}
                                 </span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <span class="text-muted small" style="font-size: 0.75rem;">Pelaksanaan:</span>
-                                <span class="text-dark fw-bold small" style="font-size: 0.8rem;">
+                                <span class="text-muted" style="font-size: 0.75rem;">Pelaksanaan:</span>
+                                <span class="text-dark fw-bold" style="font-size: 0.8rem;">
                                     {{ lomba.tanggal_pelaksanaan|date:"d M Y" }}
                                 </span>
                             </div>
                         </div>
-
                         <div class="mt-3 pt-2">
                             <a href="{% url 'detail_lomba' lomba.id %}" class="btn btn-outline-primary w-100 rounded-pill btn-sm fw-bold hover-fill" style="font-size: 0.8rem;">
                                 Detail Info
@@ -118,38 +134,83 @@
             </div>
             {% empty %}
             <div class="col-12 text-center py-5">
-                <i class="fa fa-calendar-times-o fa-4x text-muted opacity-25 mb-3"></i>
-                <h4 class="fw-bold text-muted">Belum ada info lomba baru.</h4>
-                <p class="text-muted">Cek lagi nanti ya!</p>
+                <div class="py-5 opacity-75">
+                    <div class="bg-white d-inline-block p-4 rounded-circle shadow-sm mb-3">
+                        <i class="fa fa-calendar-times-o fa-4x text-muted opacity-50"></i>
+                    </div>
+                    <h4 class="fw-bold text-muted">Belum ada info lomba ditemukan.</h4>
+                </div>
             </div>
             {% endfor %}
         </div>
-
     </div>
 </section>
 
 <style>
+    /* 1. HERO STYLING */
+    .hero-section {
+        background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
+                    url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1920&auto=format&fit=crop');
+        background-size: cover; 
+        background-position: center; 
+        background-attachment: fixed;
+        position: relative;
+        margin-top: -85px; 
+        padding-top: 180px; 
+        padding-bottom: 160px; /* DITINGKATKAN agar area hero lebih luas */
+        text-align: center; color: white;
+        overflow: hidden;
+    }
+
+    .hero-pattern {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+        background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); 
+        opacity: 0.1; z-index: 0;
+    }
+
+    .icon-wrapper {
+        width: 90px; height: 90px; 
+        background: rgba(255,255,255,0.1); 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        backdrop-filter: blur(5px);
+    }
+
+    .hero-desc { max-width: 700px; font-size: 1.1rem; opacity: 0.9; }
+    .bg-light-gray { background-color: #f8f9fa; }
+    
+    /* 2. CONTENT CONTAINER POSITIONING */
+    .content-container { 
+        position: relative; 
+        z-index: 10; 
+        margin-top: -40px; /* NEGATIF DIKURANGI agar tidak menabrak teks di hero */
+    }
+
+    /* 3. CARD & UTILS */
     .lomba-card { transition: all 0.3s ease; }
     .lomba-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important; }
-    
     .object-fit-cover { object-fit: cover; }
     .zoom-effect { transition: transform 0.5s ease; }
     .lomba-card:hover .zoom-effect { transform: scale(1.1); }
-    
+    .card-title-link { min-height: 2.6em; line-height: 1.3; font-size: 1rem; }
     .text-truncate-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    
     .hover-fill:hover { background-color: #0d6efd; color: white; }
-    .title-hover:hover a { color: #0d6efd !important; text-decoration: underline !important; }
-    
-    /* Backdrop Blur */
+    .title-hover:hover { color: #0d6efd !important; text-decoration: underline !important; }
     .backdrop-blur { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+    .ls-1 { letter-spacing: 1px; }
+    .cursor-pointer { cursor: pointer; }
 
-    /* Animasi */
+    /* 4. ANIMATION & RESPONSIVE */
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
     .delay-1 { animation-delay: 0.2s; }
-    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
     .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 991px) {
+        .hero-section { background-attachment: scroll; padding-top: 140px; padding-bottom: 100px; }
+        .hero-title { font-size: 2.5rem; }
+        .content-container { margin-top: -20px; }
+    }
 </style>
 
 <script>

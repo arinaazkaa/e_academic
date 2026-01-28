@@ -1,89 +1,129 @@
 {% extends 'materi/base.html' %}
 {% load static %}
 
-{% block title %}Selamat & Sukses: {{ prestasi.nama_mahasiswa }} - E-Academic{% endblock %}
+{% block title %}Prestasi: {{ prestasi.nama_mahasiswa }} - E-Academic{% endblock %}
 
 {% block content %}
 
-<div style="
-    background-color: #0f172a;
-    background-image: radial-gradient(at top center, #1e293b 0%, #0f172a 80%);
-    min-height: 100vh;
-    padding-top: 100px; 
-    padding-bottom: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-">
+<style>
+    /* Sembunyikan Navbar Utama */
+    nav.navbar, .navbar, header {
+        display: none !important;
+    }
     
-    <div class="container animate-up" style="max-width: 800px;">
+    /* Reset margin karena navbar hilang */
+    body {
+        padding-top: 0 !important;
+    }
+</style>
+
+<div class="prestasi-wrapper">
+    <div class="container animate-up" style="max-width: 1100px;">
         
-        <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white position-relative">
-            
-            <div class="position-relative bg-light" style="height: 450px; overflow: hidden;">
-                {% if prestasi.foto_diri %}
-                    <img src="{{ prestasi.foto_diri.url }}" class="w-100 h-100 object-fit-cover" alt="Foto Pemenang">
-                    <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);"></div>
-                {% else %}
-                    <div class="d-flex align-items-center justify-content-center h-100 text-muted flex-column">
-                        <i class="fa fa-trophy fa-5x opacity-25 mb-3"></i>
-                        <p>Dokumentasi Foto Tidak Tersedia</p>
-                    </div>
-                {% endif %}
-            </div>
+        <div class="mb-4">
+             <a href="{% url 'list_prestasi' %}" class="text-white text-decoration-none fw-bold d-inline-flex align-items-center opacity-75 hover-opacity-100">
+                <i class="fa fa-arrow-left me-2"></i> Kembali ke Hall of Fame
+            </a>
+        </div>
 
-            <div class="card-body p-5 text-center position-relative z-1" style="margin-top: -30px;">
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
+            <div class="row g-0">
                 
-                <h5 class="text-primary fw-bold text-uppercase ls-2 mb-3 opacity-75">CONGRATULATIONS</h5>
-                <h1 class="fw-bold text-dark display-6 mb-4">Selamat & Sukses</h1>
-
-                <div class="mx-auto" style="max-width: 680px;">
-                    <p class="fs-5 text-secondary lh-lg mb-4">
-                        Diucapkan kepada 
-                        <strong class="text-dark fs-4 d-block my-1">{{ prestasi.nama_mahasiswa }}</strong>
-                        <span class="text-muted small d-block mb-3">({{ prestasi.get_prodi_display }})</span>
-                        
-                        atas pencapaian luar biasa yang telah diraih sebagai
-                        <strong class="text-dark">{{ prestasi.juara }}</strong>
-                        
-                        dalam ajang bergengsi
-                        <strong class="text-primary">{{ prestasi.nama_lomba }}</strong> 
-                        tingkat <span class="text-dark fw-bold">{{ prestasi.tingkat }}</span>.
-                        
-                        <br><br>
-                        <span class="d-block fs-6 text-muted">
-                            Kompetisi ini diselenggarakan oleh 
-                            <strong class="text-dark">{{ prestasi.penyelenggara }}</strong> 
-                            pada tanggal <span class="text-dark fw-bold">{{ prestasi.tempat_tanggal }}</span>.
+                <div class="col-lg-5 position-relative bg-light photo-column">
+                    {% if prestasi.foto_diri %}
+                        <img src="{{ prestasi.foto_diri.url }}" class="w-100 h-100 object-fit-cover absolute-img" alt="Foto {{ prestasi.nama_mahasiswa }}">
+                        <div class="overlay-gradient"></div>
+                    {% else %}
+                        <div class="d-flex align-items-center justify-content-center h-100 text-muted flex-column py-5">
+                            <i class="fa fa-trophy fa-5x opacity-25 mb-3"></i>
+                            <p class="small text-center px-3">Dokumentasi Foto Tidak Tersedia</p>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="position-absolute top-0 start-0 m-3">
+                        <span class="badge bg-warning text-dark fw-bold px-3 py-2 shadow-sm text-uppercase">
+                            <i class="fa fa-star me-1"></i> {{ prestasi.juara }}
                         </span>
-                    </p>
+                    </div>
                 </div>
 
-                <hr class="w-25 mx-auto border-secondary opacity-25 my-4">
+                <div class="col-lg-7">
+                    <div class="card-body p-4 p-md-5 d-flex flex-column justify-content-center h-100">
+                        
+                        <div class="text-center text-lg-start mb-4">
+                            <h6 class="text-primary fw-bold text-uppercase ls-2 mb-2 opacity-75 small">Elektro Bangga</h6>
+                            <h1 class="fw-bold text-dark display-6 mb-1 title-responsive">Selamat & Sukses</h1>
+                            <div class="h-1 w-25 bg-primary rounded mt-3 mx-auto mx-lg-0"></div>
+                        </div>
 
-                <p class="small text-muted fst-italic mb-4">
-                    "Terima kasih telah mengharumkan nama Jurusan Teknik Elektro dan Universitas Negeri Semarang."
-                </p>
+                        <div class="content-text text-center text-lg-start">
+                            <p class="fs-5 text-secondary lh-base mb-4">
+                                Diucapkan kepada mahasiswa berprestasi:
+                            </p>
+                            
+                            <div class="bg-light p-3 rounded-3 mb-4 border-start border-4 border-primary text-start shadow-sm">
+                                <h4 class="fw-bold text-dark mb-1">{{ prestasi.nama_mahasiswa }}</h4>
+                                <small class="text-muted text-uppercase fw-bold ls-1 d-block">
+                                    {{ prestasi.get_prodi_display }}
+                                    {% if prestasi.nim %} | {{ prestasi.nim }} {% endif %}
+                                </small>
+                            </div>
 
-                <div class="d-flex justify-content-center gap-3">
-                    <a href="{% url 'list_prestasi' %}" class="btn btn-outline-secondary rounded-pill px-4 fw-bold">
-                        &larr; Kembali
-                    </a>
-                    
-                    {% if prestasi.url_penyelenggara %}
-                    <a href="{{ prestasi.url_penyelenggara }}" target="_blank" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm hover-scale">
-                        Kunjungi Website <i class="fa fa-external-link ms-2"></i>
-                    </a>
-                    {% endif %}
+                            <p class="text-secondary mb-4 description-text" style="line-height: 1.8;">
+                                Atas keberhasilannya meraih gelar 
+                                <strong class="text-dark">{{ prestasi.juara }}</strong> 
+                                dalam ajang kompetisi bergengsi 
+                                <strong class="text-primary">{{ prestasi.nama_lomba }}</strong> 
+                                tingkat {{ prestasi.tingkat }}.
+                            </p>
+
+                            <div class="bg-white border rounded-3 p-3 mb-4 shadow-sm small text-start">
+                                <div class="row g-3">
+                                    <div class="col-md-6 d-flex align-items-center">
+                                        <i class="fa fa-building-o text-muted me-3 fs-5 text-center" style="width: 25px;"></i> 
+                                        <div>
+                                            <strong class="d-block text-dark">Penyelenggara:</strong>
+                                            <span class="text-secondary">{{ prestasi.penyelenggara }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 d-flex align-items-center ps-md-5"> 
+                                        <i class="fa fa-calendar-check-o text-muted me-3 fs-5 text-center" style="width: 25px;"></i> 
+                                        <div>
+                                            <strong class="d-block text-dark">Waktu & Tempat:</strong>
+                                            <span class="text-secondary">{{ prestasi.tempat_tanggal }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="small text-muted fst-italic mb-4">
+                                "Terima kasih telah mengharumkan nama Jurusan Teknik Elektro dan Universitas Negeri Semarang."
+                            </p>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-auto w-100">
+                            <a href="{% url 'list_prestasi' %}" class="btn btn-outline-secondary rounded-pill px-4 fw-bold shadow-sm">
+                                &larr; Kembali
+                            </a>
+                            
+                            {% if prestasi.url_penyelenggara %}
+                                <a href="{{ prestasi.url_penyelenggara }}" target="_blank" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm hover-scale">
+                                    Info Event <i class="fa fa-external-link ms-2"></i>
+                                </a>
+                            {% else %}
+                                <div></div> 
+                            {% endif %}
+                        </div>
+
+                    </div>
                 </div>
 
             </div>
-
         </div>
         
         <div class="text-center mt-4">
             <span class="text-white-50 small">
-                <i class="fa fa-check-circle text-success me-1"></i> Data Terverifikasi | Diposting: {{ prestasi.created_at|date:"d M Y" }}
+                <i class="fa fa-check-circle text-success me-1"></i> Data Terverifikasi Admin | Diposting: {{ prestasi.created_at|date:"d M Y" }}
             </span>
         </div>
 
@@ -91,15 +131,46 @@
 </div>
 
 <style>
-    /* Tipografi & Layout */
-    .ls-2 { letter-spacing: 2px; }
-    .lh-lg { line-height: 1.8; }
+    /* LAYOUT & BACKGROUND UTAMA */
+    .prestasi-wrapper {
+        background-color: #0f172a;
+        background-image: radial-gradient(at top center, #1e293b 0%, #0f172a 80%);
+        min-height: 100vh;
+        
+        /* Padding disesuaikan agar pas di tengah layar karena navbar hilang */
+        padding-top: 40px; 
+        padding-bottom: 40px;
+        display: flex;
+        align-items: center;
+        margin-top: 0; 
+    }
+
     .object-fit-cover { object-fit: cover; }
+    
+    /* Laptop */
+    @media (min-width: 992px) {
+        .photo-column { min-height: 650px; }
+        .absolute-img { position: absolute; top: 0; left: 0; height: 100%; }
+    }
 
-    /* Hover Effect Button */
+    /* HP */
+    @media (max-width: 991px) {
+        .photo-column { height: 400px; }
+        .title-responsive { font-size: 2rem; }
+        .prestasi-wrapper { padding-top: 30px; align-items: flex-start; }
+    }
+
+    .overlay-gradient {
+        position: absolute; bottom: 0; left: 0; width: 100%; height: 30%;
+        background: linear-gradient(to top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+    }
+    
+    .ls-2 { letter-spacing: 2px; }
+    .ls-1 { letter-spacing: 1px; }
+    
+    .hover-opacity-100:hover { opacity: 1 !important; }
     .hover-scale:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3) !important; transition: 0.3s; }
-
-    /* Animation Load */
+    
     .animate-up { opacity: 0; transform: translateY(40px); animation: fadeInUp 0.8s ease forwards; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 </style>

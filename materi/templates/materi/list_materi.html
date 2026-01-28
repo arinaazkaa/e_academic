@@ -5,110 +5,107 @@
 
 {% block content %}
 
-<section style="
-    background: linear-gradient(to bottom, rgba(0, 51, 102, 0.9), rgba(0, 30, 60, 0.95)), 
-                url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1920&auto=format&fit=crop');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    position: relative; 
-    margin-top: -85px; 
-    padding: 180px 0 180px 0; 
-    min-height: 500px;">
+<section class="hero-library">
+    <div class="hero-pattern"></div>
 
-    <div class="container text-center text-white position-relative" style="z-index: 2;">
-        <i class="fa fa-book opacity-50 mb-3" style="font-size: 50px;"></i>
+    <div class="container text-center text-white position-relative animate-up" style="z-index: 2;">
+        <div class="mb-3">
+            <div class="icon-wrapper mx-auto">
+                <i class="fa fa-book text-white" style="font-size: 45px; opacity: 0.9;"></i>
+            </div>
+        </div>
         
-        <h2 class="fw-bold display-5 mb-2" style="text-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <h2 class="fw-bold display-5 mb-2 hero-title">
             ELECTRICAL LIBRARY
         </h2>
         
-        <p class="text-white-50 mx-auto fs-5" style="max-width: 600px;">
-            Kumpulan materi kuliah dan referensi akademik dari berbagai prodi yang ada di Lingkungan Teknik Elektro dalam satu genggaman.
+        <p class="text-white-50 mx-auto fs-5 hero-desc" style="max-width: 650px;">
+            Kumpulan materi kuliah dan referensi akademik dari berbagai prodi di Lingkungan Teknik Elektro dalam satu genggaman.
         </p>
     </div>
 
-    <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; 
-                background: #f4f6f9; 
-                border-top-left-radius: 50% 20%; 
-                border-top-right-radius: 50% 20%;">
-    </div>
+    <div class="curve-bottom"></div>
 </section>
 
-
-<section style="background-color: #f4f6f9; padding-bottom: 20px;">
-    <div class="container" style="margin-top: -110px; position: relative; z-index: 10;">
+<section class="search-section">
+    <div class="container search-container">
         
-        <div class="glass-search-bar mx-auto px-1 py-2 shadow-lg">
+        <div class="glass-search-bar mx-auto shadow-lg animate-up delay-1">
             <form action="" method="GET">
-                <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <div class="row g-2 align-items-center p-2">
                     
-                    <div class="flex-grow-1 px-4 border-end-lg custom-focus-area">
-                        <input type="text" name="keyword" 
-                               class="form-control border-0 p-0 shadow-none bg-transparent fw-bold text-dark custom-input" 
-                               placeholder="Ketik Judul Materi atau Mata Kuliah..." 
-                               value="{{ request.GET.keyword|default:'' }}"
-                               style="font-size: 1rem; height: 100%;">
+                    <div class="col-lg-5 col-12">
+                        <div class="input-group px-2">
+                            <span class="input-group-text bg-transparent border-0"><i class="fa fa-search text-muted"></i></span>
+                            <input type="text" name="keyword" 
+                                   class="form-control border-0 shadow-none bg-transparent fw-bold text-dark" 
+                                   placeholder="Cari Judul / Mata Kuliah..." 
+                                   value="{{ request.GET.keyword|default:'' }}">
+                        </div>
                     </div>
 
-                    <div class="d-flex align-items-center gap-3 px-3 mt-2 mt-lg-0">
-                        
-                        <div class="position-relative text-center" style="min-width: 130px;">
-                            <select name="prodi" class="form-select border-0 p-0 shadow-none bg-transparent fw-bold cursor-pointer text-center interactive-text" style="font-size: 0.95rem;">
-                                <option value="">Semua Prodi</option>
-                                <option value="PTIK" {% if filter_prodi == 'PTIK' %}selected{% endif %}>PTIK</option>
-                                <option value="PTE" {% if filter_prodi == 'PTE' %}selected{% endif %}>PTE</option>
-                                <option value="TE" {% if filter_prodi == 'TE' %}selected{% endif %}>TE</option>
-                                <option value="TK" {% if filter_prodi == 'TK' %}selected{% endif %}>TEKKOM</option>
-                            </select>
-                        </div>
-
-                        <div class="position-relative text-center" style="min-width: 110px;">
-                            <select name="semester" class="form-select border-0 p-0 shadow-none bg-transparent fw-bold cursor-pointer text-center interactive-text" style="font-size: 0.95rem;">
-                                <option value="">Semua Sem.</option>
-                                {% for i in "12345678" %}
-                                <option value="{{ i }}" {% if filter_semester == i %}selected{% endif %}>Sem. {{ i }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <div>
-                            <button type="submit" class="btn btn-primary rounded-pill px-5 py-2 fw-bold shadow-lg gradient-btn">
-                                Cari
-                            </button>
-                        </div>
-
+                    <div class="col-auto d-none d-lg-block">
+                        <div class="vr h-100 my-auto text-muted opacity-25"></div>
                     </div>
+
+                    <div class="col-lg-2 col-6">
+                        <select name="prodi" class="form-select border-0 shadow-none bg-transparent fw-bold text-center cursor-pointer text-muted-dark">
+                            <option value="">Semua Prodi</option>
+                            <option value="PTIK" {% if filter_prodi == 'PTIK' %}selected{% endif %}>PTIK</option>
+                            <option value="PTE" {% if filter_prodi == 'PTE' %}selected{% endif %}>PTE</option>
+                            <option value="TE" {% if filter_prodi == 'TE' %}selected{% endif %}>TE</option>
+                            <option value="TK" {% if filter_prodi == 'TK' %}selected{% endif %}>TEKKOM</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-2 col-6 border-start-mobile">
+                        <select name="semester" class="form-select border-0 shadow-none bg-transparent fw-bold text-center cursor-pointer text-muted-dark">
+                            <option value="">Semua Sem.</option>
+                            {% for i in "12345678" %}
+                            <option value="{{ i }}" {% if filter_semester == i %}selected{% endif %}>Sem. {{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-lg-2 col-12">
+                        <button type="submit" class="btn btn-primary w-100 rounded-pill fw-bold shadow-sm gradient-btn">
+                            Cari
+                        </button>
+                    </div>
+
                 </div>
             </form>
         </div>
+
     </div>
 </section>
-
 
 <section class="py-5" style="background-color: #f4f6f9; min-height: 60vh;">
     <div class="container">
         
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4 px-2">
             <h6 class="fw-bold text-dark m-0">
                 <i class="fa fa-folder-open text-warning me-2"></i> 
                 Menampilkan {{ materi.start_index }}-{{ materi.end_index }} dari {{ materi.paginator.count }} Materi
             </h6>
         </div>
 
-        <div class="row g-3">
+        <div class="row g-4">
             {% for m in materi %}
             <div class="col-lg-3 col-md-4 col-sm-6 reveal-on-scroll">
-                <div class="card h-100 border-0 shadow-sm rounded-4 doc-card overflow-hidden group">
+                
+                <div class="card h-100 border-0 shadow-sm rounded-4 doc-card overflow-hidden bg-white">
                     
                     <div class="card-cover position-relative d-flex align-items-center justify-content-center overflow-hidden">
                         <div class="cover-pattern"></div>
-                        <div class="z-1 text-center text-white">
+                        
+                        <div class="z-1 text-center text-white position-relative">
                             <i class="fa fa-book fa-3x mb-2 opacity-75 icon-float"></i>
-                            <div class="small fw-bold text-uppercase px-2" style="font-size: 10px; letter-spacing: 1px; background: rgba(0,0,0,0.2); border-radius: 4px;">
+                            <div class="small fw-bold text-uppercase px-2 py-1 rounded bg-black bg-opacity-25" style="font-size: 10px; letter-spacing: 1px;">
                                 {{ m.get_prodi_display }}
                             </div>
                         </div>
+                        
                         <span class="position-absolute top-0 start-0 m-3 badge bg-white text-dark shadow-sm rounded-pill fw-bold" style="font-size: 11px; padding: 6px 12px;">
                             Sem. {{ m.semester }}
                         </span>
@@ -131,32 +128,36 @@
                     </div>
 
                     <div class="card-body p-3">
-                        <h6 class="fw-bold text-dark mb-1 text-truncate-2 title-hover" style="font-size: 0.95rem; line-height: 1.4;">
+                        <h6 class="fw-bold text-dark mb-1 text-truncate-2 title-hover">
                             {{ m.judul }}
                         </h6>
                         <p class="text-muted small mb-0 text-truncate">
-                            {{ m.mata_kuliah }}
+                            <i class="fa fa-bookmark-o me-1 text-info"></i> {{ m.mata_kuliah }}
                         </p>
                     </div>
 
                     <div class="card-footer bg-white border-0 px-3 pb-3 pt-0 d-flex justify-content-between align-items-center">
-                        <small class="text-muted" style="font-size: 10px;">
+                        <small class="text-muted" style="font-size: 11px;">
                             <i class="fa fa-calendar me-1"></i> {{ m.tanggal_upload|date:"d M, Y" }}
                         </small>
                         
                         {% if m.link_google_drive %}
-                            <i class="fa fa-google text-danger small opacity-75"></i>
+                            <i class="fa fa-google text-danger small opacity-75" title="Google Drive Link"></i>
                         {% else %}
-                            <i class="fa fa-file-pdf-o text-danger small opacity-75"></i>
+                            <i class="fa fa-file-text-o text-primary small opacity-75" title="File Upload"></i>
                         {% endif %}
                     </div>
                 </div>
+
             </div>
             {% empty %}
             <div class="col-12 text-center py-5">
-                <i class="fa fa-search fa-3x text-muted mb-3 opacity-50"></i>
-                <h5 class="text-muted fw-bold">Materi tidak ditemukan.</h5>
-                <a href="{% url 'list_materi' %}" class="btn btn-outline-primary rounded-pill btn-sm mt-2 px-4">Reset Filter</a>
+                <div class="py-4">
+                    <i class="fa fa-search fa-4x text-muted mb-3 opacity-25"></i>
+                    <h5 class="text-muted fw-bold">Materi tidak ditemukan.</h5>
+                    <p class="text-muted small">Coba ubah kata kunci atau filter pencarian.</p>
+                    <a href="{% url 'list_materi' %}" class="btn btn-outline-primary rounded-pill btn-sm mt-2 px-4">Reset Filter</a>
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -165,30 +166,32 @@
         <div class="row mt-5">
             <div class="col-12 d-flex justify-content-center">
                 <nav aria-label="Page navigation">
-                    <ul class="pagination gap-2">
+                    <ul class="pagination gap-2 shadow-sm rounded-pill p-1 bg-white">
                         {% if materi.has_previous %}
                         <li class="page-item">
-                            <a class="page-link pagination-box" href="?page={{ materi.previous_page_number }}&keyword={{ request.GET.keyword }}&prodi={{ request.GET.prodi }}&semester={{ request.GET.semester }}">
+                            <a class="page-link pagination-box border-0" href="?page={{ materi.previous_page_number }}&keyword={{ request.GET.keyword }}&prodi={{ request.GET.prodi }}&semester={{ request.GET.semester }}">
                                 <i class="fa fa-chevron-left"></i>
                             </a>
                         </li>
                         {% endif %}
+                        
                         {% for num in materi.paginator.page_range %}
                             {% if materi.number == num %}
                                 <li class="page-item active">
-                                    <span class="page-link pagination-box">{{ num }}</span>
+                                    <span class="page-link pagination-box border-0 fw-bold">{{ num }}</span>
                                 </li>
                             {% elif num > materi.number|add:'-3' and num < materi.number|add:'3' %}
                                 <li class="page-item">
-                                    <a class="page-link pagination-box" href="?page={{ num }}&keyword={{ request.GET.keyword }}&prodi={{ request.GET.prodi }}&semester={{ request.GET.semester }}">
+                                    <a class="page-link pagination-box border-0" href="?page={{ num }}&keyword={{ request.GET.keyword }}&prodi={{ request.GET.prodi }}&semester={{ request.GET.semester }}">
                                         {{ num }}
                                     </a>
                                 </li>
                             {% endif %}
                         {% endfor %}
+                        
                         {% if materi.has_next %}
                         <li class="page-item">
-                            <a class="page-link pagination-box" href="?page={{ materi.next_page_number }}&keyword={{ request.GET.keyword }}&prodi={{ request.GET.prodi }}&semester={{ request.GET.semester }}">
+                            <a class="page-link pagination-box border-0" href="?page={{ materi.next_page_number }}&keyword={{ request.GET.keyword }}&prodi={{ request.GET.prodi }}&semester={{ request.GET.semester }}">
                                 <i class="fa fa-chevron-right"></i>
                             </a>
                         </li>
@@ -203,71 +206,111 @@
 </section>
 
 <style>
-    /* Search Bar */
+    /* 1. HERO SECTION */
+    .hero-library {
+        background: linear-gradient(to bottom, rgba(0, 51, 102, 0.9), rgba(0, 30, 60, 0.95)), 
+                    url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1920&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Laptop Only */
+        position: relative; 
+        margin-top: -85px; 
+        padding: 180px 0 160px 0; 
+        min-height: 450px;
+    }
+
+    .hero-pattern {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+        background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); 
+        opacity: 0.1; z-index: 0;
+    }
+
+    .icon-wrapper {
+        width: 90px; height: 90px; 
+        background: rgba(255,255,255,0.1); 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        backdrop-filter: blur(5px);
+    }
+
+    .hero-title { text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+
+    .curve-bottom {
+        position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; 
+        background: #f4f6f9; 
+        border-top-left-radius: 50% 20%; 
+        border-top-right-radius: 50% 20%;
+    }
+
+    /* 2. SEARCH BAR */
+    .search-section { background-color: #f4f6f9; padding-bottom: 20px; }
+    .search-container { margin-top: -100px; position: relative; z-index: 10; }
+
     .glass-search-bar {
         background: rgba(255, 255, 255, 0.98); 
         backdrop-filter: blur(20px);
         border-radius: 50px; 
         max-width: 1100px;
-    }
-    @media (min-width: 992px) {
-        .border-end-lg { border-right: 1px solid #e9ecef; }
+        border: 1px solid rgba(0,0,0,0.05);
     }
 
-    /* Interactive Text */
-    .interactive-text {
-        color: #212529; 
-        transition: color 0.3s ease, transform 0.2s ease;
-        cursor: pointer;
-    }
-    .interactive-text:hover {
-        color: #0d6efd !important; 
-        text-shadow: 0 0 1px rgba(13, 110, 253, 0.3);
-    }
-    .interactive-text:focus { color: #0d6efd !important; box-shadow: none !important; }
-
-    /* Tombol Cari */
+    .text-muted-dark { color: #495057; }
+    .form-control:focus, .form-select:focus { box-shadow: none !important; }
+    
     .gradient-btn {
         background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
-        border: 1px solid transparent; color: white;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none; color: white;
+        transition: all 0.3s;
     }
-    .gradient-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(13, 110, 253, 0.4) !important;
-    }
-    .gradient-btn:active {
-        background: #ffffff !important; color: #0d6efd !important; border: 1px solid #0d6efd !important;
-        transform: scale(0.95); box-shadow: inset 0 3px 5px rgba(0,0,0,0.1) !important;
-    }
+    .gradient-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4) !important; }
 
-    /* Card & Animation */
-    .custom-focus-area:focus-within { background-color: transparent; }
-    .reveal-on-scroll { opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
-    .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
-    
-    .doc-card { background: #fff; transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; }
-    .doc-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important; }
+    /* 3. CARDS & GRID */
+    .doc-card { transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; }
+    .doc-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important; }
 
-    .card-cover { height: 150px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); position: relative; }
-    .col-lg-3:nth-child(4n+1) .card-cover { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    .col-lg-3:nth-child(4n+2) .card-cover { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); }
-    .col-lg-3:nth-child(4n+3) .card-cover { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
-    .col-lg-3:nth-child(4n+4) .card-cover { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
+    /* Gradient Covers (4 Warna berbeda) */
+    .card-cover { height: 160px; position: relative; }
+    .col-lg-3:nth-child(4n+1) .card-cover { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); } /* Biru */
+    .col-lg-3:nth-child(4n+2) .card-cover { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); } /* Pink */
+    .col-lg-3:nth-child(4n+3) .card-cover { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); } /* Ungu */
+    .col-lg-3:nth-child(4n+4) .card-cover { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); } /* Hijau */
 
     .cover-pattern { position: absolute; width: 100%; height: 100%; background-image: radial-gradient(rgba(255,255,255,0.2) 2px, transparent 2px); background-size: 20px 20px; opacity: 0.6; }
-    .cover-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); backdrop-filter: blur(2px); opacity: 0; transition: opacity 0.3s ease; }
+    
+    .cover-overlay { 
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+        background: rgba(0,0,0,0.3); backdrop-filter: blur(3px); 
+        opacity: 0; transition: opacity 0.3s ease; 
+    }
     .doc-card:hover .cover-overlay { opacity: 1; }
     
     .icon-btn { width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; transform: scale(0.8); transition: transform 0.2s; }
     .doc-card:hover .icon-btn { transform: scale(1); }
+
     .text-truncate-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 40px; }
-    .doc-card:hover .title-hover { color: #0d6efd; }
-    .cursor-pointer { cursor: pointer; }
-    
-    .pagination-box { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px !important; border: none; background-color: #e9ecef; color: #555; font-weight: bold; transition: all 0.2s; }
-    .pagination-box:hover { background-color: #dee2e6; color: #000; }
-    .page-item.active .pagination-box { background-color: #0d6efd !important; color: white !important; box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3); }
+    .title-hover:hover { color: #0d6efd !important; text-decoration: underline !important; }
+
+    /* 4. PAGINATION */
+    .pagination-box { 
+        width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; 
+        border-radius: 50% !important; color: #555; transition: all 0.2s; 
+    }
+    .page-item.active .pagination-box { background-color: #0d6efd !important; color: white !important; }
+    .page-link:hover { background-color: #e9ecef; color: #000; }
+
+    /* 5. RESPONSIVE FIXES */
+    @media (max-width: 991px) {
+        .hero-library { background-attachment: scroll; padding-top: 140px; }
+        .search-container { margin-top: -60px; }
+        .glass-search-bar { border-radius: 20px; }
+        .border-start-mobile { border-left: 1px solid #e9ecef; } /* Pemisah antar select di HP */
+    }
+
+    /* ANIMASI */
+    .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
+    .delay-1 { animation-delay: 0.2s; }
+    .reveal-on-scroll { opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
+    .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 </style>
 
 <script>

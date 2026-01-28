@@ -5,36 +5,28 @@
 
 {% block content %}
 
-<section style="
-    background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
-                url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1920&auto=format&fit=crop');
-    background-size: cover; 
-    background-position: center; 
-    background-attachment: fixed;
-    padding-top: 160px; padding-bottom: 140px; margin-top: -85px; 
-    text-align: center; color: white;
-    position: relative; overflow: hidden;">
+<section class="hero-upload">
     
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-                background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); 
-                opacity: 0.1; z-index: 0;"></div>
+    <div class="hero-pattern"></div>
 
     <div class="container animate-up position-relative" style="z-index: 2;">
         <div class="mb-3">
-            <i class="fa fa-cloud-upload text-info" style="font-size: 50px; text-shadow: 0 0 25px rgba(13,202,240,0.6);"></i>
+            <div class="icon-wrapper mx-auto">
+                <i class="fa fa-cloud-upload text-info" style="font-size: 40px; text-shadow: 0 0 25px rgba(13,202,240,0.8);"></i>
+            </div>
         </div>
-        <h1 class="fw-bold display-5 mb-3 text-white" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5); letter-spacing: 1px;">
+        <h1 class="fw-bold display-5 mb-3 text-white hero-title">
             UPLOAD MATERI KULIAH
         </h1>
-        <p class="lead text-white-50 mx-auto" style="max-width: 700px; font-size: 1.1rem;">
-            Bagikan catatan, slide presentasi, atau e-book untuk membantu teman<br>
-            Satu kontribusi kecil untuk kemajuan bersama
+        <p class="lead text-white-50 mx-auto hero-desc">
+            Bagikan catatan, slide presentasi, atau e-book untuk membantu teman.<br class="d-none d-md-block">
+            Satu kontribusi kecil untuk kemajuan bersama.
         </p>
     </div>
 </section>
 
-<section class="py-5" style="background-color: #f8f9fa;">
-    <div class="container" style="margin-top: -100px; position: relative; z-index: 10;">
+<section class="form-section">
+    <div class="container form-container">
         
         <div class="row justify-content-center">
             <div class="col-lg-9 animate-up delay-1">
@@ -51,7 +43,9 @@
                         
                         {% if messages %}
                             {% for message in messages %}
-                                <div class="alert alert-{{ message.tags }} rounded-pill text-center small mb-4 shadow-sm border-0">
+                                <div class="alert alert-{{ message.tags }} rounded-3 text-center small mb-4 shadow-sm border-0">
+                                    {% if message.tags == 'error' %}<i class="fa fa-exclamation-circle me-1"></i>{% endif %}
+                                    {% if message.tags == 'success' %}<i class="fa fa-check-circle me-1"></i>{% endif %}
                                     {{ message }}
                                 </div>
                             {% endfor %}
@@ -60,14 +54,14 @@
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
 
-                            <h6 class="fw-bold text-primary text-uppercase mb-4" style="font-size: 0.8rem; letter-spacing: 1px;">
+                            <h6 class="fw-bold text-primary text-uppercase mb-4 section-title">
                                 <i class="fa fa-graduation-cap me-1"></i> Data Akademik
                             </h6>
 
                             <div class="row g-4 mb-4">
                                 <div class="col-md-6">
                                     <label class="form-label small fw-bold text-muted">Program Studi <span class="text-danger">*</span></label>
-                                    <select name="prodi" class="form-select bg-light border-0 py-3 px-3" style="cursor: pointer;" required>
+                                    <select name="prodi" class="form-select bg-light border-0 py-3 px-3 cursor-pointer" required>
                                         <option value="" selected disabled>-- Pilih Prodi --</option>
                                         <option value="PTIK">Pendidikan Teknik Informatika & Komputer</option>
                                         <option value="PTE">Pendidikan Teknik Elektro</option>
@@ -78,7 +72,7 @@
 
                                 <div class="col-md-6">
                                     <label class="form-label small fw-bold text-muted">Semester Materi <span class="text-danger">*</span></label>
-                                    <select name="semester" class="form-select bg-light border-0 py-3 px-3" style="cursor: pointer;" required>
+                                    <select name="semester" class="form-select bg-light border-0 py-3 px-3 cursor-pointer" required>
                                         <option value="" selected disabled>-- Pilih Semester --</option>
                                         <option value="1">Semester 1</option>
                                         <option value="2">Semester 2</option>
@@ -104,7 +98,7 @@
 
                             <hr class="border-light my-5">
 
-                            <h6 class="fw-bold text-success text-uppercase mb-4" style="font-size: 0.8rem; letter-spacing: 1px;">
+                            <h6 class="fw-bold text-success text-uppercase mb-4 section-title">
                                 <i class="fa fa-link me-1"></i> Tautan Materi
                             </h6>
 
@@ -117,11 +111,15 @@
                                 <div class="col-12">
                                     <label class="form-label small fw-bold text-muted">Link Google Drive <span class="text-danger">*</span></label>
                                     
-                                    <div class="alert alert-warning border-0 bg-warning bg-opacity-10 d-flex align-items-center mb-3 rounded-3" role="alert">
-                                        <i class="fa fa-exclamation-triangle text-warning me-3 fs-4"></i>
+                                    <div class="alert alert-warning border-0 bg-warning bg-opacity-10 d-flex align-items-start mb-3 rounded-3" role="alert">
+                                        <div class="me-3 mt-1 text-warning">
+                                            <i class="fa fa-exclamation-triangle fs-4"></i>
+                                        </div>
                                         <div>
-                                            <span class="fw-bold text-dark d-block">PENTING: Atur Akses Menjadi Public!</span>
-                                            <span class="small text-muted">Pastikan setting share link Google Drive diubah menjadi <strong>"Anyone with the link"</strong> agar temanmu bisa membukanya.</span>
+                                            <span class="fw-bold text-dark d-block mb-1">PENTING: Atur Akses Menjadi Public!</span>
+                                            <span class="small text-muted" style="line-height: 1.4; display: block;">
+                                                Pastikan setting share link Google Drive diubah menjadi <strong>"Anyone with the link"</strong> agar temanmu bisa membukanya tanpa meminta izin akses.
+                                            </span>
                                         </div>
                                     </div>
 
@@ -133,11 +131,18 @@
                                         <i class="fa fa-info-circle me-1"></i> Paste link lengkap folder atau file materi di sini.
                                     </div>
                                 </div>
+
+                                <div class="col-12">
+                                    <label class="form-label small fw-bold text-muted">Cover Materi (Opsional)</label>
+                                    <input type="file" name="cover" class="form-control bg-light border-0 px-3 py-3" accept="image/*">
+                                    <div class="form-text small mt-1 text-muted">
+                                        Upload gambar sampul buku atau screenshot slide pertama (JPG/PNG).
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="mt-5 pt-3">
-                                <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 fw-bold shadow-lg hover-scale" 
-                                        style="background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%); border: none;">
+                                <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 fw-bold shadow-lg hover-scale gradient-btn">
                                     <i class="fa fa-paper-plane me-2"></i> Kirim Materi Sekarang
                                 </button>
                                 <div class="text-center mt-3">
@@ -157,20 +162,65 @@
 </section>
 
 <style>
-    /* Styling Font */
-    .form-label { letter-spacing: 0.5px; }
+    /* 1. HERO SECTION */
+    .hero-upload {
+        background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
+                    url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1920&auto=format&fit=crop');
+        background-size: cover; 
+        background-position: center; 
+        background-attachment: fixed; /* Laptop Only */
+        padding-top: 180px; 
+        padding-bottom: 140px; 
+        margin-top: -85px; 
+        text-align: center; color: white;
+        position: relative; overflow: hidden;
+    }
+
+    .hero-pattern {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+        background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); 
+        opacity: 0.1; z-index: 0;
+    }
+
+    .icon-wrapper {
+        width: 80px; height: 80px; 
+        background: rgba(255,255,255,0.1); 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        backdrop-filter: blur(5px);
+    }
     
-    /* Input Focus */
+    .hero-desc { max-width: 700px; font-size: 1.1rem; }
+
+    /* 2. FORM & LAYOUT */
+    .form-section { background-color: #f8f9fa; padding-bottom: 5rem; }
+    .form-container { margin-top: -100px; position: relative; z-index: 10; }
+
+    .section-title { font-size: 0.8rem; letter-spacing: 1px; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 10px; display: inline-block; }
+
     .form-control:focus, .form-select:focus {
         box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
         border: 1px solid #0d6efd;
         background-color: #fff;
     }
-    
-    .hover-scale:hover { transform: scale(1.02); transition: 0.3s; }
+    .cursor-pointer { cursor: pointer; }
+
+    /* 3. TOMBOL */
+    .gradient-btn { background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%); border: none; }
+    .hover-scale:hover { transform: translateY(-2px); transition: 0.3s; }
     .hover-text-primary:hover { color: #0d6efd !important; }
 
-    /* Animasi Masuk */
+    /* 4. RESPONSIVE FIXES */
+    @media (max-width: 991px) {
+        .hero-upload {
+            padding-top: 140px; padding-bottom: 100px;
+            background-attachment: scroll; /* Fix Jitter di HP */
+        }
+        .hero-title { font-size: 2rem; }
+        .form-container { margin-top: -60px; }
+        .card-body { padding: 1.5rem !important; }
+    }
+
+    /* ANIMASI */
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
     .delay-1 { animation-delay: 0.2s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }

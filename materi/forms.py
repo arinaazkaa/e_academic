@@ -1,47 +1,45 @@
 from django import forms
-from django.core.exceptions import ValidationError # Import untuk pesan error
+from django.core.exceptions import ValidationError 
 from .models import Materi, Prestasi, Karya
 
-# Setting Batas Ukuran File (2MB)
-MAX_UPLOAD_SIZE = 2 * 1024 * 1024 
+# Setting Batas Ukuran File
+MAX_IMAGE_SIZE = 2 * 1024 * 1024  # 2MB untuk Foto
+MAX_DOC_SIZE = 5 * 1024 * 1024    # 5MB untuk Dokumen
 
 # --- 1. FORM INPUT MATERI ---
 class MateriForm(forms.ModelForm):
     class Meta:
         model = Materi
         fields = [
-            'nama_pengupload', 'email', 'prodi', 'semester', 
-            'mata_kuliah', 'judul', 'link_google_drive',  
-            'file_materi', 'deskripsi'
+            'prodi', 'semester', 'mata_kuliah', 'dosen',
+            'judul', 'link_google_drive', 'file_materi', 'cover'
         ]
         
         widgets = {
-            'nama_pengupload': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Lengkap Kamu'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'email@mahasiswa.ac.id'}),
             'prodi': forms.Select(attrs={'class': 'form-select'}),
             'semester': forms.Select(attrs={'class': 'form-select'}),
             'mata_kuliah': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Contoh: Rangkaian Listrik'}),
-            'judul': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Judul Materi'}),
+            'dosen': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Dosen Pengampu'}),
+            'judul': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Judul Materi / Bab'}),
             'link_google_drive': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://drive.google.com/...'}),
             'file_materi': forms.ClearableFileInput(attrs={'class': 'form-control'}),
-            'deskripsi': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Keterangan tambahan...'}),
+            'cover': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
-    # Validasi Ukuran File Materi (Opsional jika ingin dibatasi juga)
+    # Validasi File Materi (PDF/DOC)
     def clean_file_materi(self):
         file = self.cleaned_data.get('file_materi')
         if file:
-            if file.size > 5 * 1024 * 1024: # Materi kita kasih 5MB
-                raise ValidationError("Ukuran file materi terlalu besar! Maksimal 5MB.")
+            if file.size > MAX_DOC_SIZE:
+                raise ValidationError("Ukuran file terlalu besar! Maksimal 5MB.")
         return file
-
 
 # --- 2. FORM INPUT PRESTASI ---
 class PrestasiForm(forms.ModelForm):
     class Meta:
         model = Prestasi
         fields = [
-            'nama_mahasiswa', 'prodi', 'no_hp',
+            'nama_mahasiswa', 'nim', 'prodi', 'no_hp',
             'nama_lomba', 'penyelenggara', 'url_penyelenggara',
             'jenis_lomba', 'tingkat', 'kategori',
             'juara', 'tempat_tanggal', 'no_sk',
@@ -49,7 +47,8 @@ class PrestasiForm(forms.ModelForm):
         ]
         
         widgets = {
-            'nama_mahasiswa': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Lengkap (Sertakan NIM)'}),
+            'nama_mahasiswa': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Lengkap'}),
+            'nim': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'NIM Mahasiswa'}),
             'prodi': forms.Select(attrs={'class': 'form-select'}),
             'no_hp': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '08xxxxxxxxxx'}),
             'nama_lomba': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nama Kompetisi'}),
@@ -66,15 +65,12 @@ class PrestasiForm(forms.ModelForm):
             'is_public': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
-    # --- VALIDASI KHUSUS FOTO PRESTASI ---
+    # Validasi Foto Prestasi
     def clean_foto_diri(self):
         foto = self.cleaned_data.get('foto_diri')
         if foto:
-            # Cek Ukuran (2MB)
-            if foto.size > MAX_UPLOAD_SIZE:
+            if foto.size > MAX_IMAGE_SIZE:
                 raise ValidationError("Ukuran foto terlalu besar! Maksimal 2MB.")
-            # Cek Tipe File (Opsional, Django ImageField biasanya sudah cek ini)
-            return foto
         return foto
 
 
@@ -90,15 +86,13 @@ class KaryaForm(forms.ModelForm):
             'prodi': forms.Select(attrs={'class': 'form-select'}),
             'deskripsi': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': 'Jelaskan cara kerja alat...'}),
             'gambar_cover': forms.ClearableFileInput(attrs={'class': 'form-control'}),
-            
-            # Ubah Placeholder jadi Google Drive
-            'link_video': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Link Google Drive Video (Akses Public)'}),
+            'link_video': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Link YouTube / Google Drive Video'}),
         }
 
-    # --- VALIDASI KHUSUS FOTO KARYA ---
+    # Validasi Foto Cover Karya
     def clean_gambar_cover(self):
         gambar = self.cleaned_data.get('gambar_cover')
         if gambar:
-            if gambar.size > MAX_UPLOAD_SIZE:
+            if gambar.size > MAX_IMAGE_SIZE:
                 raise ValidationError("Ukuran gambar terlalu besar! Maksimal 2MB.")
         return gambar

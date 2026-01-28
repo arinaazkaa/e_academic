@@ -5,85 +5,67 @@
 
 {% block content %}
 
-<section style="
-    /* Base Color Biru Gelap */
-    background-color: #0f172a;
-
-    /* Lapis 1: Motif Bintik Transparan Halus */
-    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    /* Lapis 2: Gradient Biru */
-                      linear-gradient(to bottom, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 1));
-    
-    background-size: 20px 20px, cover;
-    background-position: center;
-    position: relative;
-    
-    /* Layout Positioning - DIPERLEBAR & DITURUNKAN */
-    margin-top: -85px; 
-    padding-top: 220px;    /* Diturunkan agar pas di tengah (sebelumnya 180px) */
-    padding-bottom: 180px; /* Ditambah agar area bawah lega */
-    color: white;
-    text-align: center;">
-
+<section class="hero-header">
     <div class="container position-relative animate-up" style="z-index: 2;">
         
-        <h1 class="fw-bold display-4 text-white mb-3 px-lg-5" style="line-height: 1.2; text-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+        <h1 class="fw-bold text-white mb-3 hero-title">
             {{ karya.judul_karya }}
         </h1>
         
-        <div class="mb-2">
-            <span class="fs-5 text-white-50 fw-light">Oleh:</span>
-            <span class="fs-5 text-white fw-bold ms-1">{{ karya.pembuat }}</span>
+        <div class="text-white opacity-90 fs-5 mb-1">
+            Oleh: <span class="fw-bold">{{ karya.pembuat }}</span>
         </div>
 
-        <div>
-            <span class="text-info small text-uppercase fw-bold" style="letter-spacing: 1px; opacity: 0.9;">
-                {{ karya.get_prodi_display }}
-            </span>
+        <div class="text-white-50 fs-6">
+            {{ karya.get_prodi_display }}
         </div>
 
     </div>
 </section>
 
-<section class="py-5" style="background-color: #f8f9fa; min-height: 80vh;">
-    <div class="container" style="position: relative; z-index: 10; margin-top: -80px;">
+<section class="main-body">
+    <div class="container content-container">
         <div class="row gx-lg-5 gy-4">
             
             <div class="col-lg-8 animate-up delay-1">
                 
-                <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4 bg-white">
+                <div class="card border-0 shadow rounded-4 overflow-hidden mb-4 bg-white">
                     {% if karya.gambar_cover %}
-                        <img src="{{ karya.gambar_cover.url }}" class="img-fluid w-100" alt="{{ karya.judul_karya }}">
+                        <div class="ratio ratio-16x9">
+                            <img src="{{ karya.gambar_cover.url }}" class="object-fit-cover" alt="{{ karya.judul_karya }}">
+                        </div>
                     {% else %}
-                        <div class="bg-light d-flex align-items-center justify-content-center text-muted" style="height: 400px;">
+                        <div class="bg-light d-flex align-items-center justify-content-center text-muted ratio ratio-16x9">
                             <div class="text-center">
                                 <i class="fa fa-image fa-3x opacity-25 mb-3"></i>
-                                <p>Cover Tidak Tersedia</p>
+                                <p class="mb-0">Cover Tidak Tersedia</p>
                             </div>
                         </div>
                     {% endif %}
                 </div>
                 
                 <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border border-light">
-                    <h5 class="fw-bold text-dark mb-4 border-bottom pb-3">
-                        Tentang Karya Ini
-                    </h5>
-                    <div class="text-secondary description-content" style="line-height: 1.8; font-size: 1rem; text-align: justify;">
+                    <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+                        <i class="fa fa-align-left text-primary me-3 fs-4"></i>
+                        <h5 class="fw-bold text-dark m-0">Tentang Karya Ini</h5>
+                    </div>
+                    
+                    <div class="text-secondary description-content">
                         {{ karya.deskripsi|linebreaks }}
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-4 animate-up delay-2">
-                <div class="sticky-lg-top" style="top: 100px;">
+                <div class="sidebar-wrapper">
                     
                     <div class="bg-white p-4 rounded-4 shadow-sm mb-4 border-top border-4 border-danger">
                         <h6 class="fw-bold mb-2 text-dark">Video Demo</h6>
                         <p class="text-muted small mb-4">Lihat cara kerja karya ini secara langsung.</p>
                         
                         {% if karya.link_video %}
-                            <a href="{{ karya.link_video }}" target="_blank" class="btn btn-danger w-100 rounded-pill py-3 fw-bold shadow-sm mb-3 hover-scale">
-                                <i class="fa fa-youtube-play me-2"></i> Tonton Video
+                            <a href="{{ karya.link_video }}" target="_blank" class="btn btn-danger w-100 rounded-pill py-3 fw-bold shadow-sm mb-3 hover-scale d-flex align-items-center justify-content-center">
+                                <i class="fa fa-play-circle me-2 fs-5"></i> Tonton Video
                             </a>
                         {% else %}
                             <button class="btn btn-secondary w-100 rounded-pill py-3 fw-bold disabled mb-3 opacity-75">
@@ -97,14 +79,14 @@
                     </div>
 
                     <div class="bg-white p-4 rounded-4 shadow-sm">
-                        <h6 class="fw-bold text-uppercase text-muted small mb-3" style="letter-spacing: 1px;">Informasi Tambahan</h6>
+                        <h6 class="fw-bold text-uppercase text-muted small mb-3 ls-1">Informasi Tambahan</h6>
                         <ul class="list-unstyled mb-0">
                             <li class="d-flex justify-content-between py-3 border-bottom border-light">
-                                <span class="text-muted small">Tanggal Upload</span>
+                                <span class="text-muted small"><i class="fa fa-calendar me-2"></i>Tanggal Upload</span>
                                 <span class="fw-bold text-dark small">{{ karya.created_at|date:"d M Y" }}</span>
                             </li>
                             <li class="d-flex justify-content-between py-3">
-                                <span class="text-muted small">Tipe Karya</span>
+                                <span class="text-muted small"><i class="fa fa-tag me-2"></i>Tipe Karya</span>
                                 <span class="fw-bold text-dark small">Inovasi Mahasiswa</span>
                             </li>
                         </ul>
@@ -118,13 +100,81 @@
 </section>
 
 <style>
-    /* Animasi Masuk */
+    /* HERO SECTION STYLING */
+    .hero-header {
+        background-color: #0f172a;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                          linear-gradient(to bottom, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 1));
+        background-size: 20px 20px, cover;
+        background-position: center;
+        position: relative;
+        text-align: center;
+        color: white;
+        padding-top: 200px;
+        padding-bottom: 150px;
+        margin-top: -85px; 
+    }
+
+    .content-container {
+        position: relative;
+        z-index: 10;
+        margin-top: -80px; 
+    }
+    
+    .main-body {
+        background-color: #f8f9fa;
+        min-height: 80vh;
+        padding-bottom: 5rem;
+    }
+
+    .hero-title {
+        font-size: 3.5rem; 
+        text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        line-height: 1.2;
+    }
+    
+    .description-content {
+        line-height: 1.8;
+        font-size: 1rem;
+        text-align: justify;
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .sidebar-wrapper {
+        position: sticky;
+        top: 100px; 
+    }
+
+    /* RESPONSIVE HP */
+    @media (max-width: 991px) {
+        .hero-header {
+            padding-top: 150px;
+            padding-bottom: 100px;
+        }
+        .hero-title {
+            font-size: 2.2rem;
+        }
+        .content-container {
+            margin-top: -50px;
+        }
+        .sidebar-wrapper {
+            position: static;
+        }
+    }
+
+    /* ANIMASI */
     .animate-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease forwards; }
-    .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; }
+    .delay-1 { animation-delay: 0.2s; } 
+    .delay-2 { animation-delay: 0.4s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* Button Hover */
     .hover-scale:hover { transform: translateY(-2px); transition: 0.2s; }
+    .ls-1 { letter-spacing: 1px; }
 </style>
 
 {% endblock %}

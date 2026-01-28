@@ -5,72 +5,76 @@
 
 {% block content %}
 
-<section style="
-    background: linear-gradient(to right, rgba(0, 30, 60, 0.98) 20%, rgba(0, 51, 102, 0.9) 100%), 
-                url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1920&auto=format&fit=crop');
-    background-size: cover; background-position: center; background-attachment: fixed;
-    padding-top: 180px; padding-bottom: 100px; margin-top: -85px; 
-    color: white; position: relative;">
+<section class="hero-calendar">
     
-    <div class="container animate-up text-center" style="position: relative; z-index: 2;">
-        <h1 class="fw-bold display-5 mb-2 text-white" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-            <i class="fa fa-calendar-alt me-3"></i>Kalender Akademik
+    <div class="hero-pattern"></div>
+
+    <div class="container animate-up text-center position-relative" style="z-index: 2;">
+        <div class="mb-3">
+            <div class="icon-wrapper mx-auto">
+                <i class="fa fa-calendar-alt text-warning" style="font-size: 40px; text-shadow: 0 0 25px rgba(255,193,7,0.8);"></i>
+            </div>
+        </div>
+        <h1 class="fw-bold display-5 mb-3 text-white hero-title">
+            KALENDER AKADEMIK
         </h1>
-        <p class="text-white opacity-75 fs-5">Timeline kegiatan akademik resmi semester ini.</p>
+        <p class="lead text-white-50 mx-auto hero-desc">
+            Timeline kegiatan akademik resmi semester ini.<br class="d-none d-md-block">
+            Pantau jadwal penting agar tidak terlewat.
+        </p>
     </div>
 </section>
 
-<section class="py-5" style="background-color: #f8f9fa; min-height: 80vh;">
-    <div class="container" style="margin-top: -60px; position: relative; z-index: 10;">
+<section class="main-section">
+    <div class="container content-container">
         
-        <div class="row g-5">
+        <div class="row g-lg-5 g-4">
             
             <div class="col-lg-8 animate-up delay-1">
                 
-                <div class="bg-white rounded-4 shadow-sm overflow-hidden p-4">
+                <div class="bg-white rounded-4 shadow-sm overflow-hidden p-4 p-md-5 position-relative">
                     
+                    <div class="timeline-line"></div>
+
                     {% regroup agenda_list by tanggal_mulai|date:"F Y" as agenda_by_month %}
 
                     {% for month in agenda_by_month %}
-                        <div class="d-flex align-items-center mb-3 mt-2">
-                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold text-uppercase border border-primary border-opacity-25" style="font-size: 0.85rem; letter-spacing: 0.5px;">
-                                {{ month.grouper }}
+                        <div class="d-flex align-items-center mb-4 mt-2 position-relative z-1">
+                            <span class="badge bg-primary text-white px-3 py-2 rounded-pill fw-bold text-uppercase shadow-sm" style="font-size: 0.85rem; letter-spacing: 1px;">
+                                <i class="fa fa-calendar me-2"></i> {{ month.grouper }}
                             </span>
-                            <div class="flex-grow-1 ms-3 border-bottom"></div>
                         </div>
 
-                        <div class="mb-4">
+                        <div class="mb-5 position-relative z-1">
                             {% for agenda in month.list %}
-                            <div class="row g-0 py-2 border-bottom border-light hover-item transition rounded-3 align-items-center">
+                            <div class="agenda-item row g-0 py-3 mb-3 border bg-white border-light hover-item rounded-3 align-items-center position-relative shadow-sm-hover">
                                 
-                                <div class="col-auto ps-3 pe-3">
-                                    <div class="date-box bg-white border border-2 border-{{ agenda.warna }} text-{{ agenda.warna }} rounded-3 text-center shadow-sm d-flex flex-column justify-content-center">
-                                        <span class="d-block fw-bold fs-4 lh-1">{{ agenda.tanggal_mulai|date:"d" }}</span>
-                                        <span class="d-block fw-bold text-uppercase" style="font-size: 0.6rem; margin-top: 2px;">{{ agenda.tanggal_mulai|date:"M" }}</span>
+                                <div class="col-auto ps-3 pe-3 border-end border-light">
+                                    <div class="date-box text-{{ agenda.warna }} rounded-3 text-center d-flex flex-column justify-content-center">
+                                        <span class="d-block fw-bold display-6 lh-1">{{ agenda.tanggal_mulai|date:"d" }}</span>
+                                        <span class="d-block fw-bold text-uppercase small mt-1">{{ agenda.tanggal_mulai|date:"M" }}</span>
                                     </div>
                                 </div>
 
-                                <div class="col py-1 pe-2">
-                                    <h6 class="fw-bold text-dark mb-1" style="font-size: 1rem; line-height: 1.2;">
+                                <div class="col py-1 px-3">
+                                    <h6 class="fw-bold text-dark mb-1 agenda-title">
                                         {{ agenda.kegiatan }}
                                     </h6>
                                     
-                                    <div class="text-muted d-flex align-items-center flex-wrap gap-2 mt-1" style="font-size: 0.85rem;">
-                                        
-                                        <span class="d-flex align-items-center text-secondary">
-                                            <i class="fa fa-clock-o me-3 text-secondary"></i> 
-                                            
+                                    <div class="text-muted d-flex align-items-center flex-wrap gap-2 mt-2 small">
+                                        <span class="d-flex align-items-center text-secondary bg-light px-2 py-1 rounded">
+                                            <i class="fa fa-clock-o me-2 text-primary"></i> 
                                             {% if agenda.tanggal_selesai %}
-                                                {{ agenda.tanggal_mulai|date:"d M" }} 
-                                                <i class="fa fa-arrow-right mx-2 text-muted" style="font-size: 0.7rem;"></i> 
-                                                {{ agenda.tanggal_selesai|date:"d M Y" }}
+                                                {{ agenda.tanggal_mulai|date:"d M" }} - {{ agenda.tanggal_selesai|date:"d M Y" }}
                                             {% else %}
                                                 {{ agenda.tanggal_mulai|date:"d F Y" }}
                                             {% endif %}
                                         </span>
 
                                         {% if agenda.warna == 'danger' %}
-                                            <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-2 py-0 ms-2" style="font-size: 0.7rem;">Penting</span>
+                                            <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-2 py-1">
+                                                <i class="fa fa-exclamation-circle me-1"></i> Penting
+                                            </span>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -80,10 +84,10 @@
 
                     {% empty %}
                         <div class="text-center py-5">
-                            <div class="bg-light rounded-circle d-inline-flex p-3 mb-3">
-                                <i class="fa fa-calendar-o fa-2x text-muted opacity-25"></i>
+                            <div class="bg-light rounded-circle d-inline-flex p-4 mb-3">
+                                <i class="fa fa-calendar-times-o fa-3x text-muted opacity-25"></i>
                             </div>
-                            <h6 class="text-muted fw-bold">Belum ada agenda</h6>
+                            <h6 class="text-muted fw-bold">Belum ada agenda akademik yang dirilis.</h6>
                         </div>
                     {% endfor %}
 
@@ -91,43 +95,42 @@
             </div>
 
             <div class="col-lg-4 animate-up delay-2">
-                <div class="sticky-lg-top" style="top: 100px;">
+                <div class="sidebar-wrapper">
                     
-                    <div class="card border-0 shadow rounded-4 overflow-hidden text-center mb-3 text-white" 
+                    <div class="card border-0 shadow rounded-4 overflow-hidden text-center mb-4 text-white position-relative" 
                          style="background: linear-gradient(135deg, #0d6efd 0%, #004085 100%);">
                         
-                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; 
-                                    background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 10px 10px;"></div>
+                        <div class="sidebar-pattern"></div>
                         
-                        <div class="card-body p-4 position-relative" style="z-index: 2;">
-                            <div class="bg-white bg-opacity-20 rounded-circle d-inline-flex p-3 mb-3 backdrop-blur">
-                                <i class="fa fa-file-pdf-o fa-2x"></i>
+                        <div class="card-body p-4 position-relative z-1">
+                            <div class="bg-white bg-opacity-20 rounded-circle d-inline-flex p-3 mb-3 backdrop-blur shadow-sm">
+                                <i class="fa fa-file-pdf-o fa-2x text-white"></i>
                             </div>
                             
-                            <h6 class="fw-bold mb-2">Dokumen Resmi PDF</h6>
-                            <p class="text-white-50 small mb-3 px-2">
-                                Download kalender akademik versi lengkap (SK Rektor).
+                            <h5 class="fw-bold mb-2">Dokumen Resmi</h5>
+                            <p class="text-white-50 small mb-4 px-2">
+                                Unduh Kalender Akademik versi lengkap (SK Rektor) dalam format PDF.
                             </p>
                             
                             {% if file_kalender %}
-                                <a href="{{ file_kalender.file_pdf.url }}" target="_blank" class="btn btn-white text-primary w-100 rounded-pill fw-bold py-2 shadow-lg hover-scale btn-sm">
-                                    <i class="fa fa-download me-2"></i> Download File
+                                <a href="{{ file_kalender.file_pdf.url }}" target="_blank" class="btn btn-white text-primary w-100 rounded-pill fw-bold py-3 shadow-lg hover-scale">
+                                    <i class="fa fa-download me-2"></i> Download PDF
                                 </a>
-                                <div class="mt-2 small text-white-50" style="font-size: 0.7rem;">
-                                    Update: {{ file_kalender.updated_at|date:"d M Y" }}
+                                <div class="mt-3 small text-white-50" style="font-size: 0.75rem;">
+                                    <i class="fa fa-history me-1"></i> Update: {{ file_kalender.updated_at|date:"d M Y" }}
                                 </div>
                             {% else %}
-                                <button class="btn btn-secondary w-100 rounded-pill fw-bold py-2 disabled border-0 bg-opacity-50 btn-sm">
+                                <button class="btn btn-secondary w-100 rounded-pill fw-bold py-3 disabled border-0 bg-opacity-50">
                                     PDF Belum Tersedia
                                 </button>
                             {% endif %}
                         </div>
                     </div>
 
-                    <div class="alert alert-light border shadow-sm rounded-4 d-flex align-items-start p-3">
-                        <i class="fa fa-info-circle fs-6 me-3 text-primary mt-1"></i>
-                        <span class="small text-muted" style="line-height: 1.4; font-size: 0.8rem;">
-                            <strong>Catatan:</strong> Jadwal dapat berubah sewaktu-waktu mengikuti kebijakan Fakultas.
+                    <div class="alert alert-light border-0 shadow-sm rounded-4 d-flex align-items-start p-4 bg-white">
+                        <i class="fa fa-info-circle fs-5 me-3 text-primary mt-1"></i>
+                        <span class="text-muted small" style="line-height: 1.6;">
+                            <strong>Catatan:</strong> Jadwal kegiatan dapat berubah sewaktu-waktu mengikuti kebijakan Fakultas atau Universitas.
                         </span>
                     </div>
 
@@ -139,33 +142,79 @@
 </section>
 
 <style>
-    /* Styling Date Box */
-    .date-box {
-        width: 55px;
-        height: 55px;
-        transition: transform 0.2s ease;
-    }
-    
-    .hover-item {
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        border-left: 3px solid transparent; 
+    /* 1. HERO SECTION */
+    .hero-calendar {
+        background: linear-gradient(to right, rgba(0, 30, 60, 0.95) 20%, rgba(0, 51, 102, 0.9) 100%), 
+                    url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1920&auto=format&fit=crop');
+        background-size: cover; 
+        background-position: center; 
+        background-attachment: fixed; /* Laptop Only */
+        padding-top: 180px; 
+        padding-bottom: 140px; 
+        margin-top: -85px; 
+        text-align: center; color: white;
+        position: relative; overflow: hidden;
     }
 
+    .hero-pattern {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+        background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); 
+        opacity: 0.1; z-index: 0;
+    }
+
+    .icon-wrapper {
+        width: 80px; height: 80px; 
+        background: rgba(255,255,255,0.1); 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        backdrop-filter: blur(5px);
+    }
+
+    /* 2. LAYOUT & TIMELINE */
+    .main-section { background-color: #f8f9fa; min-height: 80vh; padding-bottom: 5rem; }
+    .content-container { margin-top: -100px; position: relative; z-index: 10; }
+
+    /* Garis Vertikal Timeline */
+    .timeline-line {
+        position: absolute;
+        top: 40px; bottom: 40px; left: 60px; /* Posisi di belakang icon */
+        width: 2px;
+        background: repeating-linear-gradient(to bottom, #dee2e6 0, #dee2e6 10px, transparent 10px, transparent 20px);
+        z-index: 0;
+    }
+
+    /* 3. AGENDA ITEM */
+    .agenda-item { transition: all 0.3s ease; }
     .hover-item:hover { 
-        background-color: #f1f5f9; 
-        transform: translateX(10px); 
-        border-left-color: #0d6efd; 
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
-    }
-    
-    .hover-item:hover .date-box {
-        transform: scale(1.1); 
-        border-color: #0d6efd !important; 
+        transform: translateX(5px); 
+        border-color: #0d6efd !important;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
     }
 
+    .date-box { min-width: 60px; }
+    .agenda-title { font-size: 1.1rem; line-height: 1.4; }
+
+    /* 4. SIDEBAR */
+    .sidebar-wrapper { position: sticky; top: 100px; }
+    .sidebar-pattern {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+        opacity: 0.1; background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 10px 10px;
+    }
     .btn-white { background-color: white; color: #0d6efd; border: none; }
-    .hover-scale:hover { transform: scale(1.02); }
+    .hover-scale:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important; }
     .backdrop-blur { backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+
+    /* 5. RESPONSIVE FIXES */
+    @media (max-width: 991px) {
+        .hero-calendar {
+            padding-top: 140px; padding-bottom: 100px;
+            background-attachment: scroll; /* Fix Jitter */
+        }
+        .content-container { margin-top: -60px; }
+        .sidebar-wrapper { position: static; margin-top: 20px; } /* Disable Sticky on Mobile */
+        .timeline-line { display: none; } /* Sembunyikan garis di HP agar simple */
+    }
+
+    /* ANIMASI */
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
     .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }

@@ -5,36 +5,28 @@
 
 {% block content %}
 
-<section style="
-    background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
-                url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1920&auto=format&fit=crop');
-    background-size: cover; 
-    background-position: center; 
-    background-attachment: fixed;
-    padding-top: 160px; padding-bottom: 140px; margin-top: -85px; 
-    text-align: center; color: white;
-    position: relative; overflow: hidden;">
+<section class="hero-upload">
     
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-                background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); 
-                opacity: 0.1; z-index: 0;"></div>
+    <div class="hero-pattern"></div>
 
     <div class="container animate-up position-relative" style="z-index: 2;">
         <div class="mb-3">
-            <i class="fa fa-lightbulb-o text-warning" style="font-size: 50px; text-shadow: 0 0 25px rgba(255,193,7,0.6);"></i>
+            <div class="icon-wrapper mx-auto">
+                <i class="fa fa-lightbulb-o text-warning" style="font-size: 40px; text-shadow: 0 0 25px rgba(255,193,7,0.8);"></i>
+            </div>
         </div>
-        <h1 class="fw-bold display-5 mb-3 text-white" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5); letter-spacing: 1px;">
+        <h1 class="fw-bold display-5 mb-3 text-white hero-title">
             UPLOAD KARYA INOVASI
         </h1>
-        <p class="lead text-white-50 mx-auto" style="max-width: 700px; font-size: 1.1rem;">
-            Punya alat Tugas Akhir atau Project keren? Jangan biarkan berdebu!<br>
+        <p class="lead text-white-50 mx-auto hero-desc">
+            Punya alat Tugas Akhir atau Project keren? Jangan biarkan berdebu!<br class="d-none d-md-block">
             Pamerkan karyamu di sini agar menginspirasi mahasiswa lainnya.
         </p>
     </div>
 </section>
 
-<section class="py-5" style="background-color: #f8f9fa;">
-    <div class="container" style="margin-top: -100px; position: relative; z-index: 10;">
+<section class="form-section">
+    <div class="container form-container">
         
         <div class="row justify-content-center">
             <div class="col-lg-9 animate-up delay-1">
@@ -51,7 +43,9 @@
                         
                         {% if messages %}
                             {% for message in messages %}
-                                <div class="alert alert-{{ message.tags }} rounded-pill text-center small mb-4 shadow-sm border-0">
+                                <div class="alert alert-{{ message.tags }} rounded-3 text-center small mb-4 shadow-sm border-0">
+                                    {% if message.tags == 'error' %}<i class="fa fa-exclamation-circle me-1"></i>{% endif %}
+                                    {% if message.tags == 'success' %}<i class="fa fa-check-circle me-1"></i>{% endif %}
                                     {{ message }}
                                 </div>
                             {% endfor %}
@@ -60,7 +54,7 @@
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
 
-                            <h6 class="fw-bold text-primary text-uppercase mb-4" style="font-size: 0.8rem; letter-spacing: 1px;">
+                            <h6 class="fw-bold text-primary text-uppercase mb-4 section-title">
                                 <i class="fa fa-info-circle me-1"></i> Identitas Karya
                             </h6>
 
@@ -77,7 +71,7 @@
 
                                 <div class="col-md-6">
                                     <label class="form-label small fw-bold text-muted">Program Studi <span class="text-danger">*</span></label>
-                                    <select name="prodi" class="form-select bg-light border-0 py-3 px-3" style="cursor: pointer;" required>
+                                    <select name="prodi" class="form-select bg-light border-0 py-3 px-3 cursor-pointer" required>
                                         <option value="" selected disabled>-- Pilih Prodi --</option>
                                         <option value="PTIK">Pendidikan Teknik Informatika & Komputer</option>
                                         <option value="PTE">Pendidikan Teknik Elektro</option>
@@ -94,7 +88,7 @@
 
                             <hr class="border-light my-5">
 
-                            <h6 class="fw-bold text-success text-uppercase mb-4" style="font-size: 0.8rem; letter-spacing: 1px;">
+                            <h6 class="fw-bold text-success text-uppercase mb-4 section-title">
                                 <i class="fa fa-image me-1"></i> Visualisasi & Demo
                             </h6>
 
@@ -103,21 +97,21 @@
                                     <label class="form-label small fw-bold text-muted">Foto Cover Alat <span class="text-danger">*</span></label>
                                     
                                     <div class="upload-area p-5 text-center rounded-3 border-2 border-dashed bg-light position-relative cursor-pointer hover-effect">
-                                        <input type="file" name="gambar_cover" class="file-input-absolute" required onchange="updateFileName(this)">
+                                        <input type="file" name="gambar_cover" class="file-input-absolute" required onchange="updateFileName(this)" accept="image/*">
                                         
                                         <div id="upload-placeholder">
-                                            <div class="mb-3">
+                                            <div class="mb-3 bounce-hover">
                                                 <i class="fa fa-cloud-upload fa-3x text-primary opacity-50"></i>
                                             </div>
                                             <h6 class="fw-bold text-dark">Klik untuk Upload Foto</h6>
                                             <p class="small text-muted mb-0">Format: JPG, PNG. Maksimal 2MB.</p>
                                         </div>
 
-                                        <div id="file-info" class="d-none mt-2">
-                                            <span class="badge bg-success px-3 py-2 rounded-pill">
-                                                <i class="fa fa-check me-1"></i> <span id="filename-text">foto.jpg</span>
-                                            </span>
-                                            <p class="small text-muted mt-2 mb-0">Klik lagi untuk mengganti</p>
+                                        <div id="file-info" class="d-none mt-2 animate-up">
+                                            <div class="badge bg-success px-4 py-3 rounded-pill shadow-sm">
+                                                <i class="fa fa-check-circle me-2"></i> <span id="filename-text" class="fw-bold">foto.jpg</span>
+                                            </div>
+                                            <p class="small text-muted mt-3 mb-0">Klik area ini lagi jika ingin mengganti foto.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +119,7 @@
                                 <div class="col-12">
                                     <label class="form-label small fw-bold text-muted">Link Video Demo (Opsional)</label>
                                     <div class="input-group">
-                                        <span class="input-group-text bg-light border-0 ps-3"><i class="fa fa-link text-muted"></i></span>
+                                        <span class="input-group-text bg-light border-0 ps-3"><i class="fa fa-youtube-play text-danger"></i></span>
                                         <input type="url" name="link_video" class="form-control bg-light border-0 py-3" placeholder="https://youtube.com/...">
                                     </div>
                                     <div class="form-text small mt-2 text-muted">
@@ -135,8 +129,7 @@
                             </div>
 
                             <div class="mt-5 pt-3">
-                                <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 fw-bold shadow-lg hover-scale" 
-                                        style="background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%); border: none;">
+                                <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 fw-bold shadow-lg hover-scale gradient-btn">
                                     <i class="fa fa-paper-plane me-2"></i> Kirim Karya Sekarang
                                 </button>
                                 <div class="text-center mt-3">
@@ -156,28 +149,76 @@
 </section>
 
 <style>
-    /* 1. Upload Area Custom */
-    .border-dashed { border-style: dashed !important; border-color: #cbd5e1 !important; }
-    .upload-area { transition: all 0.3s ease; background-color: #f8f9fa; }
-    .upload-area:hover { border-color: #0d6efd !important; background-color: #eef2ff; }
-    
-    /* Trik menyembunyikan input file tapi tetap bisa diklik */
-    .file-input-absolute {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        opacity: 0; cursor: pointer; z-index: 5;
+    /* 1. HERO SECTION */
+    .hero-upload {
+        background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
+                    url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1920&auto=format&fit=crop');
+        background-size: cover; 
+        background-position: center; 
+        background-attachment: fixed; /* Laptop Only */
+        padding-top: 180px; 
+        padding-bottom: 140px; 
+        margin-top: -85px; 
+        text-align: center; color: white;
+        position: relative; overflow: hidden;
     }
 
-    /* 2. Form Styles */
+    .hero-pattern {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+        background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); 
+        opacity: 0.1; z-index: 0;
+    }
+
+    .icon-wrapper {
+        width: 80px; height: 80px; 
+        background: rgba(255,255,255,0.1); 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        backdrop-filter: blur(5px);
+    }
+    
+    .hero-desc { max-width: 700px; font-size: 1.1rem; }
+
+    /* 2. FORM & LAYOUT */
+    .form-section { background-color: #f8f9fa; padding-bottom: 5rem; }
+    .form-container { margin-top: -100px; position: relative; z-index: 10; }
+
+    .section-title { font-size: 0.8rem; letter-spacing: 1px; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 10px; display: inline-block; }
+
     .form-control:focus, .form-select:focus {
         box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
         border: 1px solid #0d6efd;
         background-color: #fff;
     }
+    .cursor-pointer { cursor: pointer; }
+
+    /* 3. UPLOAD AREA */
+    .border-dashed { border-style: dashed !important; border-color: #cbd5e1 !important; }
+    .upload-area { transition: all 0.3s ease; background-color: #f8f9fa; overflow: hidden; }
+    .upload-area:hover { border-color: #0d6efd !important; background-color: #eef2ff; }
+    .upload-area:hover .bounce-hover { transform: translateY(-5px); transition: 0.3s; }
     
-    .hover-scale:hover { transform: scale(1.02); transition: 0.3s; }
+    .file-input-absolute {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        opacity: 0; cursor: pointer; z-index: 5;
+    }
+
+    /* 4. TOMBOL */
+    .gradient-btn { background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%); border: none; }
+    .hover-scale:hover { transform: translateY(-2px); transition: 0.3s; }
     .hover-text-primary:hover { color: #0d6efd !important; }
 
-    /* Animasi */
+    /* 5. RESPONSIVE (MOBILE FIXES) */
+    @media (max-width: 991px) {
+        .hero-upload {
+            padding-top: 140px; padding-bottom: 100px;
+            background-attachment: scroll; /* Fix Jitter di HP */
+        }
+        .hero-title { font-size: 2rem; }
+        .form-container { margin-top: -60px; }
+        .card-body { padding: 1.5rem !important; }
+    }
+
+    /* ANIMASI */
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
     .delay-1 { animation-delay: 0.2s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
@@ -191,9 +232,11 @@
         const filenameText = document.getElementById('filename-text');
 
         if (file) {
-            placeholder.classList.add('d-none'); // Sembunyikan placeholder
-            fileInfo.classList.remove('d-none'); // Munculkan info file
-            filenameText.textContent = file.name; // Ganti teks nama file
+            // Sembunyikan placeholder icon
+            placeholder.classList.add('d-none');
+            // Munculkan info nama file
+            fileInfo.classList.remove('d-none');
+            filenameText.textContent = file.name;
         }
     }
 </script>
