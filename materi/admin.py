@@ -11,7 +11,6 @@ class MateriAdmin(admin.ModelAdmin):
     date_hierarchy = 'tanggal_upload'
     list_per_page = 20
 
-    # Mengelompokkan form agar rapi
     fieldsets = (
         ('Info Akademik', {
             'fields': ('prodi', 'semester', 'mata_kuliah', 'dosen')
@@ -24,7 +23,6 @@ class MateriAdmin(admin.ModelAdmin):
         }),
     )
 
-    # Mewarnai status agar mudah dilihat
     def status_label(self, obj):
         if obj.status == 'approved':
             color = 'green'
@@ -167,13 +165,12 @@ class AgendaAdmin(admin.ModelAdmin):
     search_fields = ('kegiatan',)
 
     def color_preview(self, obj):
-        # Menampilkan kotak warna sesuai pilihan user
         color_map = {
-            'primary': '#0d6efd', # Biru
-            'danger': '#dc3545',  # Merah
-            'warning': '#ffc107', # Kuning
-            'success': '#198754', # Hijau
-            'info': '#0dcaf0'     # Cyan
+            'primary': '#0d6efd',
+            'danger': '#dc3545',
+            'warning': '#ffc107',
+            'success': '#198754',
+            'info': '#0dcaf0'
         }
         hex_color = color_map.get(obj.warna, '#6c757d')
         return format_html('<div style="width: 20px; height: 20px; background-color: {}; border-radius: 50%;"></div>', hex_color)

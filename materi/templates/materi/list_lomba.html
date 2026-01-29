@@ -21,7 +21,7 @@
         </h1>
         
         <p class="lead text-white-50 mx-auto hero-desc">
-            Wadah informasi kompetisi akademik, riset, dan inovasi teknologi<br class="d-none d-md-block">
+            Wadah informasi kompetisi akademik, riset, dan inovasi teknologi<br>
             untuk mahasiswa berprestasi.
         </p>
 
@@ -69,7 +69,7 @@
 
         <div class="row g-4">
             {% for lomba in lomba_list %}
-            <div class="col-lg-3 col-md-6 col-sm-12 reveal-on-scroll">
+            <div class="col-lg-3 reveal-on-scroll">
                 <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden lomba-card bg-white">
                     <div class="position-relative overflow-hidden" style="height: 180px;">
                         <a href="{% url 'detail_lomba' lomba.id %}" class="d-block w-100 h-100">
@@ -101,7 +101,7 @@
 
                     <div class="card-body p-3 d-flex flex-column">
                         <h6 class="fw-bold text-dark mb-2 text-truncate-2 card-title-link">
-                            <a href="{% url 'detail_lomba' lomba.id %}" class="text-decoration-none text-dark title-hover">
+                            <a href="{% url 'detail_lomba' lomba.id %}" class="text-dark text-decoration-none title-hover">
                                 {{ lomba.judul }}
                             </a>
                         </h6>
@@ -147,7 +147,6 @@
 </section>
 
 <style>
-    /* 1. HERO STYLING */
     .hero-section {
         background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
                     url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1920&auto=format&fit=crop');
@@ -157,7 +156,7 @@
         position: relative;
         margin-top: -85px; 
         padding-top: 180px; 
-        padding-bottom: 160px; /* DITINGKATKAN agar area hero lebih luas */
+        padding-bottom: 160px;
         text-align: center; color: white;
         overflow: hidden;
     }
@@ -178,14 +177,12 @@
     .hero-desc { max-width: 700px; font-size: 1.1rem; opacity: 0.9; }
     .bg-light-gray { background-color: #f8f9fa; }
     
-    /* 2. CONTENT CONTAINER POSITIONING */
     .content-container { 
         position: relative; 
         z-index: 10; 
-        margin-top: -40px; /* NEGATIF DIKURANGI agar tidak menabrak teks di hero */
+        margin-top: -40px;
     }
 
-    /* 3. CARD & UTILS */
     .lomba-card { transition: all 0.3s ease; }
     .lomba-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important; }
     .object-fit-cover { object-fit: cover; }
@@ -199,18 +196,11 @@
     .ls-1 { letter-spacing: 1px; }
     .cursor-pointer { cursor: pointer; }
 
-    /* 4. ANIMATION & RESPONSIVE */
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
     .delay-1 { animation-delay: 0.2s; }
     .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-    @media (max-width: 991px) {
-        .hero-section { background-attachment: scroll; padding-top: 140px; padding-bottom: 100px; }
-        .hero-title { font-size: 2.5rem; }
-        .content-container { margin-top: -20px; }
-    }
 </style>
 
 <script>

@@ -11,31 +11,31 @@ from .views import (
 )
 
 urlpatterns = [
-    # 1. HOMEPAGE
+    # --- 1. HOME ---
     path('', home, name='home'),
 
-    # 2. E-LIBRARY (Materi)
+    # --- 2. E-LIBRARY (MATERI) ---
     path('library/', list_materi, name='list_materi'),
     path('library/input/', input_materi, name='input_materi'),
 
-    # 3. KARYA MAHASISWA
+    # --- 3. KARYA MAHASISWA ---
     path('karya/', list_karya, name='list_karya'),
     path('karya/input/', input_karya, name='input_karya'),
-    path('karya/<int:id>/', detail_karya, name='detail_karya'), # Detail
+    path('karya/<int:id>/', detail_karya, name='detail_karya'),
 
-    # 4. PRESTASI MAHASISWA
+    # --- 4. PRESTASI MAHASISWA ---
     path('prestasi/', list_prestasi, name='list_prestasi'),
     path('prestasi/input/', input_prestasi, name='input_prestasi'),
-    path('prestasi/<int:id>/', detail_prestasi, name='detail_prestasi'), # Detail
+    path('prestasi/<int:id>/', detail_prestasi, name='detail_prestasi'),
 
-    # 5. KALENDER AKADEMIK
+    # --- 5. KALENDER AKADEMIK ---
     path('kalender/', kalender, name='kalender'),
 
-    # 6. INFO LOMBA
+    # --- 6. INFO LOMBA ---
     path('info-lomba/', list_lomba, name='list_lomba'),
-    path('info-lomba/<int:id>/', detail_lomba, name='detail_lomba'), # Detail
+    path('info-lomba/<int:id>/', detail_lomba, name='detail_lomba'),
 ]
 
-# --- PENTING: Konfigurasi agar foto bisa dibuka ---
+# --- MEDIA CONFIG ---
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

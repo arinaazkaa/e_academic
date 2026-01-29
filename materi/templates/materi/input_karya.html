@@ -6,7 +6,6 @@
 {% block content %}
 
 <section class="hero-upload">
-    
     <div class="hero-pattern"></div>
 
     <div class="container animate-up position-relative" style="z-index: 2;">
@@ -19,7 +18,7 @@
             UPLOAD KARYA INOVASI
         </h1>
         <p class="lead text-white-50 mx-auto hero-desc">
-            Punya alat Tugas Akhir atau Project keren? Jangan biarkan berdebu!<br class="d-none d-md-block">
+            Punya alat Tugas Akhir atau Project keren? Jangan biarkan berdebu!<br>
             Pamerkan karyamu di sini agar menginspirasi mahasiswa lainnya.
         </p>
     </div>
@@ -27,12 +26,10 @@
 
 <section class="form-section">
     <div class="container form-container">
-        
         <div class="row justify-content-center">
             <div class="col-lg-9 animate-up delay-1">
                 
                 <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
-                    
                     <div class="card-header bg-white border-bottom p-4">
                         <h5 class="fw-bold text-dark m-0 d-flex align-items-center">
                             <i class="fa fa-pencil-square-o text-primary me-2"></i> Formulir Data Karya
@@ -40,7 +37,6 @@
                     </div>
 
                     <div class="card-body p-4 p-md-5">
-                        
                         {% if messages %}
                             {% for message in messages %}
                                 <div class="alert alert-{{ message.tags }} rounded-3 text-center small mb-4 shadow-sm border-0">
@@ -149,7 +145,6 @@
 </section>
 
 <style>
-    /* 1. HERO SECTION */
     .hero-upload {
         background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
                     url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1920&auto=format&fit=crop');
@@ -178,7 +173,6 @@
     
     .hero-desc { max-width: 700px; font-size: 1.1rem; }
 
-    /* 2. FORM & LAYOUT */
     .form-section { background-color: #f8f9fa; padding-bottom: 5rem; }
     .form-container { margin-top: -100px; position: relative; z-index: 10; }
 
@@ -191,7 +185,6 @@
     }
     .cursor-pointer { cursor: pointer; }
 
-    /* 3. UPLOAD AREA */
     .border-dashed { border-style: dashed !important; border-color: #cbd5e1 !important; }
     .upload-area { transition: all 0.3s ease; background-color: #f8f9fa; overflow: hidden; }
     .upload-area:hover { border-color: #0d6efd !important; background-color: #eef2ff; }
@@ -202,23 +195,10 @@
         opacity: 0; cursor: pointer; z-index: 5;
     }
 
-    /* 4. TOMBOL */
     .gradient-btn { background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%); border: none; }
     .hover-scale:hover { transform: translateY(-2px); transition: 0.3s; }
     .hover-text-primary:hover { color: #0d6efd !important; }
 
-    /* 5. RESPONSIVE (MOBILE FIXES) */
-    @media (max-width: 991px) {
-        .hero-upload {
-            padding-top: 140px; padding-bottom: 100px;
-            background-attachment: scroll; 
-        }
-        .hero-title { font-size: 2rem; }
-        .form-container { margin-top: -60px; }
-        .card-body { padding: 1.5rem !important; }
-    }
-
-    /* ANIMASI */
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
     .delay-1 { animation-delay: 0.2s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
@@ -232,7 +212,6 @@
         const filenameText = document.getElementById('filename-text');
 
         if (file) {
-            
             placeholder.classList.add('d-none');
             fileInfo.classList.remove('d-none');
             filenameText.textContent = file.name;

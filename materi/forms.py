@@ -2,9 +2,8 @@ from django import forms
 from django.core.exceptions import ValidationError 
 from .models import Materi, Prestasi, Karya
 
-# Setting Batas Ukuran File
-MAX_IMAGE_SIZE = 2 * 1024 * 1024  # 2MB untuk Foto
-MAX_DOC_SIZE = 5 * 1024 * 1024    # 5MB untuk Dokumen
+MAX_IMAGE_SIZE = 2 * 1024 * 1024
+MAX_DOC_SIZE = 5 * 1024 * 1024
 
 # --- 1. FORM INPUT MATERI ---
 class MateriForm(forms.ModelForm):
@@ -26,12 +25,10 @@ class MateriForm(forms.ModelForm):
             'cover': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
-    # Validasi File Materi (PDF/DOC)
     def clean_file_materi(self):
         file = self.cleaned_data.get('file_materi')
-        if file:
-            if file.size > MAX_DOC_SIZE:
-                raise ValidationError("Ukuran file terlalu besar! Maksimal 5MB.")
+        if file and file.size > MAX_DOC_SIZE:
+            raise ValidationError("Ukuran file terlalu besar! Maksimal 5MB.")
         return file
 
 # --- 2. FORM INPUT PRESTASI ---
@@ -65,12 +62,10 @@ class PrestasiForm(forms.ModelForm):
             'is_public': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
-    # Validasi Foto Prestasi
     def clean_foto_diri(self):
         foto = self.cleaned_data.get('foto_diri')
-        if foto:
-            if foto.size > MAX_IMAGE_SIZE:
-                raise ValidationError("Ukuran foto terlalu besar! Maksimal 2MB.")
+        if foto and foto.size > MAX_IMAGE_SIZE:
+            raise ValidationError("Ukuran foto terlalu besar! Maksimal 2MB.")
         return foto
 
 
@@ -89,10 +84,8 @@ class KaryaForm(forms.ModelForm):
             'link_video': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Link YouTube / Google Drive Video'}),
         }
 
-    # Validasi Foto Cover Karya
     def clean_gambar_cover(self):
         gambar = self.cleaned_data.get('gambar_cover')
-        if gambar:
-            if gambar.size > MAX_IMAGE_SIZE:
-                raise ValidationError("Ukuran gambar terlalu besar! Maksimal 2MB.")
+        if gambar and gambar.size > MAX_IMAGE_SIZE:
+            raise ValidationError("Ukuran gambar terlalu besar! Maksimal 2MB.")
         return gambar

@@ -21,7 +21,7 @@
         </h1>
         
         <p class="lead text-white-50 mx-auto hero-desc">
-            Kumpulan inovasi teknologi dan kreativitas mahasiswa.<br class="d-none d-md-block">
+            Kumpulan inovasi teknologi dan kreativitas mahasiswa.<br>
             Temukan inspirasi dari proyek-proyek terbaik di sini.
         </p>
         
@@ -39,7 +39,7 @@
         
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-5 pb-3 border-bottom border-2 animate-up delay-1">
             
-            <div class="mb-3 mb-md-0">
+            <div>
                 <span class="badge bg-white text-dark border shadow-sm px-3 py-2 rounded-pill fw-bold" style="font-size: 0.9rem;">
                     <i class="fa fa-check-circle text-success me-2"></i> {{ karya_list.paginator.count }} Karya Ditemukan
                 </span>
@@ -64,7 +64,7 @@
 
         <div class="row g-4">
             {% for karya in karya_list %}
-            <div class="col-lg-3 col-md-6 col-sm-12 reveal-on-scroll">
+            <div class="col-lg-3 reveal-on-scroll">
                 
                 <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden project-card bg-white">
                     
@@ -180,13 +180,12 @@
 </section>
 
 <style>
-    /* 1. HERO STYLING */
     .hero-section {
         background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
                     url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1920&auto=format&fit=crop');
         background-size: cover; 
         background-position: center; 
-        background-attachment: fixed; /* Laptop Only */
+        background-attachment: fixed;
         position: relative;
         margin-top: -85px; 
         padding-top: 180px; 
@@ -212,7 +211,6 @@
     .bg-light-gray { background-color: #f8f9fa; }
     .content-container { position: relative; z-index: 10; margin-top: -60px; }
 
-    /* 2. CARD & GRID */
     .project-card { transition: all 0.3s ease; }
     .project-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important; }
     
@@ -225,26 +223,17 @@
     
     .title-hover:hover { color: #0dcaf0 !important; text-decoration: underline !important; }
 
-    /* 3. UTILS */
     .backdrop-blur { backdrop-filter: blur(5px); }
     .hover-scale:hover { transform: scale(1.05); transition: 0.3s; }
     .ls-1 { letter-spacing: 1px; }
     .cursor-pointer { cursor: pointer; }
     
-    /* 4. ANIMATION & RESPONSIVE */
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
     .delay-1 { animation-delay: 0.2s; }
     .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
     
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-    /* Fix Jitter on Mobile */
-    @media (max-width: 991px) {
-        .hero-section { background-attachment: scroll; padding-top: 140px; }
-        .hero-title { font-size: 2.5rem; }
-        .content-container { margin-top: -30px; }
-    }
 </style>
 
 <script>

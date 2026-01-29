@@ -6,7 +6,6 @@
 {% block content %}
 
 <section class="hero-upload">
-    
     <div class="hero-pattern"></div>
 
     <div class="container animate-up position-relative" style="z-index: 2;">
@@ -19,7 +18,7 @@
             PENDATAAN PRESTASI MAHASISWA
         </h1>
         <p class="lead text-white-50 mx-auto hero-desc">
-            Raih prestasi membanggakan? Laporkan pencapaianmu di sini agar<br class="d-none d-md-block">
+            Raih prestasi membanggakan? Laporkan pencapaianmu di sini agar<br>
             tercatat di Elektro Bangga dan memotivasi temanmu.
         </p>
     </div>
@@ -221,13 +220,12 @@
 </section>
 
 <style>
-    /* 1. HERO SECTION */
     .hero-upload {
         background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
                     url('https://images.unsplash.com/photo-1578269174936-2709b6aeb913?q=80&w=1920&auto=format&fit=crop');
         background-size: cover; 
         background-position: center; 
-        background-attachment: fixed; /* Laptop Only */
+        background-attachment: fixed;
         padding-top: 180px; 
         padding-bottom: 140px; 
         margin-top: -85px; 
@@ -250,7 +248,6 @@
     
     .hero-desc { max-width: 700px; font-size: 1.1rem; }
 
-    /* 2. FORM & LAYOUT */
     .form-section { background-color: #f8f9fa; padding-bottom: 5rem; }
     .form-container { margin-top: -100px; position: relative; z-index: 10; }
 
@@ -263,10 +260,9 @@
     }
     .cursor-pointer { cursor: pointer; }
 
-    /* 3. UPLOAD AREA (Special Theme for Prestasi: Gold/Warning Hover) */
     .border-dashed { border-style: dashed !important; border-color: #cbd5e1 !important; }
     .upload-area { transition: all 0.3s ease; background-color: #f8f9fa; overflow: hidden; }
-    .upload-area:hover { border-color: #ffc107 !important; background-color: #fff8e1; } /* Kuning Emas */
+    .upload-area:hover { border-color: #ffc107 !important; background-color: #fff8e1; }
     .upload-area:hover .bounce-hover { transform: translateY(-5px); transition: 0.3s; }
 
     .file-input-absolute {
@@ -274,23 +270,10 @@
         opacity: 0; cursor: pointer; z-index: 5;
     }
 
-    /* 4. TOMBOL */
     .gradient-btn { background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%); border: none; }
     .hover-scale:hover { transform: translateY(-2px); transition: 0.3s; }
     .hover-text-primary:hover { color: #0d6efd !important; }
 
-    /* 5. RESPONSIVE FIXES */
-    @media (max-width: 991px) {
-        .hero-upload {
-            padding-top: 140px; padding-bottom: 100px;
-            background-attachment: scroll; /* Fix Jitter */
-        }
-        .hero-title { font-size: 2rem; }
-        .form-container { margin-top: -60px; }
-        .card-body { padding: 1.5rem !important; }
-    }
-
-    /* ANIMASI */
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
     .delay-1 { animation-delay: 0.2s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }

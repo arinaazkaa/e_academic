@@ -6,7 +6,6 @@
 {% block content %}
 
 <section class="hero-calendar">
-    
     <div class="hero-pattern"></div>
 
     <div class="container animate-up text-center position-relative" style="z-index: 2;">
@@ -19,7 +18,7 @@
             KALENDER AKADEMIK
         </h1>
         <p class="lead text-white-50 mx-auto hero-desc">
-            Timeline kegiatan akademik resmi semester ini.<br class="d-none d-md-block">
+            Timeline kegiatan akademik resmi semester ini.<br>
             Pantau jadwal penting agar tidak terlewat.
         </p>
     </div>
@@ -27,11 +26,9 @@
 
 <section class="main-section">
     <div class="container content-container">
-        
         <div class="row g-lg-5 g-4">
             
             <div class="col-lg-8 animate-up delay-1">
-                
                 <div class="bg-white rounded-4 shadow-sm overflow-hidden p-4 p-md-5 position-relative">
                     
                     <div class="timeline-line"></div>
@@ -90,7 +87,6 @@
                             <h6 class="text-muted fw-bold">Belum ada agenda akademik yang dirilis.</h6>
                         </div>
                     {% endfor %}
-
                 </div>
             </div>
 
@@ -142,13 +138,12 @@
 </section>
 
 <style>
-    /* 1. HERO SECTION */
     .hero-calendar {
         background: linear-gradient(to right, rgba(0, 30, 60, 0.95) 20%, rgba(0, 51, 102, 0.9) 100%), 
                     url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1920&auto=format&fit=crop');
         background-size: cover; 
         background-position: center; 
-        background-attachment: fixed; /* Laptop Only */
+        background-attachment: fixed;
         padding-top: 180px; 
         padding-bottom: 140px; 
         margin-top: -85px; 
@@ -169,20 +164,17 @@
         backdrop-filter: blur(5px);
     }
 
-    /* 2. LAYOUT & TIMELINE */
     .main-section { background-color: #f8f9fa; min-height: 80vh; padding-bottom: 5rem; }
     .content-container { margin-top: -100px; position: relative; z-index: 10; }
 
-    /* Garis Vertikal Timeline */
     .timeline-line {
         position: absolute;
-        top: 40px; bottom: 40px; left: 60px; /* Posisi di belakang icon */
+        top: 40px; bottom: 40px; left: 60px;
         width: 2px;
         background: repeating-linear-gradient(to bottom, #dee2e6 0, #dee2e6 10px, transparent 10px, transparent 20px);
         z-index: 0;
     }
 
-    /* 3. AGENDA ITEM */
     .agenda-item { transition: all 0.3s ease; }
     .hover-item:hover { 
         transform: translateX(5px); 
@@ -193,7 +185,6 @@
     .date-box { min-width: 60px; }
     .agenda-title { font-size: 1.1rem; line-height: 1.4; }
 
-    /* 4. SIDEBAR */
     .sidebar-wrapper { position: sticky; top: 100px; }
     .sidebar-pattern {
         position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
@@ -203,18 +194,6 @@
     .hover-scale:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important; }
     .backdrop-blur { backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
 
-    /* 5. RESPONSIVE FIXES */
-    @media (max-width: 991px) {
-        .hero-calendar {
-            padding-top: 140px; padding-bottom: 100px;
-            background-attachment: scroll; /* Fix Jitter */
-        }
-        .content-container { margin-top: -60px; }
-        .sidebar-wrapper { position: static; margin-top: 20px; } /* Disable Sticky on Mobile */
-        .timeline-line { display: none; } /* Sembunyikan garis di HP agar simple */
-    }
-
-    /* ANIMASI */
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
     .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }

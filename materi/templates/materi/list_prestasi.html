@@ -20,7 +20,7 @@
         </h1>
         
         <p class="lead text-white-50 mx-auto hero-desc">
-            Hall of Fame Mahasiswa Berprestasi di Lingkungan Teknik Elektro FT UNNES.<br class="d-none d-md-block">
+            Hall of Fame Mahasiswa Berprestasi di Lingkungan Teknik Elektro FT UNNES.<br>
             Jejak rekam para juara yang mengharumkan nama jurusan.
         </p>
         
@@ -37,9 +37,9 @@
         
         <div class="search-bar-wrapper mx-auto shadow-sm mb-5 animate-up delay-1">
             <form action="" method="GET">
-                <div class="d-flex flex-wrap align-items-center p-2 bg-white rounded-pill search-inner">
+                <div class="d-flex align-items-center p-2 bg-white rounded-pill search-inner">
                     
-                    <div class="flex-grow-1 px-3 border-end-md">
+                    <div class="flex-grow-1 px-3 border-end">
                         <div class="input-group">
                             <span class="input-group-text bg-transparent border-0 ps-0"><i class="fa fa-search text-muted"></i></span>
                             <input type="text" name="keyword" 
@@ -49,7 +49,7 @@
                         </div>
                     </div>
 
-                    <div class="px-3 border-end-md d-none d-md-block" style="min-width: 150px;">
+                    <div class="px-3 border-end" style="min-width: 180px;">
                         <select name="prodi" class="form-select border-0 shadow-none bg-transparent fw-bold text-muted cursor-pointer">
                             <option value="">Semua Prodi</option>
                             <option value="PTIK" {% if request.GET.prodi == 'PTIK' %}selected{% endif %}>PTIK</option>
@@ -64,17 +64,6 @@
                             Cari
                         </button>
                     </div>
-
-                </div>
-                
-                <div class="d-block d-md-none mt-3 px-2">
-                    <select name="prodi" class="form-select border-0 shadow-sm bg-white rounded-pill fw-bold text-muted text-center cursor-pointer py-2">
-                        <option value="">-- Filter Prodi --</option>
-                        <option value="PTIK" {% if request.GET.prodi == 'PTIK' %}selected{% endif %}>PTIK</option>
-                        <option value="PTE" {% if request.GET.prodi == 'PTE' %}selected{% endif %}>PTE</option>
-                        <option value="TE" {% if request.GET.prodi == 'TE' %}selected{% endif %}>TE</option>
-                        <option value="TK" {% if request.GET.prodi == 'TK' %}selected{% endif %}>TEKKOM</option>
-                    </select>
                 </div>
             </form>
         </div>
@@ -90,8 +79,7 @@
 
         <div class="row g-4">
             {% for p in prestasi_list %}
-            <div class="col-lg-3 col-md-6 col-sm-12 reveal-on-scroll">
-                
+            <div class="col-lg-3 reveal-on-scroll">
                 <div class="card h-100 border-0 rounded-4 shadow-sm prestasi-card overflow-hidden bg-white">
                     <div class="prestasi-img-box position-relative">
                         
@@ -135,7 +123,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             {% empty %}
             <div class="col-12 text-center py-5">
@@ -156,9 +143,8 @@
         {% if prestasi_list.has_other_pages %}
         <div class="row mt-5">
             <div class="col-12 d-flex justify-content-center">
-                <nav aria-label="Page navigation">
+                <nav>
                     <ul class="pagination shadow-sm rounded-pill overflow-hidden bg-white p-1 gap-1 border-0">
-                        
                         {% if prestasi_list.has_previous %}
                         <li class="page-item">
                             <a class="page-link border-0 text-dark rounded-circle mx-1 d-flex align-items-center justify-content-center hover-bg-light" 
@@ -173,7 +159,7 @@
                             {% if prestasi_list.number == num %}
                                 <li class="page-item active">
                                     <span class="page-link border-0 fw-bold rounded-circle mx-1 d-flex align-items-center justify-content-center shadow-sm" 
-                                          style="width: 35px; height: 35px; background-color: #0d6efd;">
+                                          style="width: 35px; height: 35px; background-color: #0d6efd; color: white;">
                                     {{ num }}
                                     </span>
                                 </li>
@@ -197,7 +183,6 @@
                             </a>
                         </li>
                         {% endif %}
-
                     </ul>
                 </nav>
             </div>
@@ -208,13 +193,12 @@
 </section>
 
 <style>
-    /* 1. HERO SECTION */
     .hero-section {
         background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
                     url('https://images.unsplash.com/photo-1496469888073-80de7e952517?q=80&w=1920&auto=format&fit=crop');
         background-size: cover; 
         background-position: center; 
-        background-attachment: fixed; /* Laptop Only */
+        background-attachment: fixed;
         position: relative;
         margin-top: -85px; 
         padding-top: 180px; 
@@ -240,46 +224,25 @@
     .bg-light-gray { background-color: #f8f9fa; }
     .content-container { position: relative; z-index: 10; margin-top: -60px; }
 
-    /* 2. SEARCH BAR */
     .search-bar-wrapper { max-width: 800px; }
-    @media (min-width: 768px) {
-        .border-end-md { border-right: 1px solid #e9ecef; }
-    }
+    .search-inner { border: 1px solid #dee2e6; }
 
-    /* 3. CARD STYLING */
-    .prestasi-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        background: #000;
-    }
-    .prestasi-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
-    }
-    
+    .prestasi-card { transition: all 0.3s ease; background: #000; }
+    .prestasi-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important; }
     .transition-zoom { transition: transform 0.5s ease; }
     .prestasi-card:hover .transition-zoom { transform: scale(1.1); }
 
-    .prestasi-img-box {
-        height: 400px; /* Ukuran Portrait */
-        position: relative;
-        overflow: hidden;
-    }
+    .prestasi-img-box { height: 400px; position: relative; overflow: hidden; }
     .prestasi-overlay {
-        position: absolute;
-        bottom: 0; left: 0; width: 100%; height: 60%;
+        position: absolute; bottom: 0; left: 0; width: 100%; height: 60%;
         background: linear-gradient(to top, rgba(0,25,50,0.95) 10%, rgba(0,0,0,0) 100%);
         transition: height 0.3s ease;
     }
     .prestasi-card:hover .prestasi-overlay { height: 80%; }
     
-    .prestasi-content {
-        position: absolute; bottom: 0; left: 0;
-        z-index: 2;
-        transition: transform 0.3s ease;
-    }
+    .prestasi-content { position: absolute; bottom: 0; left: 0; z-index: 2; transition: transform 0.3s ease; }
     .prestasi-card:hover .prestasi-content { transform: translateY(-5px); }
 
-    /* 4. UTILS */
     .object-fit-cover { object-fit: cover; }
     .text-truncate-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .backdrop-blur { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
@@ -287,17 +250,10 @@
     .hover-scale:hover { transform: scale(1.05); transition: 0.3s; }
     .cursor-pointer { cursor: pointer; }
 
-    /* 5. RESPONSIVE FIXES */
-    @media (max-width: 991px) {
-        .hero-section { background-attachment: scroll; padding-top: 140px; }
-        .content-container { margin-top: -30px; }
-        .hero-title { font-size: 2.5rem; }
-    }
-
-    /* ANIMATION */
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
     .delay-1 { animation-delay: 0.2s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    
     .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
 </style>

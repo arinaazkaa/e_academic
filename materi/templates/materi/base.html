@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1200">
     <title>{% block title %}E-Academic - Portal Mahasiswa{% endblock %}</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -15,9 +15,22 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
 
     <style>
-        body { font-family: 'Poppins', sans-serif !important; background-color: #f4f6f9; }
+        /* Memaksa kontainer utama memiliki lebar minimal laptop */
+        body { 
+            font-family: 'Poppins', sans-serif !important; 
+            background-color: #f4f6f9; 
+            min-width: 1200px; 
+            overflow-x: auto;
+        }
 
-        /* --- NAVBAR --- */
+        .container {
+            max-width: 1140px !important;
+            width: 1140px !important;
+            margin-right: auto !important;
+            margin-left: auto !important;
+        }
+
+        /* --- NAVBAR (Dibuat Permanen Seperti Desktop) --- */
         .navbar-luxury {
             background: transparent !important;
             padding: 20px 0;
@@ -29,7 +42,6 @@
             font-weight: 800;
             color: #ffffff !important;
             font-size: 1.5rem;
-            transition: color 0.4s ease;
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
@@ -39,23 +51,19 @@
             margin-left: 20px;
             font-size: 0.9rem;
             position: relative;
-            transition: color 0.4s ease;
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
         .nav-link:hover, .nav-link.active { color: #ffc107 !important; }
         
-        /* Efek garis bawah tetap konsisten di semua layar */
+        /* Garis bawah animasi tetap muncul di semua device */
         .nav-link::after {
             content: ''; position: absolute; width: 0; height: 3px; bottom: 5px; left: 0;
             background-color: #ffc107; transition: width 0.3s ease;
         }
         .nav-link:hover::after { width: 100%; }
         
-        .nav-link.btn-nav-upload::after {
-            display: none !important;
-            content: none !important;
-        }
+        .nav-link.btn-nav-upload::after { display: none !important; }
 
         .btn-nav-upload {
             background: rgba(255,255,255,0.2) !important;
@@ -68,8 +76,6 @@
             font-weight: 600;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             white-space: nowrap;
-            text-decoration: none !important; 
-            border-bottom: none !important;    
         }
         
         .btn-nav-upload:hover {
@@ -87,38 +93,23 @@
         }
         .navbar-luxury.scrolled .navbar-brand { color: #003366 !important; text-shadow: none; } 
         .navbar-luxury.scrolled .nav-link { color: #555 !important; text-shadow: none; } 
-        .navbar-luxury.scrolled .nav-link:hover, .navbar-luxury.scrolled .nav-link.active { color: #003366 !important; }
         .navbar-luxury.scrolled .btn-nav-upload {
             background: linear-gradient(135deg, #003366 0%, #0056b3 100%) !important;
             border: none; color: white !important;
         }
         
-        .navbar-toggler { border: none; outline: none; }
-        .navbar-toggler:focus { box-shadow: none; }
-
-        /* Menu dropdown saat dibuka di layar kecil tetap mengikuti gaya desktop */
-        @media (max-width: 991px) {
-            .navbar-collapse {
-                background: rgba(0, 40, 85, 0.95); 
-                backdrop-filter: blur(10px);
-                margin-top: 15px;
-                padding: 15px;
-                border-radius: 15px;
-            }
-            .nav-link { border-bottom: none; margin-left: 0; }
-            .btn-nav-upload { width: auto; display: inline-block; margin-top: 10px; }
-        }
+        /* Mematikan fungsi hamburger menu agar menu desktop selalu muncul */
+        .navbar-toggler { display: none !important; }
+        .collapse.navbar-collapse { display: flex !important; basis: auto !important; }
+        .navbar-nav { flex-direction: row !important; }
 
         /* --- SCROLL TOP BUTTON --- */
         #scrollTopBtn {
             display: none; position: fixed; bottom: 20px; right: 20px; z-index: 9999;
-            border: none; outline: none;
             background: linear-gradient(135deg, #003366 0%, #0056b3 100%);
-            color: white; cursor: pointer;
-            width: 45px; height: 45px; border-radius: 50%;
-            align-items: center; justify-content: center;
-            font-size: 18px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            color: white; width: 45px; height: 45px; border-radius: 50%;
+            align-items: center; justify-content: center; font-size: 18px;
+            border: none; cursor: pointer;
         }
     </style>
 </head>
@@ -126,16 +117,12 @@
 <body class="d-flex flex-column min-vh-100">
     <div id="preloder"><div class="loader"></div></div>
 
-    <nav class="navbar navbar-expand-lg navbar-luxury fixed-top">
+    <nav class="navbar navbar-expand navbar-luxury fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">E-ACADEMIC</a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="fa fa-bars" style="color: white; font-size: 1.5rem;"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav align-items-lg-center">
+            <div class="navbar-collapse justify-content-end">
+                <ul class="navbar-nav align-items-center">
                     <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">BERANDA</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'list_materi' %}">E-LIBRARY</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'list_prestasi' %}">PRESTASI</a></li>
@@ -145,7 +132,7 @@
                         <a class="nav-link btn-nav-upload dropdown-toggle" href="#" id="uploadDropdown" role="button" data-bs-toggle="dropdown">
                             <i class="fa fa-plus me-1"></i> UPLOAD
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-luxury">
+                        <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="{% url 'input_materi' %}">Materi Kuliah</a></li>
                             <li><a class="dropdown-item" href="{% url 'input_karya' %}">Karya Inovasi</a></li>
                             <li><a class="dropdown-item" href="{% url 'input_prestasi' %}">Data Prestasi</a></li>
@@ -155,16 +142,6 @@
             </div>
         </div>
     </nav>
-
-    {% if messages %}
-    <div class="container mt-5 pt-5" style="position: relative; z-index: 100;">
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center shadow-sm" role="alert">
-                {{ message }} <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        {% endfor %}
-    </div>
-    {% endif %}
 
     <main class="flex-grow-1">
         {% block content %}{% endblock %}
@@ -187,29 +164,16 @@
     <script>
         function checkScroll() {
             const navbar = document.querySelector('.navbar-luxury');
-            const togglerIcon = document.querySelector('.navbar-toggler span');
-            
-            if (window.scrollY > 50) { 
-                navbar.classList.add('scrolled'); 
-                if(window.innerWidth > 991) {
-                    togglerIcon.style.color = "#003366";
-                }
-            } else { 
-                navbar.classList.remove('scrolled'); 
-                togglerIcon.style.color = "white";
-            }
+            if (window.scrollY > 50) { navbar.classList.add('scrolled'); } 
+            else { navbar.classList.remove('scrolled'); }
         }
-
         window.addEventListener('scroll', checkScroll);
         
         let mybutton = document.getElementById("scrollTopBtn");
         window.onscroll = function() {
             checkScroll(); 
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                mybutton.style.display = "flex";
-            } else {
-                mybutton.style.display = "none";
-            }
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { mybutton.style.display = "flex"; } 
+            else { mybutton.style.display = "none"; }
         };
         function topFunction() { window.scrollTo({top: 0, behavior: 'smooth'}); }
     </script>

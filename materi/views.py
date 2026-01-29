@@ -1,30 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages  # Untuk notifikasi
-from django.db.models import Q       # Untuk pencarian
-from django.core.paginator import Paginator # Pagination
-from datetime import date            # Untuk filter tanggal
+from django.contrib import messages
+from django.db.models import Q
+from django.core.paginator import Paginator
+from datetime import date
 
-# Import Models
 from .models import Materi, Prestasi, Karya, InfoLomba, AgendaKalender, FileKalender
-# Import Form
 from .forms import MateriForm, KaryaForm, PrestasiForm
 
 # --- 1. HOMEPAGE ---
 def home(request):
-    # Prestasi Terbaru
     prestasi_list = Prestasi.objects.filter(status='approved').order_by('-created_at')[:6]
-    
     today = date.today()
 
-    # Info Lomba (Hanya yang masih aktif/deadline belum lewat)
     info_lomba_list = InfoLomba.objects.filter(
         Q(tanggal_deadline__gte=today) | Q(tanggal_deadline__isnull=True)
     ).order_by('tanggal_deadline')[:3]
 
-    # Karya Terbaru
     karya_list = Karya.objects.filter(status='approved').order_by('-created_at')[:4]
     
-    # Agenda Kalender (4 agenda terdekat)
     agenda_list = AgendaKalender.objects.filter(
         tanggal_mulai__gte=today
     ).order_by('tanggal_mulai')[:4]
@@ -89,39 +82,35 @@ def input_karya(request):
 def list_materi(request):
     materi_list = Materi.objects.filter(status='approved').order_by('-tanggal_upload')
 
-    # Filter & Search
-    cari_judul = request.GET.get('keyword')
+    keyword = request.GET.get('keyword')
     prodi = request.GET.get('prodi')
     semester = request.GET.get('semester')
     
-    if cari_judul:
+    if keyword:
         materi_list = materi_list.filter(
-            Q(judul__icontains=cari_judul) | 
-            Q(mata_kuliah__icontains=cari_judul)
+            Q(judul__icontains=keyword) | 
+            Q(mata_kuliah__icontains=keyword)
         )
     if prodi:
         materi_list = materi_list.filter(prodi=prodi)
     if semester:
         materi_list = materi_list.filter(semester=semester)
 
-    # Pagination (12 item agar grid rapi 3x4 atau 4x3)
     paginator = Paginator(materi_list, 12) 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    context = {
+    return render(request, 'materi/list_materi.html', {
         'materi': page_obj,
         'filter_prodi': prodi,
         'filter_semester': semester,
-    }
-    return render(request, 'materi/list_materi.html', context)
+    })
 
 
-# --- 6. GALERI KARYA (UPDATE: SEARCH & SORT) ---
+# --- 6. GALERI KARYA ---
 def list_karya(request):
     karya_list = Karya.objects.filter(status='approved')
 
-    # 1. Search Logic (Baru ditambahkan)
     query = request.GET.get('q')
     if query:
         karya_list = karya_list.filter(
@@ -129,15 +118,12 @@ def list_karya(request):
             Q(pembuat__icontains=query)
         )
 
-    # 2. Sorting Logic
     sort_by = request.GET.get('sort', 'terbaru')
-    
     if sort_by == 'terlama':
         karya_list = karya_list.order_by('created_at')
     else:
         karya_list = karya_list.order_by('-created_at')
 
-    # Pagination
     paginator = Paginator(karya_list, 16)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -155,7 +141,6 @@ def detail_karya(request, id):
 def list_prestasi(request):
     prestasi_list = Prestasi.objects.filter(status='approved').order_by('-created_at')
 
-    # Search & Filter
     keyword = request.GET.get('keyword')
     prodi = request.GET.get('prodi')
 
@@ -164,11 +149,9 @@ def list_prestasi(request):
             Q(nama_mahasiswa__icontains=keyword) | 
             Q(nama_lomba__icontains=keyword)
         )
-    
     if prodi:
         prestasi_list = prestasi_list.filter(prodi=prodi)
 
-    # Pagination
     paginator = Paginator(prestasi_list, 16) 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -196,12 +179,10 @@ def kalender(request):
     })
 
 
-# --- 11. LIST LOMBA (UPDATE: SEARCH & SORT) ---
+# --- 11. LIST LOMBA ---
 def list_lomba(request):
-    # Ambil semua lomba
     lomba_list = InfoLomba.objects.all()
 
-    # 1. Search Logic
     query = request.GET.get('q')
     if query:
         lomba_list = lomba_list.filter(
@@ -209,20 +190,12 @@ def list_lomba(request):
             Q(penyelenggara__icontains=query)
         )
 
-    # 2. Sorting Logic (Sesuai Dropdown HTML)
     sort_by = request.GET.get('sort')
-    
     if sort_by == 'deadline':
-        # Urutkan berdasarkan deadline terdekat (Ascending)
-        # nulls_last memastikan lomba tanpa deadline ada di paling bawah
         lomba_list = lomba_list.order_by('tanggal_deadline')
     elif sort_by == 'terbaru':
-        # Urutkan berdasarkan yang baru diinput admin (Descending ID)
         lomba_list = lomba_list.order_by('-id')
     else:
-        # Default: Lomba aktif (deadline belum lewat) di atas, sisanya di bawah
-        today = date.today()
-        # Kita pakai order_by deadline secara default
         lomba_list = lomba_list.order_by('tanggal_deadline')
 
     return render(request, 'materi/list_lomba.html', {'lomba_list': lomba_list})

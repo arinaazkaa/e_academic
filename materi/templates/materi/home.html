@@ -59,7 +59,7 @@
                 <div class="bg-white p-4 rounded-5 shadow-lg h-100 border-top border-5 border-primary card-hover-effect">
                     <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
                         <a href="{% url 'list_lomba' %}" class="text-decoration-none text-dark">
-                            <h4 class="fw-bold mb-0 hover-text-primary fs-5-mobile">
+                            <h4 class="fw-bold mb-0 hover-text-primary">
                                 <i class="fa fa-bullhorn text-primary me-2"></i> Info Lomba
                             </h4>
                         </a>
@@ -90,7 +90,7 @@
             <div class="col-lg-6 reveal-on-scroll" style="transition-delay: 0.2s;">
                 <div class="bg-white p-4 rounded-5 shadow-lg h-100 border-top border-5 border-warning card-hover-effect">
                     <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-                        <h4 class="fw-bold text-dark mb-0 fs-5-mobile"><i class="fa fa-calendar-check-o text-warning me-2"></i> Kalender</h4>
+                        <h4 class="fw-bold text-dark mb-0"><i class="fa fa-calendar-check-o text-warning me-2"></i> Kalender</h4>
                         <a href="{% url 'kalender' %}" class="btn btn-sm btn-light rounded-pill px-3 fw-bold text-warning">Selengkapnya</a>
                     </div>
                     
@@ -131,14 +131,13 @@
             <span class="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm mb-2">
                 <i class="fa fa-trophy"></i> ELEKTRO BANGGA
             </span>
-            <h2 class="fw-bold text-dark display-6 fs-3-mobile">Mahasiswa Berprestasi</h2>
+            <h2 class="fw-bold text-dark display-6">Mahasiswa Berprestasi</h2>
             <p class="text-muted">Kebanggaan jurusan yang telah mengharumkan nama kampus.</p>
         </div>
 
         <div class="row g-4"> 
             {% for p in prestasi_list %}
             <div class="col-lg-3 col-md-6 col-12 reveal-on-scroll" style="transition-delay: {{ forloop.counter }}00ms;">
-                
                 <div class="card h-100 border-0 rounded-4 shadow-sm prestasi-card overflow-hidden">
                     <div class="prestasi-img-box">
                         {% if p.foto_diri %}
@@ -148,35 +147,30 @@
                                 <i class="fa fa-user fa-3x opacity-25"></i>
                             </div>
                         {% endif %}
-                        
                         <div class="prestasi-overlay"></div>
-
                         <div class="position-absolute top-0 end-0 m-3">
                             <span class="badge bg-warning text-dark fw-bold shadow px-2 py-1 rounded-3">
                                 <i class="fa fa-star"></i> {{ p.juara }}
                             </span>
                         </div>
-
                         <div class="prestasi-content text-white p-3">
                             <small class="text-warning fw-bold text-uppercase mb-1 d-block" style="font-size: 10px; letter-spacing: 1px;">
                                 {{ p.get_prodi_display }}
                             </small>
                             <h5 class="fw-bold mb-1 text-truncate">{{ p.nama_mahasiswa }}</h5>
                             <p class="small opacity-75 mb-3 text-truncate">"{{ p.nama_lomba }}"</p>
-                            
                             <a href="{% url 'detail_prestasi' p.id %}" class="btn btn-sm btn-light w-100 rounded-pill fw-bold stretched-link">
                                 Lihat Profil
                             </a>
                         </div>
                     </div>
                 </div>
-
             </div>
             {% endfor %}
         </div>
         
         <div class="text-center mt-5 reveal-on-scroll">
-            <a href="{% url 'list_prestasi' %}" class="btn btn-outline-primary rounded-pill px-5 py-2 fw-bold hover-bg-primary w-100-mobile">
+            <a href="{% url 'list_prestasi' %}" class="btn btn-outline-primary rounded-pill px-5 py-2 fw-bold hover-bg-primary">
                 Lihat Semua Prestasi <i class="fa fa-arrow-right ms-2"></i>
             </a>
         </div>
@@ -184,12 +178,12 @@
 </section>
 
 <section class="py-5" style="background-color: #f0f4f8; position: relative; overflow: hidden;">
-    <div style="position: absolute; top: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(13,110,253,0.05) 0%, rgba(0,0,0,0) 70%); border-radius: 50%; z-index: 0;"></div>
+    <div style="position: absolute; top: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(13,110,253,0.05) 0%, rgba(255,255,255,0) 70%); border-radius: 50%; z-index: 0;"></div>
     
     <div class="container py-4 position-relative" style="z-index: 2;">
         
         <div class="text-center mb-5 reveal-on-scroll">
-            <h2 class="fw-bold text-dark display-6 fs-3-mobile">Galeri Karya</h2>
+            <h2 class="fw-bold text-dark display-6">Galeri Karya</h2>
             <p class="text-muted mx-auto" style="max-width: 600px;">
                 Jelajahi kreativitas dan solusi teknologi mahasiswa.
             </p>
@@ -198,9 +192,7 @@
         <div class="row g-4">
             {% for k in karya_list %}
             <div class="col-lg-3 col-md-6 col-12 reveal-on-scroll" style="transition-delay: {{ forloop.counter }}00ms;">
-                
                 <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden karya-home-card bg-white">
-                    
                     <div class="position-relative overflow-hidden" style="height: 200px;">
                         <a href="{% url 'detail_karya' k.id %}" class="d-block w-100 h-100">
                             {% if k.gambar_cover %}
@@ -211,7 +203,6 @@
                                 </div>
                             {% endif %}
                         </a>
-                        
                         <div class="position-absolute top-0 start-0 m-3">
                             <span class="badge bg-white text-dark shadow-sm px-2 py-1 rounded-3 fw-bold" style="font-size: 0.65rem;">
                                 {{ k.get_prodi_display }}
@@ -225,18 +216,14 @@
                                 {{ k.judul_karya }}
                             </a>
                         </h6>
-                        
                         <div class="d-flex align-items-center mb-3 text-muted small">
                             <i class="fa fa-user-circle me-2 text-primary"></i>
                             <span class="text-truncate">{{ k.pembuat }}</span>
                         </div>
-
                         <div class="mt-auto row g-2">
                             {% if k.link_video %}
                                 <div class="col-6">
-                                    <a href="{% url 'detail_karya' k.id %}" class="btn btn-outline-primary w-100 rounded-pill btn-sm fw-bold">
-                                        Detail
-                                    </a>
+                                    <a href="{% url 'detail_karya' k.id %}" class="btn btn-outline-primary w-100 rounded-pill btn-sm fw-bold">Detail</a>
                                 </div>
                                 <div class="col-6">
                                     <a href="{{ k.link_video }}" target="_blank" class="btn btn-danger w-100 rounded-pill btn-sm fw-bold">
@@ -245,15 +232,12 @@
                                 </div>
                             {% else %}
                                 <div class="col-12">
-                                    <a href="{% url 'detail_karya' k.id %}" class="btn btn-outline-primary w-100 rounded-pill btn-sm fw-bold">
-                                        Detail Karya
-                                    </a>
+                                    <a href="{% url 'detail_karya' k.id %}" class="btn btn-outline-primary w-100 rounded-pill btn-sm fw-bold">Detail Karya</a>
                                 </div>
                             {% endif %}
                         </div>
                     </div>
                 </div>
-
             </div>
             {% empty %}
             <div class="col-12 text-center py-5">
@@ -263,14 +247,12 @@
         </div>
 
         <div class="text-center mt-5 reveal-on-scroll">
-            <a href="{% url 'list_karya' %}" class="btn btn-primary rounded-pill px-5 py-2 fw-bold shadow-lg hover-scale w-100-mobile">
+            <a href="{% url 'list_karya' %}" class="btn btn-primary rounded-pill px-5 py-2 fw-bold shadow-lg hover-scale">
                 Lihat Semua Galeri <i class="fa fa-arrow-right ms-2"></i>
             </a>
         </div>
-
     </div>
 </section>
-
 
 <style>
     /* 1. HERO SECTION */
@@ -283,18 +265,15 @@
         display: flex;
         align-items: center; 
         justify-content: center;
-        padding-top: 0; 
     }
 
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
     .slide {
         position: absolute; width: 100%; height: 100%;
         background-size: cover; background-position: center; opacity: 0;
+        filter: brightness(0.9);
         animation: slideAnimation 15s infinite; 
     }
-    .slide:nth-child(1) { animation-delay: 0s; }
-    .slide:nth-child(2) { animation-delay: 5s; }
-    .slide:nth-child(3) { animation-delay: 10s; }
 
     @keyframes slideAnimation {
         0% { opacity: 0; transform: scale(1); }
@@ -304,15 +283,29 @@
         100% { opacity: 0; }
     }
 
+    /* Overlay dinetralkan (bukan biru pekat) agar teks menyala seperti Gambar 2 */
     .hero-overlay {
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 30, 60, 0.65); 
+        background: rgba(0, 0, 0, 0.4); 
         z-index: 1;
     }
+    
     .hero-content { position: relative; z-index: 2; width: 100%; }
     
-    .hero-title { font-size: 3.5rem; letter-spacing: 2px; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-    .hero-desc { max-width: 700px; opacity: 0.95; line-height: 1.8; font-size: 1.25rem; }
+    .hero-title { 
+        font-size: 3.5rem; 
+        letter-spacing: 2px; 
+        color: #ffffff !important;
+        text-shadow: 0 4px 15px rgba(0,0,0,0.8); 
+    }
+    
+    .hero-desc { 
+        max-width: 750px; 
+        color: rgba(255, 255, 255, 0.9) !important;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        font-size: 1.25rem;
+        line-height: 1.8;
+    }
 
     .fade-bottom {
         position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; 
@@ -320,91 +313,52 @@
         z-index: 3;
     }
 
-    /* 2. OVERLAP SECTION */
     .overlap-section { background-color: #f4f6f9; padding-bottom: 50px; }
     .overlap-container { margin-top: -80px; position: relative; z-index: 10; }
 
-    /* 3. BUTTONS */
+    /* 2. BUTTONS */
     .btn-hero {
         padding: 15px 40px; border-radius: 50px; font-weight: 600; font-size: 1rem;
-        text-decoration: none; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: inline-block;
+        text-decoration: none; transition: all 0.3s ease; display: inline-block;
         white-space: nowrap;
     }
     .btn-hero-primary {
-        background: linear-gradient(45deg, #0d6efd, #0099ff); color: white; border: none;
+        background: linear-gradient(45deg, #0d6efd, #0099ff) !important;
+        color: white; border: none;
         box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
     }
-    .btn-hero-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(13, 110, 253, 0.5); color: white; }
-    
     .btn-hero-outline {
         background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px);
         border: 2px solid rgba(255, 255, 255, 0.9); color: white;
     }
-    .btn-hero-outline:hover { background: white; color: #003366; transform: translateY(-5px); }
 
-    /* 4. CARD STYLING */
+    /* 3. CARDS */
     .card-hover-effect { transition: all 0.4s; }
     .card-hover-effect:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important; }
     
-    .hover-bg-gray:hover { background-color: #f0f2f5 !important; transition: 0.2s; cursor: pointer; }
-    .hover-text-primary:hover { color: #0d6efd !important; transition: color 0.3s; }
-    .hover-bg-primary:hover { background-color: #0d6efd; color: white; }
-
-    /* Prestasi Card */
-    .prestasi-card { transition: transform 0.3s ease, box-shadow 0.3s ease; background: #000; }
-    .prestasi-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.2) !important; }
+    .prestasi-card { transition: all 0.3s ease; background: #000; }
     .prestasi-img-box { height: 350px; position: relative; }
     .prestasi-overlay {
         position: absolute; bottom: 0; left: 0; width: 100%; height: 70%;
-        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%); transition: height 0.3s ease;
+        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
     }
-    .prestasi-card:hover .prestasi-overlay { height: 90%; }
     .prestasi-content { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 2; }
 
-    /* Karya Card */
-    .karya-home-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .karya-home-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important; }
+    .karya-home-card { transition: all 0.3s ease; }
     .zoom-effect { transition: transform 0.5s ease; }
-    .karya-home-card:hover .zoom-effect { transform: scale(1.1); }
-    .title-hover:hover { color: #0d6efd !important; }
-    .hover-scale:hover { transform: scale(1.05); }
-
-    /* Utils */
+    
     .object-fit-cover { object-fit: cover; }
     .text-truncate-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-    /* Animation */
+    /* 4. ANIMATIONS */
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
-    .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; } .delay-3 { animation-delay: 0.6s; }
+    .delay-1 { animation-delay: 0.2s; } 
+    .delay-2 { animation-delay: 0.4s; } 
+    .delay-3 { animation-delay: 0.6s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    
     .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
-
-    /* --- RESPONSIVE CSS (MOBILE) --- */
-    @media (max-width: 991px) {
-        /* Hero Adjustment */
-        .hero-wrapper { min-height: 100vh; height: auto; padding-top: 80px; padding-bottom: 100px; }
-        .hero-title { font-size: 2.2rem; }
-        .sub-title { font-size: 1.1rem; }
-        .hero-desc { font-size: 1rem; padding: 0 15px; }
-        
-        /* Button Stack Vertikal di HP */
-        .hero-btn-group { flex-direction: column; width: 80%; margin: 0 auto; }
-        .btn-hero { width: 100%; text-align: center; padding: 12px 20px; }
-
-        /* Overlap Section*/
-        .overlap-container { margin-top: -50px; }
-        
-        /* Font Sizes Mobile */
-        .fs-5-mobile { font-size: 1.1rem; }
-        .fs-3-mobile { font-size: 1.8rem; }
-        
-        /* Card Full Width di HP */
-        .w-100-mobile { width: 100%; }
-        
-        /* Prestasi Image height*/
-        .prestasi-img-box { height: 300px; }
-    }
 </style>
 
 <script>
