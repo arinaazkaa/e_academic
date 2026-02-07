@@ -42,7 +42,7 @@
                     <div class="card-body p-4 pt-4 flex-grow-1">
                         {% for lomba in info_lomba_list %}
                         <div class="lomba-item-interactive d-flex align-items-center mb-4 pb-3 border-bottom border-light">
-                            <div class="date-minimalist text-center" style="margin-right: 1.2rem; min-width: 50px;">
+                            <div class="date-minimalist text-center" style="margin-right: 1.5rem; min-width: 50px;">
                                 <span class="d-block fw-bold text-primary day-text">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
                                 <span class="d-block text-muted month-text">{{ lomba.tanggal_pelaksanaan|date:"M" }}</span>
                             </div>
@@ -117,23 +117,23 @@
 <section class="mt-5 pt-5 pb-5 bg-white">
     <div class="container py-4 text-center">
         <div class="mb-5 reveal-on-scroll">
-            <h2 class="text-primary fw-900 text-uppercase tracking-widest mb-1 text-nowrap" style="font-size: 1.8rem; font-weight: 900 !important;">ELECTRICAL LIBRARY</h2>
-            <h6 class="fw-bold text-muted mb-3" style="font-size: 0.7rem; letter-spacing: 1px;">Kategori Program Studi</h6>
-            <div class="divider-minimal mx-auto bg-primary" style="width: 50px; height: 3px; border-radius: 2px;"></div>
+            <h2 class="text-primary fw-900 text-uppercase tracking-widest mb-1 text-nowrap" style="font-size: 2.2rem; font-weight: 900 !important;">ELECTRICAL LIBRARY</h2>
+            <h6 class="fw-bold text-muted mb-3" style="font-size: 0.75rem; letter-spacing: 2px;">Kategori Program Studi</h6>
+            <div class="divider-minimal mx-auto bg-primary" style="width: 60px; height: 4px; border-radius: 2px;"></div>
         </div>
         
         <div class="row g-4 justify-content-center prodi-grid">
             {% for p_code, p_name, p_bg in prodi_data %}
             <div class="{% if forloop.counter <= 4 %}col-6 col-lg-3{% else %}col-10 col-lg-3{% endif %} reveal-on-scroll prodi-item"> 
-                <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="category-modern-card-small text-decoration-none d-block">
-                    <div class="icon-box-sharp-color mb-4 mx-auto">
+                <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="category-modern-card-small text-decoration-none d-block prodi-card-mobile-fix">
+                    <div class="icon-box-sharp-color mb-4 mx-auto icon-prodi-mobile-fix">
                         {% if p_code == 'PTIK' %}<i class="fa fa-code"></i>
                         {% elif p_code == 'PTE' %}<i class="fa fa-bolt"></i>
                         {% elif p_code == 'TE' %}<i class="fa fa-cogs"></i>
                         {% elif p_code == 'TK' %}<i class="fa fa-microchip"></i>
                         {% else %}<i class="fa fa-university"></i>{% endif %}
                     </div>
-                    <h6 class="fw-bold text-dark mb-2 prodi-name">{{ p_name }}</h6>
+                    <h6 class="fw-bold text-dark mb-2 prodi-name prodi-text-mobile-fix">{{ p_name }}</h6>
                     <span class="text-primary fw-medium smaller-text">Lihat Materi <i class="fa fa-arrow-right ms-1" style="font-size: 0.6rem;"></i></span>
                 </a>
             </div>
@@ -146,46 +146,49 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-    /* --- NAVBAR REVISIONS --- */
+    /* --- NAVBAR REVISIONS (Fokus HP) --- */
     @media (max-width: 768px) {
-        /* Header navbar jangan terlalu mepet ujung (padding ditambah) */
         .navbar { padding: 4px 25px !important; } 
         .navbar-brand { font-size: 0.55rem !important; margin-right: auto !important; }
-        /* Beranda-eLibrary-Pendataan didekatkan dan mepet kanan */
-        .navbar-nav { flex-direction: row !important; justify-content: flex-end !important; gap: 4px !important; width: 100% !important; }
-        .nav-link { font-size: 0.42rem !important; padding: 2px 2px !important; }
-        .btn-pendataan { font-size: 0.42rem !important; padding: 2px 5px !important; margin-left: 2px !important; }
-        .navbar-toggler { transform: scale(0.4); margin-right: -20px; }
+        /* Beranda-eLibrary-Pendataan dirapatkan ke kanan */
+        .navbar-nav { flex-direction: row !important; justify-content: flex-end !important; gap: 6px !important; width: 100% !important; }
+        .nav-link { font-size: 0.45rem !important; padding: 2px 2px !important; white-space: nowrap !important; }
+        .btn-pendataan { font-size: 0.45rem !important; padding: 2px 5px !important; margin-left: 2px !important; }
+        .navbar-toggler { display: none !important; } /* Sembunyikan toggler agar menu sebaris tampil langsung */
+        
+        /* Perbesar Kartu Prodi di HP */
+        .prodi-card-mobile-fix { padding: 35px 15px !important; }
+        .icon-prodi-mobile-fix { width: 75px !important; height: 75px !important; font-size: 2rem !important; }
+        .prodi-text-mobile-fix { font-size: 0.95rem !important; }
     }
 
-    /* --- HERO & BACKGROUND (FOTO DIPERKECIL) --- */
+    /* --- HERO & BACKGROUND SLIDESHOW FIX --- */
     .hero-modern { height: 75vh; min-height: 550px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #000; }
+    
+    /* Animasi Slideshow untuk 3 gambar agar tampil bergantian */
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; filter: brightness(0.5); animation: smoothSlideshow 15s infinite linear; }
     
-    @keyframes smoothSlideshow { 0% { opacity: 0; } 5% { opacity: 1; } 33.33% { opacity: 1; } 38.33% { opacity: 0; } 100% { opacity: 0; } }
-    .slide-1 { animation-delay: 0s; z-index: 3; } .slide-2 { animation-delay: 5s; z-index: 2; } .slide-3 { animation-delay: 10s; z-index: 1; }
+    @keyframes smoothSlideshow { 
+        0%, 5% { opacity: 0; }
+        10%, 33% { opacity: 1; }
+        38%, 100% { opacity: 0; }
+    }
+    .slide-1 { animation-delay: 0s; } 
+    .slide-2 { animation-delay: 5s; } 
+    .slide-3 { animation-delay: 10s; }
 
-    /* Judul dinaikkan lebih tinggi (translateY -80px) dan diperbesar */
     .hero-brand-title-v6 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 5.5rem; letter-spacing: 12px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateY(-80px); }
-    /* Deskripsi diperkecil dan ikut naik */
     .hero-description-v6 { font-size: 0.7rem; color: rgba(255,255,255,0.7); max-width: 450px; line-height: 1.6; transform: translateY(-60px); }
-    .animate-up.delay-2 { transform: translateY(-40px); }
-
-    /* Button Ghost/Transparan */
+    
     .btn-cari-transparan-clean { background: transparent !important; border: 1.5px solid rgba(255,255,255,0.7); color: white !important; padding: 10px 25px; transition: 0.3s; }
     .btn-cari-transparan-clean:hover { background: rgba(255,255,255,0.1) !important; transform: scale(1.05); }
 
-    /* --- CARDS & FONTS --- */
-    .smaller-card-text { font-size: 0.62rem !important; }
-    .agenda-small-font { font-size: 0.8rem !important; }
-    .btn-text-small { font-size: 0.65rem !important; }
+    /* --- CARDS & BUTTONS --- */
+    .category-modern-card-small { padding: 30px 15px; background: #fff; border-radius: 20px; border: 1px solid #f1f5f9; transition: 0.3s; height: 100%; }
+    .icon-box-sharp-color { width: 70px; height: 70px; border-radius: 18px; font-size: 1.8rem; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; }
 
-    /* Capsule Pill Look */
-    .btn-lihat-semua-capsule { background: #3b82f6 !important; color: white !important; font-weight: 700; border: none; }
-    .btn-download-pdf-capsule { background: #ef4444 !important; color: white !important; font-weight: 700; border: none; }
-
-    /* --- MOBILE REVISIONS --- */
+    /* Mobile Revisions Typography */
     @media (max-width: 768px) {
         .hero-brand-title-v6 { font-size: 2.3rem; letter-spacing: 5px; transform: translateY(-60px); }
         .hero-description-v6 { transform: translateY(-40px); font-size: 0.62rem; }
