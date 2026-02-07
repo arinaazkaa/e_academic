@@ -42,7 +42,7 @@
                     <div class="card-body p-4 pt-4 flex-grow-1">
                         {% for lomba in info_lomba_list %}
                         <div class="lomba-item-clean d-flex align-items-center mb-4 pb-3 border-bottom border-light">
-                            <div class="date-minimalist text-center me-5">
+                            <div class="date-minimalist text-center me-4 me-lg-5">
                                 <span class="d-block fw-bold text-primary day-text">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
                                 <span class="d-block text-muted month-text">{{ lomba.tanggal_pelaksanaan|date:"M" }}</span>
                             </div>
@@ -82,15 +82,14 @@
                         </h5>
                         <a href="{% url 'kalender' %}" class="btn-detail-link-top text-decoration-none">Detail</a>
                     </div>
-                    <div class="card-body p-4 pt-3"> 
-                        <div class="agenda-list-minimal"> 
+                    <div class="card-body p-4 pt-2"> <div class="agenda-list-minimal"> 
                             {% for agenda in agenda_list %}
                             <div class="agenda-row-modern d-flex justify-content-between align-items-center py-3 border-bottom border-light last-no-border">
                                 <div class="d-flex align-items-center me-3">
                                     <div class="status-dot-modern dot-{{ agenda.warna }} me-3"></div>
-                                    <span class="text-dark fw-medium smaller-text text-truncate" style="max-width: 130px;">{{ agenda.kegiatan }}</span>
+                                    <span class="text-dark fw-semibold agenda-text-size text-truncate" style="max-width: 140px;">{{ agenda.kegiatan }}</span>
                                 </div>
-                                <span class="badge-date-clean flex-shrink-0">
+                                <span class="badge-date-clean flex-shrink-0 text-center" style="min-width: 85px;">
                                     {% if agenda.tanggal_selesai %}
                                         {{ agenda.tanggal_mulai|date:"d" }}-{{ agenda.tanggal_selesai|date:"d M" }}
                                     {% else %}
@@ -114,7 +113,7 @@
     </div>
 </section>
 
-<section class="pt-2 pb-2 bg-white">
+<section class="pt-2 pb-4 bg-white">
     <div class="container py-4 text-center">
         <div class="mb-5 reveal-on-scroll">
             <h6 class="text-primary fw-bold text-uppercase tracking-widest mb-2" style="font-size: 0.95rem;">ELECTRICAL LIBRARY</h6>
@@ -146,19 +145,19 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-    /* --- NAVBAR RESPONSIVE FIX --- */
+    /* --- NAVBAR RESPONSIVE OVERRIDES --- */
     @media (max-width: 768px) {
-        /* Padding horizontal ditambah agar tidak mepet ke ujung hp */
-        .navbar { padding: 12px 25px !important; }
-        .navbar-brand { font-size: 1rem !important; }
-        .navbar-toggler { transform: scale(0.8); }
+        /* Memperkecil elemen navbar agar muat satu baris dan tidak nabrak */
+        .navbar { padding: 10px 15px !important; }
+        .navbar-brand { font-size: 0.85rem !important; letter-spacing: 1px !important; }
+        .nav-link { font-size: 0.7rem !important; padding: 5px 8px !important; }
+        .btn-pendataan { font-size: 0.65rem !important; padding: 4px 10px !important; }
+        .navbar-toggler { transform: scale(0.7); margin-right: -5px; }
     }
 
-    /* --- HERO & BACKGROUND SLIDER FIX (Mencegah Abu-Abu) --- */
+    /* --- HERO & BACKGROUND --- */
     .hero-modern { height: 80vh; min-height: 600px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #000; }
-    
-    /* Animasi disetel 100% cycle agar ketiga gambar tampil bergantian tanpa celah */
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; filter: brightness(0.45); animation: smoothSlideshow 15s infinite linear; }
     
     @keyframes smoothSlideshow { 
@@ -171,12 +170,16 @@
 
     .hero-overlay-refined { position: absolute; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.8) 100%); z-index: 4; pointer-events: none; }
     
-    /* Padding-top ditambah agar ada jarak antara Navbar dengan judul E-ACADEMIC */
-    .hero-content { position: relative; z-index: 5; padding-top: 140px; }
+    /* Padding ditingkatkan agar judul E-ACADEMIC tidak mepet navbar */
+    .hero-content { position: relative; z-index: 5; padding-top: 180px; }
 
     /* --- TYPOGRAPHY --- */
     .hero-brand-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 4.8rem; letter-spacing: 12px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     .hero-description { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 600px; margin-bottom: 2rem; }
+
+    /* --- AGENDA SPECIFIC --- */
+    .agenda-text-size { font-size: 0.92rem !important; }
+    .agenda-list-minimal { margin-top: 5px !important; }
 
     /* --- CARDS & BUTTONS --- */
     .card-modern-clean { border-radius: 24px !important; overflow: hidden; }
@@ -195,7 +198,8 @@
         .hero-modern { height: 50vh; min-height: 400px; }
         .hero-brand-title { font-size: 2rem; letter-spacing: 4px; padding: 0 15px; }
         .hero-description { font-size: 0.85rem; padding: 0 25px; margin-bottom: 1.5rem; }
-        .hero-content { padding-top: 110px; } /* Jarak navbar ke judul di HP */
+        /* Hero content padding ditingkatkan di HP */
+        .hero-content { padding-top: 130px; } 
 
         .overlap-up { margin-top: -30px; }
         .col-lg-7, .col-lg-5 { margin-bottom: 25px; }
@@ -204,6 +208,9 @@
         .item-title { font-size: 0.9rem !important; margin-bottom: 5px !important; }
         .smaller-text { font-size: 0.72rem !important; line-height: 1.4; }
         .card-title-text { font-size: 0.95rem !important; }
+        
+        /* Font agenda khusus HP agar tetap terbaca jelas */
+        .agenda-text-size { font-size: 0.85rem !important; }
     }
 
     /* Animasi */
