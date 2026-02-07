@@ -15,12 +15,12 @@
     <div class="container hero-content text-center text-white">
         <div class="row justify-content-center">
             <div class="col-12 px-3"> 
-                <h1 class="animate-up hero-brand-title">E-ACADEMIC</h1>
-                <p class="animate-up delay-1 mx-auto hero-description-small mt-2">
+                <h1 class="animate-up hero-brand-title-v6">E-ACADEMIC</h1>
+                <p class="animate-up delay-1 mx-auto hero-description-v6 mt-4">
                     Wadah kolaborasi dan inovasi mahasiswa di Lingkungan Teknik Elektro. Akses materi kuliah jadi lebih mudah dan praktis
                 </p>
                 <div class="animate-up delay-2 mt-4">
-                    <a href="{% url 'list_materi' %}" class="btn rounded-pill fw-bold btn-cari-transparan">
+                    <a href="{% url 'list_materi' %}" class="btn rounded-pill fw-bold btn-cari-transparan-clean">
                         <i class="fa fa-search me-2"></i> Cari Materi
                     </a>
                 </div>
@@ -31,7 +31,7 @@
 
 <section id="info-section" class="pt-5 pb-3 section-gray">
     <div class="container overlap-up">
-        <div class="row g-5">
+        <div class="row g-4">
             <div class="col-lg-7 reveal-on-scroll">
                 <div class="card-interactive-premium h-100 shadow-lg border-0 bg-white d-flex flex-column">
                     <div class="card-header-clean p-4 pb-0"> 
@@ -42,7 +42,7 @@
                     <div class="card-body p-4 pt-4 flex-grow-1">
                         {% for lomba in info_lomba_list %}
                         <div class="lomba-item-interactive d-flex align-items-center mb-4 pb-3 border-bottom border-light">
-                            <div class="date-minimalist text-center" style="margin-right: 1.5rem;">
+                            <div class="date-minimalist text-center" style="margin-right: 1.2rem; min-width: 50px;">
                                 <span class="d-block fw-bold text-primary day-text">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
                                 <span class="d-block text-muted month-text">{{ lomba.tanggal_pelaksanaan|date:"M" }}</span>
                             </div>
@@ -53,10 +53,10 @@
                                     </a>
                                 </h6>
                                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-1 gap-1">
-                                    <div class="organizer-text text-muted info-extra-small">
+                                    <div class="text-muted smaller-card-text">
                                         <i class="fa fa-university me-1 text-primary-light"></i> {{ lomba.penyelenggara|truncatechars:20 }}
                                     </div>
-                                    <div class="deadline-text-clean info-extra-small text-danger fw-bold">
+                                    <div class="text-danger fw-bold smaller-card-text">
                                         <i class="fa fa-clock-o me-1"></i> Deadline: {{ lomba.tanggal_deadline|date:"d M" }}
                                     </div>
                                 </div>
@@ -83,14 +83,14 @@
                         <a href="{% url 'kalender' %}" class="btn-detail-link-top text-decoration-none">Detail</a>
                     </div>
                     <div class="card-body p-4 pt-0"> 
-                        <div class="agenda-list-minimal mt-1"> 
+                        <div class="agenda-list-minimal mt-0"> 
                             {% for agenda in agenda_list %}
                             <div class="agenda-row-interactive d-flex justify-content-between align-items-center py-2 border-bottom border-light last-no-border">
                                 <div class="d-flex align-items-center me-3">
                                     <div class="status-dot-modern dot-{{ agenda.warna }} me-3"></div>
-                                    <span class="text-dark fw-semibold agenda-font-main text-truncate" style="max-width: 140px;">{{ agenda.kegiatan }}</span>
+                                    <span class="text-dark fw-semibold agenda-small-font text-truncate" style="max-width: 130px;">{{ agenda.kegiatan }}</span>
                                 </div>
-                                <span class="badge-date-clean flex-shrink-0 text-center agenda-font-date" style="min-width: 80px;">
+                                <span class="badge-date-clean flex-shrink-0 text-center agenda-small-font" style="min-width: 80px; font-weight: 500;">
                                     {% if agenda.tanggal_selesai %}
                                         {{ agenda.tanggal_mulai|date:"d" }}-{{ agenda.tanggal_selesai|date:"d M" }}
                                     {% else %}
@@ -117,9 +117,9 @@
 <section class="mt-5 pt-5 pb-5 bg-white">
     <div class="container py-4 text-center">
         <div class="mb-5 reveal-on-scroll">
-            <h2 class="text-primary fw-900 text-uppercase tracking-widest mb-1 text-nowrap" style="font-size: 2.2rem; font-weight: 900 !important;">ELECTRICAL LIBRARY</h2>
-            <h6 class="fw-bold text-muted mb-3" style="font-size: 0.75rem; letter-spacing: 2px;">Kategori Program Studi</h6>
-            <div class="divider-minimal mx-auto bg-primary" style="width: 60px; height: 4px; border-radius: 2px;"></div>
+            <h2 class="text-primary fw-900 text-uppercase tracking-widest mb-1 text-nowrap" style="font-size: 1.8rem; font-weight: 900 !important;">ELECTRICAL LIBRARY</h2>
+            <h6 class="fw-bold text-muted mb-3" style="font-size: 0.7rem; letter-spacing: 1px;">Kategori Program Studi</h6>
+            <div class="divider-minimal mx-auto bg-primary" style="width: 50px; height: 3px; border-radius: 2px;"></div>
         </div>
         
         <div class="row g-4 justify-content-center prodi-grid">
@@ -146,53 +146,51 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-    /* --- NAVBAR OVERRIDE --- */
+    /* --- NAVBAR REVISIONS --- */
     @media (max-width: 768px) {
-        .navbar-nav { flex-direction: row !important; justify-content: flex-end !important; align-items: center !important; width: 100% !important; }
-        /* Beranda, Library, Pendataan diperkecil dan berdekatan di kanan */
-        .nav-item { margin-left: 8px !important; margin-right: 0 !important; }
-        .nav-link { font-size: 0.45rem !important; padding: 2px 4px !important; }
-        .btn-pendataan { font-size: 0.45rem !important; padding: 2px 6px !important; margin-left: 4px !important; }
-        .navbar-brand { font-size: 0.55rem !important; margin-right: auto !important; } /* Paling kiri */
+        /* Header navbar jangan terlalu mepet ujung (padding ditambah) */
+        .navbar { padding: 4px 25px !important; } 
+        .navbar-brand { font-size: 0.55rem !important; margin-right: auto !important; }
+        /* Beranda-eLibrary-Pendataan didekatkan dan mepet kanan */
+        .navbar-nav { flex-direction: row !important; justify-content: flex-end !important; gap: 4px !important; width: 100% !important; }
+        .nav-link { font-size: 0.42rem !important; padding: 2px 2px !important; }
+        .btn-pendataan { font-size: 0.42rem !important; padding: 2px 5px !important; margin-left: 2px !important; }
+        .navbar-toggler { transform: scale(0.4); margin-right: -20px; }
     }
 
-    /* --- HERO REVISIONS --- */
-    .hero-modern { height: 90vh; min-height: 650px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
+    /* --- HERO & BACKGROUND (FOTO DIPERKECIL) --- */
+    .hero-modern { height: 75vh; min-height: 550px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #000; }
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; filter: brightness(0.5); animation: smoothSlideshow 15s infinite linear; }
     
     @keyframes smoothSlideshow { 0% { opacity: 0; } 5% { opacity: 1; } 33.33% { opacity: 1; } 38.33% { opacity: 0; } 100% { opacity: 0; } }
     .slide-1 { animation-delay: 0s; z-index: 3; } .slide-2 { animation-delay: 5s; z-index: 2; } .slide-3 { animation-delay: 10s; z-index: 1; }
 
-    /* Judul dinaikkan dan diperbesar */
-    .hero-brand-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 5rem; letter-spacing: 12px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateY(-50px); }
-    .hero-description-small { font-size: 0.72rem; color: rgba(255,255,255,0.7); max-width: 480px; line-height: 1.6; transform: translateY(-40px); }
-    .animate-up.delay-2 { transform: translateY(-30px); }
+    /* Judul dinaikkan lebih tinggi (translateY -80px) dan diperbesar */
+    .hero-brand-title-v6 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 5.5rem; letter-spacing: 12px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateY(-80px); }
+    /* Deskripsi diperkecil dan ikut naik */
+    .hero-description-v6 { font-size: 0.7rem; color: rgba(255,255,255,0.7); max-width: 450px; line-height: 1.6; transform: translateY(-60px); }
+    .animate-up.delay-2 { transform: translateY(-40px); }
 
-    /* Button Transparan */
-    .btn-cari-transparan { background: transparent !important; border: 2px solid rgba(255,255,255,0.8); color: white !important; padding: 10px 25px; transition: 0.3s; }
-    .btn-cari-transparan:hover { background: white !important; color: #1e293b !important; transform: scale(1.05); }
+    /* Button Ghost/Transparan */
+    .btn-cari-transparan-clean { background: transparent !important; border: 1.5px solid rgba(255,255,255,0.7); color: white !important; padding: 10px 25px; transition: 0.3s; }
+    .btn-cari-transparan-clean:hover { background: rgba(255,255,255,0.1) !important; transform: scale(1.05); }
 
-    /* --- CARDS & BUTTONS --- */
-    .card-interactive-premium { border-radius: 24px !important; transition: 0.3s; }
-    /* Button Capsule Biru */
-    .btn-lihat-semua-capsule { background: #3b82f6 !important; color: white !important; font-weight: 700; transition: 0.3s; border: none; }
-    .btn-lihat-semua-capsule:hover { background: #2563eb !important; transform: scale(1.02); }
-    /* Button Capsule Merah */
-    .btn-download-pdf-capsule { background: #ef4444 !important; color: white !important; font-weight: 700; transition: 0.3s; border: none; }
-    .btn-download-pdf-capsule:hover { background: #dc2626 !important; transform: scale(1.02); }
+    /* --- CARDS & FONTS --- */
+    .smaller-card-text { font-size: 0.62rem !important; }
+    .agenda-small-font { font-size: 0.8rem !important; }
+    .btn-text-small { font-size: 0.65rem !important; }
 
-    /* --- PRODI CARDS (DIPERKECIL SEDIKIT) --- */
-    .category-modern-card-small { padding: 30px 15px; background: #fff; border-radius: 20px; border: 1px solid #f1f5f9; transition: 0.3s; height: 100%; }
-    .icon-box-sharp-color { width: 70px; height: 70px; border-radius: 18px; font-size: 1.8rem; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; }
+    /* Capsule Pill Look */
+    .btn-lihat-semua-capsule { background: #3b82f6 !important; color: white !important; font-weight: 700; border: none; }
+    .btn-download-pdf-capsule { background: #ef4444 !important; color: white !important; font-weight: 700; border: none; }
 
     /* --- MOBILE REVISIONS --- */
     @media (max-width: 768px) {
-        .hero-brand-title { font-size: 2.5rem; letter-spacing: 5px; transform: translateY(-40px); }
-        .hero-description-small { transform: translateY(-30px); font-size: 0.65rem; }
+        .hero-brand-title-v6 { font-size: 2.3rem; letter-spacing: 5px; transform: translateY(-60px); }
+        .hero-description-v6 { transform: translateY(-40px); font-size: 0.62rem; }
         .hero-content { padding-top: 200px; }
         .overlap-up { margin-top: -30px; }
-        .btn-text-small { font-size: 0.65rem !important; }
     }
 
     .reveal-on-scroll { opacity: 0; transform: translateY(20px); transition: all 0.8s ease; }
