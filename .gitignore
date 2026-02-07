@@ -1,0 +1,13 @@
+# Abaikan database lokal agar tidak menimpa server
+db.sqlite3
+
+# Abaikan folder library yang berat
+venv/
+env/
+
+# Abaikan file sampah Python
+*.pyc
+__pycache__/
+
+# Abaikan file statis yang sudah dikumpulkan
+staticfiles/
