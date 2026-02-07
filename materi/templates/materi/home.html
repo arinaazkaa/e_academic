@@ -42,7 +42,7 @@
                     <div class="card-body p-4 pt-4 flex-grow-1">
                         {% for lomba in info_lomba_list %}
                         <div class="lomba-item-clean d-flex align-items-center mb-4 pb-3 border-bottom border-light">
-                            <div class="date-minimalist text-center me-4 me-lg-5">
+                            <div class="date-minimalist text-center me-5">
                                 <span class="d-block fw-bold text-primary day-text">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
                                 <span class="d-block text-muted month-text">{{ lomba.tanggal_pelaksanaan|date:"M" }}</span>
                             </div>
@@ -82,14 +82,14 @@
                         </h5>
                         <a href="{% url 'kalender' %}" class="btn-detail-link-top text-decoration-none">Detail</a>
                     </div>
-                    <div class="card-body p-4 pt-2"> <div class="agenda-list-minimal"> 
+                    <div class="card-body p-4 pt-0"> <div class="agenda-list-minimal" style="margin-top: -5px;"> 
                             {% for agenda in agenda_list %}
                             <div class="agenda-row-modern d-flex justify-content-between align-items-center py-3 border-bottom border-light last-no-border">
                                 <div class="d-flex align-items-center me-3">
                                     <div class="status-dot-modern dot-{{ agenda.warna }} me-3"></div>
-                                    <span class="text-dark fw-semibold agenda-text-size text-truncate" style="max-width: 140px;">{{ agenda.kegiatan }}</span>
+                                    <span class="text-dark fw-bold agenda-font-main text-truncate" style="max-width: 140px;">{{ agenda.kegiatan }}</span>
                                 </div>
-                                <span class="badge-date-clean flex-shrink-0 text-center" style="min-width: 85px;">
+                                <span class="badge-date-clean flex-shrink-0 text-center agenda-font-date" style="min-width: 85px;">
                                     {% if agenda.tanggal_selesai %}
                                         {{ agenda.tanggal_mulai|date:"d" }}-{{ agenda.tanggal_selesai|date:"d M" }}
                                     {% else %}
@@ -120,7 +120,6 @@
             <h2 class="fw-bold text-dark mb-3">Kategori Program Studi</h2>
             <div class="divider-minimal mx-auto bg-primary" style="width: 50px; height: 3px; border-radius: 2px;"></div>
         </div>
-        
         <div class="row g-4 justify-content-center prodi-grid">
             {% for p_code, p_name, p_bg in prodi_data %}
             <div class="col-6 col-md-4 col-lg-2 reveal-on-scroll prodi-item"> 
@@ -147,39 +146,44 @@
 
     /* --- NAVBAR RESPONSIVE OVERRIDES --- */
     @media (max-width: 768px) {
-        /* Memperkecil elemen navbar agar muat satu baris dan tidak nabrak */
-        .navbar { padding: 10px 15px !important; }
-        .navbar-brand { font-size: 0.85rem !important; letter-spacing: 1px !important; }
-        .nav-link { font-size: 0.7rem !important; padding: 5px 8px !important; }
-        .btn-pendataan { font-size: 0.65rem !important; padding: 4px 10px !important; }
-        .navbar-toggler { transform: scale(0.7); margin-right: -5px; }
+        /* Memaksa elemen navbar lebih kecil agar muat satu baris */
+        .navbar { padding: 8px 10px !important; }
+        .navbar-brand { font-size: 0.75rem !important; letter-spacing: 0.5px !important; margin-right: 5px !important; }
+        .nav-link { font-size: 0.6rem !important; padding: 4px 5px !important; }
+        .btn-pendataan { font-size: 0.58rem !important; padding: 3px 8px !important; border-radius: 50px !important; }
+        .navbar-toggler { transform: scale(0.6); margin-right: -10px; }
     }
 
     /* --- HERO & BACKGROUND --- */
     .hero-modern { height: 80vh; min-height: 600px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #000; }
-    .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; filter: brightness(0.45); animation: smoothSlideshow 15s infinite linear; }
+    
+    /* Animasi blinking smooth untuk 3 gambar */
+    .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; filter: brightness(0.5); animation: smoothSlideshow 15s infinite linear; }
     
     @keyframes smoothSlideshow { 
-        0%, 33.33% { opacity: 1; z-index: 3; }
-        38.33%, 100% { opacity: 0; z-index: 1; }
+        0% { opacity: 0; }
+        5% { opacity: 1; }
+        33.33% { opacity: 1; }
+        38.33% { opacity: 0; }
+        100% { opacity: 0; }
     }
-    .slide-1 { animation-delay: 0s; }
-    .slide-2 { animation-delay: 5s; }
-    .slide-3 { animation-delay: 10s; }
+    .slide-1 { animation-delay: 0s; z-index: 3; }
+    .slide-2 { animation-delay: 5s; z-index: 2; }
+    .slide-3 { animation-delay: 10s; z-index: 1; }
 
     .hero-overlay-refined { position: absolute; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.8) 100%); z-index: 4; pointer-events: none; }
     
-    /* Padding ditingkatkan agar judul E-ACADEMIC tidak mepet navbar */
-    .hero-content { position: relative; z-index: 5; padding-top: 180px; }
+    /* Jarak Judul E-ACADEMIC diperjauh dari navbar */
+    .hero-content { position: relative; z-index: 5; padding-top: 200px; }
+
+    /* --- AGENDA & FONTS --- */
+    .agenda-font-main { font-size: 1.05rem !important; } /* Lebih besar */
+    .agenda-font-date { font-size: 0.72rem !important; font-weight: 500; color: #64748b; } /* Lebih kecil & selaras */
 
     /* --- TYPOGRAPHY --- */
     .hero-brand-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 4.8rem; letter-spacing: 12px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     .hero-description { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 600px; margin-bottom: 2rem; }
-
-    /* --- AGENDA SPECIFIC --- */
-    .agenda-text-size { font-size: 0.92rem !important; }
-    .agenda-list-minimal { margin-top: 5px !important; }
 
     /* --- CARDS & BUTTONS --- */
     .card-modern-clean { border-radius: 24px !important; overflow: hidden; }
@@ -189,7 +193,6 @@
     .btn-download-pdf:hover { background: #ef4444; color: #fff; }
 
     /* --- PRODI CARDS --- */
-    .prodi-item { margin-bottom: 25px; }
     .category-modern-card { padding: 25px 10px; background: #fff; border-radius: 20px; border: 1px solid #f1f5f9; transition: 0.3s; height: 100%; }
     .icon-box-sharp-color { width: 65px; height: 65px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; background-color: #eff6ff; color: #1d4ed8; }
 
@@ -197,20 +200,10 @@
     @media (max-width: 768px) {
         .hero-modern { height: 50vh; min-height: 400px; }
         .hero-brand-title { font-size: 2rem; letter-spacing: 4px; padding: 0 15px; }
-        .hero-description { font-size: 0.85rem; padding: 0 25px; margin-bottom: 1.5rem; }
-        /* Hero content padding ditingkatkan di HP */
-        .hero-content { padding-top: 130px; } 
-
+        .hero-content { padding-top: 150px; } /* Jarak navbar ke judul di HP diperjauh */
         .overlap-up { margin-top: -30px; }
         .col-lg-7, .col-lg-5 { margin-bottom: 25px; }
-
         .card-body { padding: 1.25rem !important; }
-        .item-title { font-size: 0.9rem !important; margin-bottom: 5px !important; }
-        .smaller-text { font-size: 0.72rem !important; line-height: 1.4; }
-        .card-title-text { font-size: 0.95rem !important; }
-        
-        /* Font agenda khusus HP agar tetap terbaca jelas */
-        .agenda-text-size { font-size: 0.85rem !important; }
     }
 
     /* Animasi */
