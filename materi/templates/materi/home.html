@@ -42,7 +42,7 @@
                     <div class="card-body p-4 pt-4 flex-grow-1">
                         {% for lomba in info_lomba_list %}
                         <div class="lomba-item-clean d-flex align-items-center mb-4 pb-3 border-bottom border-light">
-                            <div class="date-minimalist text-center me-5">
+                            <div class="date-minimalist text-center" style="margin-right: 3.5rem;">
                                 <span class="d-block fw-bold text-primary day-text">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
                                 <span class="d-block text-muted month-text">{{ lomba.tanggal_pelaksanaan|date:"M" }}</span>
                             </div>
@@ -114,26 +114,27 @@
     </div>
 </section>
 
-<section class="pt-2 pb-4 bg-white">
+<section class="pt-4 pb-5 bg-white">
     <div class="container py-4 text-center">
         <div class="mb-5 reveal-on-scroll">
             <h6 class="text-primary fw-bold text-uppercase tracking-widest mb-2" style="font-size: 0.95rem;">ELECTRICAL LIBRARY</h6>
             <h2 class="fw-bold text-dark mb-3">Kategori Program Studi</h2>
             <div class="divider-minimal mx-auto bg-primary" style="width: 50px; height: 3px; border-radius: 2px;"></div>
         </div>
+        
         <div class="row g-4 justify-content-center prodi-grid">
             {% for p_code, p_name, p_bg in prodi_data %}
-            <div class="col-6 col-md-4 col-lg-2 reveal-on-scroll prodi-item"> 
+            <div class="col-6 col-md-4 col-lg-3 reveal-on-scroll prodi-item"> 
                 <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="category-modern-card text-decoration-none d-block">
-                    <div class="icon-box-sharp-color mb-3 mx-auto">
+                    <div class="icon-box-sharp-color mb-4 mx-auto">
                         {% if p_code == 'PTIK' %}<i class="fa fa-code"></i>
                         {% elif p_code == 'PTE' %}<i class="fa fa-bolt"></i>
                         {% elif p_code == 'TE' %}<i class="fa fa-cogs"></i>
                         {% elif p_code == 'TK' %}<i class="fa fa-microchip"></i>
                         {% else %}<i class="fa fa-university"></i>{% endif %}
                     </div>
-                    <h6 class="fw-bold text-dark mb-1 prodi-name">{{ p_name }}</h6>
-                    <small class="text-muted smaller-text">Lihat Materi</small>
+                    <h5 class="fw-bold text-dark mb-2 prodi-name">{{ p_name }}</h5>
+                    <span class="text-primary fw-medium smaller-text">Lihat Materi <i class="fa fa-arrow-right ms-1" style="font-size: 0.7rem;"></i></span>
                 </a>
             </div>
             {% endfor %}
@@ -145,19 +146,17 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-    /* --- NAVBAR RESPONSIVE FINETUNING --- */
+    /* --- NAVBAR SUPER COMPACT --- */
     @media (max-width: 768px) {
-        /* Dibuat lebih kecil lagi agar benar-benar tidak nabrak bezel */
-        .navbar { padding: 6px 12px !important; }
-        .navbar-brand { font-size: 0.7rem !important; margin-right: 2px !important; }
-        .nav-link { font-size: 0.58rem !important; padding: 4px 4px !important; }
-        .btn-pendataan { font-size: 0.55rem !important; padding: 3px 6px !important; }
-        .navbar-toggler { transform: scale(0.55); margin-right: -12px; }
+        .navbar { padding: 4px 8px !important; }
+        .navbar-brand { font-size: 0.65rem !important; letter-spacing: 0.2px !important; margin-right: 2px !important; }
+        .nav-link { font-size: 0.55rem !important; padding: 3px 3px !important; }
+        .btn-pendataan { font-size: 0.52rem !important; padding: 2px 5px !important; }
+        .navbar-toggler { transform: scale(0.5); margin-right: -15px; }
     }
 
-    /* --- HERO & BACKGROUND --- */
-    /* Tinggi dipertinggi sedikit sesuai request */
-    .hero-modern { height: 85vh; min-height: 600px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
+    /* --- HERO & BACKGROUND (TINGGI DI-UP) --- */
+    .hero-modern { height: 95vh; min-height: 700px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #000; }
     
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; filter: brightness(0.5); animation: smoothSlideshow 15s infinite linear; }
@@ -174,34 +173,31 @@
     .slide-3 { animation-delay: 10s; z-index: 1; }
 
     .hero-overlay-refined { position: absolute; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.8) 100%); z-index: 4; pointer-events: none; }
-    
-    .hero-content { position: relative; z-index: 5; padding-top: 210px; }
+    .hero-content { position: relative; z-index: 5; padding-top: 220px; }
 
-    /* --- TYPOGRAPHY HERO (DIPERKECIL) --- */
-    .hero-brand-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 4rem; letter-spacing: 10px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    .hero-description { font-size: 0.9rem; color: rgba(255,255,255,0.7); max-width: 580px; margin-bottom: 2rem; }
+    /* --- TYPOGRAPHY HERO --- */
+    .hero-brand-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 3.8rem; letter-spacing: 8px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .hero-description { font-size: 0.85rem; color: rgba(255,255,255,0.7); max-width: 550px; margin-bottom: 2rem; }
 
-    /* --- AGENDA & LOMBA FONTS --- */
+    /* --- LOMBA & AGENDA --- */
+    .info-extra-small { font-size: 0.65rem !important; }
     .agenda-font-main { font-size: 0.92rem !important; }
-    .agenda-font-date { font-size: 0.7rem !important; }
-    .info-extra-small { font-size: 0.65rem !important; line-height: 1.2; }
 
-    /* --- CARDS & BUTTONS --- */
-    .card-modern-clean { border-radius: 24px !important; overflow: hidden; }
-    .btn-lihat-semua-bottom { background: #fff; color: #3b82f6; border: 2px solid #3b82f6; padding: 12px; font-weight: 700; font-size: 0.8rem; transition: 0.3s; }
-    .btn-lihat-semua-bottom:hover { background: #3b82f6; color: #fff; }
-    .btn-download-pdf { background: #fff; color: #ef4444; border: 2px solid #ef4444; padding: 12px; font-weight: 700; font-size: 0.8rem; transition: 0.3s; }
-    .btn-download-pdf:hover { background: #ef4444; color: #fff; }
+    /* --- PRODI CARDS (DIPERBESAR) --- */
+    .category-modern-card { padding: 45px 20px; background: #fff; border-radius: 28px; border: 1px solid #f1f5f9; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); height: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    .category-modern-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: #3b82f6; }
+    .icon-box-sharp-color { width: 90px; height: 90px; border-radius: 22px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; background-color: #eff6ff; color: #1d4ed8; transition: 0.3s; }
+    .category-modern-card:hover .icon-box-sharp-color { background-color: #1d4ed8; color: #fff; }
 
-    /* --- MOBILE REVISIONS (HP) --- */
+    /* --- MOBILE REVISIONS --- */
     @media (max-width: 768px) {
-        .hero-modern { height: 60vh; min-height: 400px; }
-        .hero-brand-title { font-size: 1.8rem; letter-spacing: 3px; padding: 0 15px; }
-        .hero-description { font-size: 0.8rem; padding: 0 30px; }
-        .hero-content { padding-top: 160px; } 
-
-        .overlap-up { margin-top: -30px; }
-        .col-lg-7, .col-lg-5 { margin-bottom: 25px; }
+        .hero-modern { height: 75vh; min-height: 450px; }
+        .hero-brand-title { font-size: 1.8rem; letter-spacing: 3px; }
+        .hero-content { padding-top: 170px; } 
+        .overlap-up { margin-top: -35px; }
+        /* Kartu prodi di HP tetap 2 kolom tapi lebih tinggi */
+        .category-modern-card { padding: 30px 15px; }
+        .icon-box-sharp-color { width: 70px; height: 70px; font-size: 1.8rem; }
     }
 
     /* Animasi */
