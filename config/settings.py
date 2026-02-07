@@ -3,19 +3,18 @@ Django settings for config project.
 """
 
 from pathlib import Path
-import os   # <--- Wajib ada untuk pengaturan folder
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# (Gunakan key yang aman saat produksi nanti)
 SECRET_KEY = 'django-insecure-6b1aet$bi)nn=63kz#m)xlfknqk28!9%5e$sh4nf)@e%t0csi9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# Saya tambahkan '*' agar bisa diakses di berbagai environment sementara ini
+# Diperlukan agar PythonAnywhere bisa mengakses situs
 ALLOWED_HOSTS = ['*']
 
 
@@ -29,11 +28,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Aplikasi buatanmu
+    # Aplikasi proyek
     'materi',
 
-    # --- TAMBAHAN BARU (AUTO CLEANUP) ---
-    # Library ini otomatis menghapus file foto sampah/lama
+    # Auto cleanup untuk menghapus file media lama
     'django_cleanup.apps.CleanupConfig', 
 ]
 
@@ -52,11 +50,8 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        
-        # --- PERBAIKAN PENTING DI SINI ---
-        # Kita isi DIRS agar Django tahu dimana mencari file HTML
+        # Mencari HTML di folder /templates di root project
         'DIRS': [BASE_DIR / 'templates'], 
-        
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,49 +77,37 @@ DATABASES = {
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
 
 # Internationalization
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'id'  # Menggunakan Bahasa Indonesia
+TIME_ZONE = 'Asia/Jakarta'  # Waktu Indonesia Barat
 USE_I18N = True
 USE_TZ = True
 
 
-# --- PERBAIKAN PENGATURAN STATIC (SOLUSI ERROR E002) ---
+# --- PENGATURAN STATIC FILES ---
 
-STATIC_URL = 'static/'
+# PERBAIKAN: Wajib menggunakan garis miring di depan agar path tidak relatif
+STATIC_URL = '/static/'
 
-# 1. STATICFILES_DIRS: Folder "Gudang" (Tempat kamu menaruh/edit file CSS & JS saat coding)
-# Biarkan ini tetap 'static' karena file aslimu ada di sini.
+# Folder tempat kamu mengedit CSS/JS (Gudang)
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-# 2. STATIC_ROOT: Folder "Etalase" (Tempat Django mengumpulkan hasil akhir saat collectstatic)
-# Saya ubah namanya jadi 'staticfiles' agar TIDAK BENTROK dengan folder di atas.
-# Nanti Django akan membuat folder ini otomatis.
+# Folder tempat Django mengumpulkan file untuk server (Etalase)
+# Sesuai dengan hasil collectstatic di console kamu
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
-# --- PENGATURAN MEDIA (UPLOAD USER) ---
-# URL untuk mengakses gambar di browser
+# --- PENGATURAN MEDIA FILES ---
 MEDIA_URL = '/media/'
-
-# Folder fisik di komputer tempat gambar disimpan
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
