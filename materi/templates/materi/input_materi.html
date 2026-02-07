@@ -1,212 +1,128 @@
 {% extends 'materi/base.html' %}
 {% load static %}
 
-{% block title %}Upload Materi - E-Academic{% endblock %}
+{% block title %}Input Materi - E-Academic{% endblock %}
 
 {% block content %}
 
-<section class="hero-upload">
-    <div class="hero-pattern"></div>
-
-    <div class="container animate-up position-relative" style="z-index: 2;">
-        <div class="mb-3">
-            <div class="icon-wrapper mx-auto">
-                <i class="fa fa-cloud-upload text-info" style="font-size: 40px; text-shadow: 0 0 25px rgba(13,202,240,0.8);"></i>
-            </div>
+<section class="hero-library-modern" style="min-height: 350px; padding: 120px 0 80px 0;">
+    <div class="hero-overlay-refined"></div>
+    <div class="container hero-content text-center text-white animate-up">
+        <div class="icon-circle-hero mx-auto mb-3">
+            <i class="fa fa-cloud-upload"></i>
         </div>
-        <h1 class="fw-bold display-5 mb-3 text-white hero-title">
-            UPLOAD MATERI KULIAH
-        </h1>
-        <p class="lead text-white-50 mx-auto hero-desc">
-            Bagikan catatan, slide presentasi, atau e-book untuk membantu teman.<br>
-            Satu kontribusi kecil untuk kemajuan bersama.
+        <h1 class="fw-bold display-5 mb-2 hero-brand-title">KONTRIBUSI MATERI</h1>
+        <p class="text-white-50 mx-auto fs-6 hero-description" style="max-width: 600px;">
+            Bantu sesama mahasiswa dengan membagikan link kumpulan materi mata kuliah.
         </p>
     </div>
 </section>
 
-<section class="form-section">
-    <div class="container form-container">
-        
+<section class="py-5 section-gray">
+    <div class="container" style="margin-top: -60px; position: relative; z-index: 100;">
         <div class="row justify-content-center">
-            <div class="col-lg-9 animate-up delay-1">
-                
-                <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
-                    
-                    <div class="card-header bg-white border-bottom p-4">
-                        <h5 class="fw-bold text-dark m-0 d-flex align-items-center">
-                            <i class="fa fa-book text-primary me-2"></i> Formulir Upload Materi
-                        </h5>
-                    </div>
-
-                    <div class="card-body p-4 p-md-5">
-                        
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="alert alert-{{ message.tags }} rounded-3 text-center small mb-4 shadow-sm border-0">
-                                    {% if message.tags == 'error' %}<i class="fa fa-exclamation-circle me-1"></i>{% endif %}
-                                    {% if message.tags == 'success' %}<i class="fa fa-check-circle me-1"></i>{% endif %}
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-
-                        <form method="POST" enctype="multipart/form-data">
+            <div class="col-lg-7">
+                <div class="card card-protrude-form shadow-lg border-0 animate-up delay-1">
+                    <div class="p-4 p-md-5">
+                        <form method="POST" action="">
                             {% csrf_token %}
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-bold text-dark"><i class="fa fa-university me-2 text-primary"></i> Program Studi</label>
+                                <select name="prodi" id="id_prodi" class="form-select custom-input" required>
+                                    <option value="" disabled selected>Pilih Program Studi...</option>
+                                    <option value="PTIK">PTIK (Pendidikan Teknik Informatika dan Komputer)</option>
+                                    <option value="PTE">PTE (Pendidikan Teknik Elektro)</option>
+                                    <option value="TE">TE (Teknik Elektro)</option>
+                                    <option value="TK">TEKKOM (Teknik Komputer)</option>
+                                    <option value="MKU">MKU (Mata Kuliah Umum)</option>
+                                </select>
+                            </div>
 
-                            <h6 class="fw-bold text-primary text-uppercase mb-4 section-title">
-                                <i class="fa fa-graduation-cap me-1"></i> Data Akademik
-                            </h6>
-
-                            <div class="row g-4 mb-4">
-                                <div class="col-md-6">
-                                    <label class="form-label small fw-bold text-muted">Program Studi <span class="text-danger">*</span></label>
-                                    <select name="prodi" class="form-select bg-light border-0 py-3 px-3 cursor-pointer" required>
-                                        <option value="" selected disabled>-- Pilih Prodi --</option>
-                                        <option value="PTIK">Pendidikan Teknik Informatika & Komputer</option>
-                                        <option value="PTE">Pendidikan Teknik Elektro</option>
-                                        <option value="TE">Teknik Elektro</option>
-                                        <option value="TK">Teknik Komputer</option>
-                                    </select>
+                            <div class="mb-4" id="semester-container">
+                                <label class="form-label fw-bold text-dark"><i class="fa fa-list-ol me-2 text-primary"></i> Semester</label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% for i in "12345" %}
+                                    <input type="radio" class="btn-check" name="semester" id="sem{{ i }}" value="{{ i }}" required>
+                                    <label class="btn btn-outline-primary rounded-pill px-3 py-2 sem-pill" for="sem{{ i }}">Semester {{ i }}</label>
+                                    {% endfor %}
                                 </div>
+                                <small class="text-muted mt-2 d-block">Pilih tingkat semester materi ini.</small>
+                            </div>
 
-                                <div class="col-md-6">
-                                    <label class="form-label small fw-bold text-muted">Semester Materi <span class="text-danger">*</span></label>
-                                    <select name="semester" class="form-select bg-light border-0 py-3 px-3 cursor-pointer" required>
-                                        <option value="" selected disabled>-- Pilih Semester --</option>
-                                        <option value="1">Semester 1</option>
-                                        <option value="2">Semester 2</option>
-                                        <option value="3">Semester 3</option>
-                                        <option value="4">Semester 4</option>
-                                        <option value="5">Semester 5</option>
-                                        <option value="6">Semester 6</option>
-                                        <option value="7">Semester 7</option>
-                                        <option value="8">Semester 8</option>
-                                    </select>
-                                </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-bold text-dark"><i class="fa fa-book me-2 text-primary"></i> Nama Mata Kuliah</label>
+                                <input type="text" name="mata_kuliah" class="form-control custom-input" placeholder="Contoh: Kalkulus 1, Dasar Pemrograman" required>
+                            </div>
 
-                                <div class="col-md-6">
-                                    <label class="form-label small fw-bold text-muted">Mata Kuliah <span class="text-danger">*</span></label>
-                                    <input type="text" name="mata_kuliah" class="form-control bg-light border-0 py-3 px-3" placeholder="Contoh: Rangkaian Listrik" required>
-                                </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-bold text-dark"><i class="fa fa-info-circle me-2 text-primary"></i> Judul / Deskripsi</label>
+                                <input type="text" name="judul" class="form-control custom-input" placeholder="Contoh: Kumpulan Modul & Latihan Soal PDF" required>
+                            </div>
 
-                                <div class="col-md-6">
-                                    <label class="form-label small fw-bold text-muted">Dosen Pengampu (Opsional)</label>
-                                    <input type="text" name="dosen" class="form-control bg-light border-0 py-3 px-3" placeholder="Nama Dosen...">
+                            <div class="mb-5">
+                                <label class="form-label fw-bold text-dark"><i class="fa fa-link me-2 text-primary"></i> Link Google Drive (Folder/File)</label>
+                                <input type="url" name="link_google_drive" class="form-control custom-input" placeholder="https://drive.google.com/drive/folders/..." required>
+                                <div class="alert alert-info border-0 rounded-4 mt-3 small py-2">
+                                    <i class="fa fa-lightbulb-o me-2"></i> Pastikan akses link sudah diset ke <strong>"Siapa saja yang memiliki link"</strong>.
                                 </div>
                             </div>
 
-                            <hr class="border-light my-5">
-
-                            <h6 class="fw-bold text-success text-uppercase mb-4 section-title">
-                                <i class="fa fa-link me-1"></i> Tautan Materi
-                            </h6>
-
-                            <div class="row g-4">
-                                <div class="col-12">
-                                    <label class="form-label small fw-bold text-muted">Judul Materi / Bab <span class="text-danger">*</span></label>
-                                    <input type="text" name="judul" class="form-control bg-light border-0 py-3 px-3" placeholder="Contoh: Pertemuan 1 - Hukum Ohm" required>
-                                </div>
-
-                                <div class="col-12">
-                                    <label class="form-label small fw-bold text-muted">Link Google Drive <span class="text-danger">*</span></label>
-                                    
-                                    <div class="alert alert-warning border-0 bg-warning bg-opacity-10 d-flex align-items-start mb-3 rounded-3" role="alert">
-                                        <div class="me-3 mt-1 text-warning">
-                                            <i class="fa fa-exclamation-triangle fs-4"></i>
-                                        </div>
-                                        <div>
-                                            <span class="fw-bold text-dark d-block mb-1">PENTING: Atur Akses Menjadi Public!</span>
-                                            <span class="small text-muted" style="line-height: 1.4; display: block;">
-                                                Pastikan setting share link Google Drive diubah menjadi <strong>"Anyone with the link"</strong> agar temanmu bisa membukanya tanpa meminta izin akses.
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div class="input-group">
-                                        <span class="input-group-text bg-light border-0 ps-3"><i class="fa fa-google text-danger fs-5"></i></span>
-                                        <input type="url" name="link_google_drive" class="form-control bg-light border-0 py-3" placeholder="https://drive.google.com/file/d/..." required>
-                                    </div>
-                                    <div class="form-text small mt-2 text-muted ms-1">
-                                        <i class="fa fa-info-circle me-1"></i> Paste link lengkap folder atau file materi di sini.
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <label class="form-label small fw-bold text-muted">Cover Materi (Opsional)</label>
-                                    <input type="file" name="cover" class="form-control bg-light border-0 px-3 py-3" accept="image/*">
-                                    <div class="form-text small mt-1 text-muted">
-                                        Upload gambar sampul buku atau screenshot slide pertama (JPG/PNG).
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-5 pt-3">
-                                <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 fw-bold shadow-lg hover-scale gradient-btn">
-                                    <i class="fa fa-paper-plane me-2"></i> Kirim Materi Sekarang
-                                </button>
-                                <div class="text-center mt-3">
-                                    <a href="{% url 'list_materi' %}" class="text-muted fw-bold small text-decoration-none hover-text-primary">
-                                        Batal, kembali ke perpustakaan
-                                    </a>
-                                </div>
-                            </div>
-
+                            <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 fw-bold gradient-blue shadow-sm">
+                                <i class="fa fa-paper-plane me-2"></i> Simpan Materi ke Library
+                            </button>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const prodiSelect = document.getElementById('id_prodi');
+        const semesterContainer = document.getElementById('semester-container');
+        const semesterRadios = document.querySelectorAll('input[name="semester"]');
+
+        prodiSelect.addEventListener('change', function() {
+            if (this.value === 'MKU') {
+                // Jika MKU, sembunyikan pilihan semester & hapus 'required'
+                semesterContainer.style.display = 'none';
+                semesterRadios.forEach(radio => {
+                    radio.required = false;
+                    radio.checked = false;
+                });
+            } else {
+                // Jika prodi lain, tampilkan & wajibkan isi
+                semesterContainer.style.display = 'block';
+                semesterRadios.forEach(radio => radio.required = true);
+            }
+        });
+    });
+</script>
+
 <style>
-    .hero-upload {
-        background: linear-gradient(to bottom, rgba(0, 30, 60, 0.95), rgba(0, 51, 102, 0.9)), 
-                    url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1920&auto=format&fit=crop');
-        background-size: cover; 
-        background-position: center; 
-        background-attachment: fixed;
-        padding-top: 180px; 
-        padding-bottom: 140px; 
-        margin-top: -85px; 
-        text-align: center; color: white;
-        position: relative; overflow: hidden;
-    }
+    /* --- HERO REUSE --- */
+    .hero-library-modern { background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center; position: relative; margin-top: -85px; }
+    .hero-brand-title { font-family: 'Montserrat', sans-serif; letter-spacing: 5px; }
+    .icon-circle-hero { width: 60px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; backdrop-filter: blur(5px); color: #3b82f6; }
 
-    .hero-pattern {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-        background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); 
-        opacity: 0.1; z-index: 0;
-    }
-
-    .icon-wrapper {
-        width: 80px; height: 80px; 
-        background: rgba(255,255,255,0.1); 
-        border-radius: 50%; display: flex; align-items: center; justify-content: center;
-        backdrop-filter: blur(5px);
-    }
+    /* --- FORM STYLING --- */
+    .section-gray { background-color: #f8fafc; }
+    .card-protrude-form { background: #ffffff !important; border-radius: 30px !important; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1) !important; overflow: hidden; }
     
-    .hero-desc { max-width: 700px; font-size: 1.1rem; }
-
-    .form-section { background-color: #f8f9fa; padding-bottom: 5rem; }
-    .form-container { margin-top: -100px; position: relative; z-index: 10; }
-
-    .section-title { font-size: 0.8rem; letter-spacing: 1px; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 10px; display: inline-block; }
-
-    .form-control:focus, .form-select:focus {
-        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
-        border: 1px solid #0d6efd;
-        background-color: #fff;
+    .custom-input {
+        background-color: #f8fafc !important; border: 2px solid #edf2f7 !important;
+        border-radius: 15px !important; padding: 12px 20px !important; transition: all 0.3s;
     }
-    .cursor-pointer { cursor: pointer; }
+    .custom-input:focus { border-color: #3b82f6 !important; background-color: #fff !important; box-shadow: none !important; }
 
-    .gradient-btn { background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%); border: none; }
-    .hover-scale:hover { transform: translateY(-2px); transition: 0.3s; }
-    .hover-text-primary:hover { color: #0d6efd !important; }
+    .sem-pill { font-size: 0.8rem; font-weight: 700; border-width: 2px; }
+    .btn-check:checked + .sem-pill { background-color: #3b82f6 !important; border-color: #3b82f6 !important; color: white !important; }
 
+    .gradient-blue { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; }
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
-    .delay-1 { animation-delay: 0.2s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 </style>
 

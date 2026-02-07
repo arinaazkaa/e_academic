@@ -1,207 +1,111 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.core.paginator import Paginator
 from datetime import date
 
-from .models import Materi, Prestasi, Karya, InfoLomba, AgendaKalender, FileKalender
-from .forms import MateriForm, KaryaForm, PrestasiForm
+# Mengimpor model terbaru
+from .models import Materi, InfoLomba, AgendaAkademik, KalenderPDF
 
-# --- 1. HOMEPAGE ---
+# --- KONSTANTA DESAIN: PALET WARNA KONSISTEN ---
+PRODI_DATA = [
+    ('PTIK', 'PTIK', '#eff6ff'),   # Soft Blue
+    ('PTE', 'PTE', '#fef2f2'),     # Soft Red
+    ('TE', 'TE', '#f5f3ff'),       # Soft Purple
+    ('TK', 'TEKKOM', '#f0fdf4'),   # Soft Green
+    ('MKU', 'MKU', '#fffbeb'),     # Soft Amber
+]
+
+# --- 1. BERANDA (HOMEPAGE) ---
 def home(request):
-    prestasi_list = Prestasi.objects.filter(status='approved').order_by('-created_at')[:6]
+    """Menampilkan ringkasan informasi terbaru dan tombol download kalender."""
     today = date.today()
 
+    # Mengambil info lomba aktif terdekat
     info_lomba_list = InfoLomba.objects.filter(
-        Q(tanggal_deadline__gte=today) | Q(tanggal_deadline__isnull=True)
-    ).order_by('tanggal_deadline')[:3]
+        tanggal_pelaksanaan__gte=today,
+        is_active=True
+    ).order_by('tanggal_pelaksanaan')[:3]
 
-    karya_list = Karya.objects.filter(status='approved').order_by('-created_at')[:4]
+    materi_terbaru = Materi.objects.all().order_by('-tanggal_upload')[:3]
     
-    agenda_list = AgendaKalender.objects.filter(
+    agenda_list = AgendaAkademik.objects.filter(
         tanggal_mulai__gte=today
     ).order_by('tanggal_mulai')[:4]
 
+    kalender_data = KalenderPDF.objects.last()
+
     return render(request, 'materi/home.html', {
-        'prestasi_list': prestasi_list,
         'info_lomba_list': info_lomba_list,
-        'karya_list': karya_list, 
         'agenda_list': agenda_list, 
+        'materi_terbaru': materi_terbaru,
+        'prodi_data': PRODI_DATA,
+        'kalender_data': kalender_data,
     })
 
-
-# --- 2. INPUT MATERI ---
-def input_materi(request):
-    if request.method == 'POST':
-        form = MateriForm(request.POST, request.FILES) 
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Terima kasih! Materi berhasil dikirim dan menunggu verifikasi Admin.')
-            return redirect('list_materi')
-        else:
-            messages.error(request, 'Ada kesalahan input/ukuran file. Mohon periksa kembali.')
-    else:
-        form = MateriForm()
-
-    return render(request, 'materi/input_materi.html', {'form': form})
-
-
-# --- 3. INPUT PRESTASI ---
-def input_prestasi(request):
-    if request.method == "POST":
-        form = PrestasiForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Data Prestasi berhasil dikirim! Menunggu verifikasi admin.')
-            return redirect('list_prestasi')
-        else:
-            messages.error(request, 'Gagal mengirim. Periksa kembali isian form atau ukuran foto.')
-    else:
-        form = PrestasiForm()
-
-    return render(request, 'materi/input_prestasi.html', {'form': form})
-
-
-# --- 4. INPUT KARYA ---
-def input_karya(request):
-    if request.method == 'POST':
-        form = KaryaForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Keren! Karya kamu sudah masuk antrian verifikasi.')
-            return redirect('list_karya')
-        else:
-             messages.error(request, 'Gagal upload. Pastikan ukuran foto maksimal 2MB.')
-    else:
-        form = KaryaForm()
-
-    return render(request, 'materi/input_karya.html', {'form': form})
-
-
-# --- 5. E-LIBRARY (LIST MATERI) ---
+# --- 2. E-LIBRARY (DAFTAR MATERI BERTINGKAT) ---
 def list_materi(request):
-    materi_list = Materi.objects.filter(status='approved').order_by('-tanggal_upload')
-
+    """Menangani navigasi folder Prodi -> Semester -> List Materi."""
+    materi_list = Materi.objects.all().order_by('mata_kuliah')
+    
     keyword = request.GET.get('keyword')
     prodi = request.GET.get('prodi')
     semester = request.GET.get('semester')
     
     if keyword:
         materi_list = materi_list.filter(
-            Q(judul__icontains=keyword) | 
-            Q(mata_kuliah__icontains=keyword)
+            Q(judul__icontains=keyword) | Q(mata_kuliah__icontains=keyword)
         )
+    
     if prodi:
         materi_list = materi_list.filter(prodi=prodi)
-    if semester:
-        materi_list = materi_list.filter(semester=semester)
-
+        if prodi != 'MKU' and semester:
+            materi_list = materi_list.filter(semester=semester)
+    
     paginator = Paginator(materi_list, 12) 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginator.get_page(request.GET.get('page'))
 
     return render(request, 'materi/list_materi.html', {
         'materi': page_obj,
         'filter_prodi': prodi,
         'filter_semester': semester,
+        'prodi_data': PRODI_DATA,
     })
 
-
-# --- 6. GALERI KARYA ---
-def list_karya(request):
-    karya_list = Karya.objects.filter(status='approved')
-
-    query = request.GET.get('q')
-    if query:
-        karya_list = karya_list.filter(
-            Q(judul_karya__icontains=query) | 
-            Q(pembuat__icontains=query)
-        )
-
-    sort_by = request.GET.get('sort', 'terbaru')
-    if sort_by == 'terlama':
-        karya_list = karya_list.order_by('created_at')
-    else:
-        karya_list = karya_list.order_by('-created_at')
-
-    paginator = Paginator(karya_list, 16)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    return render(request, 'materi/list_karya.html', {'karya_list': page_obj})
-
-
-# --- 7. DETAIL KARYA ---
-def detail_karya(request, id):
-    karya = get_object_or_404(Karya, id=id)
-    return render(request, 'materi/detail_karya.html', {'karya': karya})
-
-
-# --- 8. PRESTASI (HALL OF FAME) ---
-def list_prestasi(request):
-    prestasi_list = Prestasi.objects.filter(status='approved').order_by('-created_at')
-
-    keyword = request.GET.get('keyword')
-    prodi = request.GET.get('prodi')
-
-    if keyword:
-        prestasi_list = prestasi_list.filter(
-            Q(nama_mahasiswa__icontains=keyword) | 
-            Q(nama_lomba__icontains=keyword)
-        )
-    if prodi:
-        prestasi_list = prestasi_list.filter(prodi=prodi)
-
-    paginator = Paginator(prestasi_list, 16) 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    return render(request, 'materi/list_prestasi.html', {
-        'prestasi_list': page_obj,
-        'filter_prodi': prodi
-    })
-
-
-# --- 9. DETAIL PRESTASI ---
-def detail_prestasi(request, id):
-    item = get_object_or_404(Prestasi, id=id)
-    return render(request, 'materi/detail_prestasi.html', {'prestasi': item})
-
-
-# --- 10. KALENDER AKADEMIK ---
+# --- 3. KALENDER AKADEMIK ---
 def kalender(request):
-    agenda_list = AgendaKalender.objects.all().order_by('tanggal_mulai')
-    file_kalender = FileKalender.objects.last()
+    agenda_list = AgendaAkademik.objects.all().order_by('tanggal_mulai')
+    kalender_data = KalenderPDF.objects.last()
 
     return render(request, 'materi/kalender.html', {
         'agenda_list': agenda_list,
-        'file_kalender': file_kalender
+        'kalender_data': kalender_data,
     })
 
-
-# --- 11. LIST LOMBA ---
+# --- 4. INFO LOMBA (FIXED & LOGIKA SORTING) ---
 def list_lomba(request):
-    lomba_list = InfoLomba.objects.all()
-
+    """Menampilkan daftar lomba dengan fitur pencarian dan pengurutan."""
+    # Default: Ambil semua lomba
+    lombas = InfoLomba.objects.all()
+    
+    # Fitur Pencarian
     query = request.GET.get('q')
     if query:
-        lomba_list = lomba_list.filter(
-            Q(judul__icontains=query) | 
-            Q(penyelenggara__icontains=query)
+        lombas = lombas.filter(
+            Q(judul__icontains=query) | Q(penyelenggara__icontains=query)
         )
 
-    sort_by = request.GET.get('sort')
-    if sort_by == 'deadline':
-        lomba_list = lomba_list.order_by('tanggal_deadline')
-    elif sort_by == 'terbaru':
-        lomba_list = lomba_list.order_by('-id')
+    # Fitur Pengurutan (Sorting)
+    sort_by = request.GET.get('sort', 'deadline') # Default ke deadline
+    if sort_by == 'terbaru':
+        lombas = lombas.order_by('-id') # Berdasarkan urutan upload terbaru
     else:
-        lomba_list = lomba_list.order_by('tanggal_deadline')
+        lombas = lombas.order_by('tanggal_deadline') # Berdasarkan deadline terdekat
 
-    return render(request, 'materi/list_lomba.html', {'lomba_list': lomba_list})
+    return render(request, 'materi/list_lomba.html', {
+        'info_lomba_list': lombas, # Nama variabel disamakan dengan template
+    })
 
-
-# --- 12. DETAIL LOMBA ---
+# --- 5. DETAIL LOMBA ---
 def detail_lomba(request, id):
     lomba = get_object_or_404(InfoLomba, id=id)
-    return render(request, 'materi/detail_lomba.html', {'lomba': lomba})
+    return render(request, 'materi/detail_lomba.html', {'info_lomba': lomba})

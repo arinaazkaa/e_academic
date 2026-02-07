@@ -5,368 +5,254 @@
 
 {% block content %}
 
-<section class="hero-wrapper">
+<section class="hero-modern">
     <div class="hero-slider">
-        {% for p in prestasi_list|slice:":3" %} 
-            {% if p.foto_diri %}
-                <div class="slide" style="background-image: url('{{ p.foto_diri.url }}'); animation-delay: {{ forloop.counter0|add:"0"|stringformat:"s" }}s;"></div>
-            {% else %}
-                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1920&auto=format&fit=crop');"></div>
-            {% endif %}
-        {% empty %}
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1920&auto=format&fit=crop'); animation-delay: 0s;"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1920&auto=format&fit=crop'); animation-delay: 5s;"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920&auto=format&fit=crop'); animation-delay: 10s;"></div>
-        {% endfor %}
+        <div class="slide slide-1" style="background-image: url('{% static 'img/img1.jpg' %}');"></div>
+        <div class="slide slide-2" style="background-image: url('{% static 'img/img2.jpg' %}');"></div>
+        <div class="slide slide-3" style="background-image: url('{% static 'img/img3.jpg' %}');"></div>
     </div>
-
-    <div class="hero-overlay"></div>
-
-    <div class="hero-content container text-center text-white">
+    <div class="hero-overlay-refined"></div>
+    <div class="container hero-content text-center text-white">
         <div class="row justify-content-center">
-            <div class="col-lg-10"> 
-                <h1 class="hero-title fw-bold mb-3 animate-up">
-                    E-ACADEMIC
-                </h1>
-                <h4 class="fw-light text-warning mb-4 animate-up delay-1 sub-title">
-                    Wadah Prestasi & Inovasi Mahasiswa
-                </h4>
-                <p class="lead mx-auto mb-5 animate-up delay-2 hero-desc">
-                Temukan, kembangkan, dan tunjukkan potensimu melalui E-Academic.
-                Platform terpadu untuk e-library, karya inovasi, info lomba, serta kalender akademik.
+            <div class="col-lg-12"> 
+                <h1 class="animate-up hero-brand-title">E-ACADEMIC</h1>
+                <p class="fs-6 text-white-50 mb-4 animate-up delay-1 mx-auto hero-description" style="max-width: 700px;">
+                    Wadah kolaborasi dan inovasi mahasiswa di Lingkungan Teknik Elektro. Akses materi kuliah jadi lebih mudah dan praktis
                 </p>
-
-                <div class="d-flex justify-content-center gap-3 animate-up delay-3 hero-btn-group">
-                    <a href="{% url 'list_materi' %}" class="btn-hero btn-hero-primary">
+                <div class="animate-up delay-2">
+                    <a href="{% url 'list_materi' %}" class="btn rounded-pill fw-bold btn-cari-animasi">
                         <i class="fa fa-search me-2"></i> Cari Materi
-                    </a>
-                    <a href="{% url 'input_karya' %}" class="btn-hero btn-hero-outline">
-                        <i class="fa fa-cloud-upload me-2"></i> Upload Karya
                     </a>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class="fade-bottom"></div>
 </section>
 
-<section class="overlap-section">
-    <div class="container overlap-container">
+<section id="info-section" class="py-5 section-gray">
+    <div class="container overlap-up">
         <div class="row g-4">
             
-            <div class="col-lg-6 reveal-on-scroll">
-                <div class="bg-white p-4 rounded-5 shadow-lg h-100 border-top border-5 border-primary card-hover-effect">
-                    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-                        <a href="{% url 'list_lomba' %}" class="text-decoration-none text-dark">
-                            <h4 class="fw-bold mb-0 hover-text-primary">
-                                <i class="fa fa-bullhorn text-primary me-2"></i> Info Lomba
-                            </h4>
+            <div class="col-lg-7 reveal-on-scroll">
+                <div class="card-modern-clean h-100 shadow-lg border-0 bg-white d-flex flex-column">
+                    <div class="card-header-clean p-4 pb-0"> 
+                        <h5 class="fw-bold text-dark m-0 d-flex align-items-center">
+                            <i class="fa fa-bullhorn text-primary me-2" style="font-size: 1.1rem;"></i> Info Lomba Terbaru
+                        </h5>
+                    </div>
+                    
+                    <div class="card-body p-4 pt-4 flex-grow-1">
+                        {% for lomba in info_lomba_list %}
+                        <div class="lomba-item-clean d-flex align-items-center mb-4 pb-3 border-bottom border-light">
+                            <div class="date-minimalist text-center">
+                                <span class="d-block fw-bold text-primary day-text">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
+                                <span class="d-block text-muted month-text">{{ lomba.tanggal_pelaksanaan|date:"M" }}</span>
+                            </div>
+                            <div class="ms-4 flex-grow-1">
+                                <h6 class="fw-bold mb-1">
+                                    <a href="{% url 'detail_lomba' lomba.id %}" class="text-dark text-decoration-none title-hover-blue">
+                                        {{ lomba.judul }}
+                                    </a>
+                                </h6>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <div class="organizer-text text-muted small">
+                                        <i class="fa fa-university me-1"></i> {{ lomba.penyelenggara|truncatechars:30 }}
+                                    </div>
+                                    <div class="deadline-text-clean small text-danger fw-bold">
+                                        <i class="fa fa-clock-o me-1"></i> Batas Pendaftaran: {{ lomba.tanggal_deadline|date:"d M" }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="p-5 text-center text-muted small">Belum ada info lomba aktif.</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="card-footer bg-white border-0 p-4 pt-0">
+                        <a href="{% url 'list_lomba' %}" class="btn-lihat-semua-bottom w-100 text-center text-decoration-none d-block">
+                            LIHAT SEMUA KOMPETISI
                         </a>
-                        <a href="{% url 'list_lomba' %}" class="btn btn-sm btn-light rounded-pill px-3 fw-bold text-primary">Lihat Semua</a>
                     </div>
-
-                    {% for lomba in info_lomba_list %}
-                    <div class="d-flex align-items-center mb-3 p-3 rounded-4 bg-light transition-all hover-bg-gray position-relative">
-                        <div class="text-center px-3 border-end border-2 border-primary" style="min-width: 70px;">
-                            <h4 class="fw-bold m-0 text-dark">{{ lomba.tanggal_pelaksanaan|date:"d" }}</h4>
-                            <small class="text-uppercase fw-bold text-muted" style="font-size: 11px;">{{ lomba.tanggal_pelaksanaan|date:"M" }}</small>
-                        </div>
-                        <div class="ms-3 overflow-hidden">
-                            <h6 class="mb-1 fw-bold text-dark text-truncate">
-                                <a href="{% url 'detail_lomba' lomba.id %}" class="text-dark text-decoration-none stretched-link">{{ lomba.judul }}</a>
-                            </h6>
-                            <small class="text-muted d-block text-truncate"><i class="fa fa-building-o me-1"></i> {{ lomba.penyelenggara }}</small>
-                        </div>
-                    </div>
-                    {% empty %}
-                    <div class="text-center py-4 text-muted">
-                        <i class="fa fa-info-circle mb-2"></i><br>Belum ada info lomba aktif.
-                    </div>
-                    {% endfor %}
                 </div>
             </div>
 
-            <div class="col-lg-6 reveal-on-scroll" style="transition-delay: 0.2s;">
-                <div class="bg-white p-4 rounded-5 shadow-lg h-100 border-top border-5 border-warning card-hover-effect">
-                    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-                        <h4 class="fw-bold text-dark mb-0"><i class="fa fa-calendar-check-o text-warning me-2"></i> Kalender</h4>
-                        <a href="{% url 'kalender' %}" class="btn btn-sm btn-light rounded-pill px-3 fw-bold text-warning">Selengkapnya</a>
+            <div class="col-lg-5 reveal-on-scroll" style="transition-delay: 0.1s;">
+                <div class="card-modern-clean h-100 shadow-lg border-0 bg-white">
+                    <div class="card-header-clean d-flex justify-content-between align-items-center p-4 pb-0"> 
+                        <h5 class="fw-bold text-dark m-0">
+                            <i class="fa fa-calendar-check-o text-primary me-2"></i> Agenda Akademik
+                        </h5>
+                        <a href="{% url 'kalender' %}" class="btn-detail-link-top text-decoration-none">Detail</a>
                     </div>
                     
-                    <ul class="list-unstyled mb-0">
-                        {% for agenda in agenda_list %}
-                            <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-light hover-bg-gray px-2 rounded-3">
-                                <span class="fw-medium text-truncate pe-2" style="max-width: 60%;">
-                                    <i class="fa fa-circle text-{{ agenda.warna }} me-2 small"></i> {{ agenda.kegiatan }}
-                                </span>
-                                <span class="badge bg-{{ agenda.warna }} text-white px-3 rounded-pill" style="font-size: 0.75rem;">
+                    <div class="card-body p-4 pt-0"> 
+                        <div class="agenda-list-minimal" style="margin-top: -45px;"> 
+                            {% for agenda in agenda_list %}
+                            <div class="agenda-row-modern d-flex justify-content-between align-items-center py-3 border-bottom border-light last-no-border">
+                                <div class="d-flex align-items-center">
+                                    <div class="status-dot-modern dot-{{ agenda.warna }}"></div>
+                                    <span class="text-dark fw-medium small">{{ agenda.kegiatan }}</span>
+                                </div>
+                                <span class="badge-date-clean">
                                     {% if agenda.tanggal_selesai %}
                                         {{ agenda.tanggal_mulai|date:"d" }} - {{ agenda.tanggal_selesai|date:"d M" }}
                                     {% else %}
                                         {{ agenda.tanggal_mulai|date:"d M" }}
                                     {% endif %}
                                 </span>
-                            </li>
-                        {% empty %}
-                            <li class="text-center py-5 text-muted">
-                                <i class="fa fa-calendar-times-o fa-2x mb-2 opacity-50"></i>
-                                <p class="small m-0">Tidak ada agenda terdekat.</p>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<section class="py-5 position-relative bg-white">
-    <div style="position: absolute; top: 0; right: 0; width: 300px; height: 300px; background: radial-gradient(circle, rgba(13,110,253,0.05) 0%, rgba(255,255,255,0) 70%); z-index: 1;"></div>
-
-    <div class="container pt-4 position-relative" style="z-index: 2;">
-        
-        <div class="text-center mb-5 reveal-on-scroll">
-            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm mb-2">
-                <i class="fa fa-trophy"></i> ELEKTRO BANGGA
-            </span>
-            <h2 class="fw-bold text-dark display-6">Mahasiswa Berprestasi</h2>
-            <p class="text-muted">Kebanggaan jurusan yang telah mengharumkan nama kampus.</p>
-        </div>
-
-        <div class="row g-4"> 
-            {% for p in prestasi_list %}
-            <div class="col-lg-3 col-md-6 col-12 reveal-on-scroll" style="transition-delay: {{ forloop.counter }}00ms;">
-                <div class="card h-100 border-0 rounded-4 shadow-sm prestasi-card overflow-hidden">
-                    <div class="prestasi-img-box">
-                        {% if p.foto_diri %}
-                            <img src="{{ p.foto_diri.url }}" class="w-100 h-100 object-fit-cover" alt="{{ p.nama_mahasiswa }}">
-                        {% else %}
-                            <div class="d-flex align-items-center justify-content-center bg-light h-100 text-muted">
-                                <i class="fa fa-user fa-3x opacity-25"></i>
                             </div>
-                        {% endif %}
-                        <div class="prestasi-overlay"></div>
-                        <div class="position-absolute top-0 end-0 m-3">
-                            <span class="badge bg-warning text-dark fw-bold shadow px-2 py-1 rounded-3">
-                                <i class="fa fa-star"></i> {{ p.juara }}
-                            </span>
+                            {% empty %}
+                            <div class="py-5 text-center text-muted small">Belum ada agenda terdekat.</div>
+                            {% endfor %}
                         </div>
-                        <div class="prestasi-content text-white p-3">
-                            <small class="text-warning fw-bold text-uppercase mb-1 d-block" style="font-size: 10px; letter-spacing: 1px;">
-                                {{ p.get_prodi_display }}
-                            </small>
-                            <h5 class="fw-bold mb-1 text-truncate">{{ p.nama_mahasiswa }}</h5>
-                            <p class="small opacity-75 mb-3 text-truncate">"{{ p.nama_lomba }}"</p>
-                            <a href="{% url 'detail_prestasi' p.id %}" class="btn btn-sm btn-light w-100 rounded-pill fw-bold stretched-link">
-                                Lihat Profil
+                        <div class="mt-4">
+                            <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn-download-pdf w-100">
+                                <i class="fa fa-file-pdf-o me-2"></i> DOWNLOAD PDF KALENDER
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-        </div>
-        
-        <div class="text-center mt-5 reveal-on-scroll">
-            <a href="{% url 'list_prestasi' %}" class="btn btn-outline-primary rounded-pill px-5 py-2 fw-bold hover-bg-primary">
-                Lihat Semua Prestasi <i class="fa fa-arrow-right ms-2"></i>
-            </a>
         </div>
     </div>
 </section>
 
-<section class="py-5" style="background-color: #f0f4f8; position: relative; overflow: hidden;">
-    <div style="position: absolute; top: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(13,110,253,0.05) 0%, rgba(255,255,255,0) 70%); border-radius: 50%; z-index: 0;"></div>
-    
-    <div class="container py-4 position-relative" style="z-index: 2;">
-        
-        <div class="text-center mb-5 reveal-on-scroll">
-            <h2 class="fw-bold text-dark display-6">Galeri Karya</h2>
-            <p class="text-muted mx-auto" style="max-width: 600px;">
-                Jelajahi kreativitas dan solusi teknologi mahasiswa.
-            </p>
+<section class="py-5 bg-white">
+    <div class="container py-4 text-center">
+        <div class="mb-5 reveal-on-scroll">
+            <h6 class="text-primary fw-bold text-uppercase tracking-widest mb-2" style="font-size: 0.75rem;">ELECTRICAL LIBRARY</h6>
+            <h2 class="fw-bold text-dark mb-3">Kategori Program Studi</h2>
+            <div class="divider-minimal mx-auto bg-primary" style="width: 50px; height: 3px; border-radius: 2px;"></div>
         </div>
-
-        <div class="row g-4">
-            {% for k in karya_list %}
-            <div class="col-lg-3 col-md-6 col-12 reveal-on-scroll" style="transition-delay: {{ forloop.counter }}00ms;">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden karya-home-card bg-white">
-                    <div class="position-relative overflow-hidden" style="height: 200px;">
-                        <a href="{% url 'detail_karya' k.id %}" class="d-block w-100 h-100">
-                            {% if k.gambar_cover %}
-                                <img src="{{ k.gambar_cover.url }}" class="w-100 h-100 object-fit-cover zoom-effect" alt="{{ k.judul_karya }}">
-                            {% else %}
-                                <div class="d-flex align-items-center justify-content-center h-100 bg-light text-muted">
-                                    <i class="fa fa-image fa-3x opacity-25"></i>
-                                </div>
-                            {% endif %}
-                        </a>
-                        <div class="position-absolute top-0 start-0 m-3">
-                            <span class="badge bg-white text-dark shadow-sm px-2 py-1 rounded-3 fw-bold" style="font-size: 0.65rem;">
-                                {{ k.get_prodi_display }}
-                            </span>
-                        </div>
+        
+        <div class="row g-4 justify-content-center row-cols-2 row-cols-md-3 row-cols-lg-5">
+            {% for p_code, p_name, p_bg in prodi_data %}
+            <div class="col reveal-on-scroll"> 
+                <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="category-modern-card text-decoration-none d-block">
+                    <div class="icon-box-sharp-color mb-3 mx-auto">
+                        {% if p_code == 'PTIK' %}<i class="fa fa-code"></i>
+                        {% elif p_code == 'PTE' %}<i class="fa fa-bolt"></i>
+                        {% elif p_code == 'TE' %}<i class="fa fa-cogs"></i>
+                        {% elif p_code == 'TK' %}<i class="fa fa-microchip"></i>
+                        {% else %}<i class="fa fa-university"></i>{% endif %}
                     </div>
-
-                    <div class="card-body p-3 d-flex flex-column">
-                        <h6 class="fw-bold text-dark mb-2 text-truncate-2" style="min-height: 2.6em; line-height: 1.3;">
-                            <a href="{% url 'detail_karya' k.id %}" class="text-decoration-none text-dark title-hover">
-                                {{ k.judul_karya }}
-                            </a>
-                        </h6>
-                        <div class="d-flex align-items-center mb-3 text-muted small">
-                            <i class="fa fa-user-circle me-2 text-primary"></i>
-                            <span class="text-truncate">{{ k.pembuat }}</span>
-                        </div>
-                        <div class="mt-auto row g-2">
-                            {% if k.link_video %}
-                                <div class="col-6">
-                                    <a href="{% url 'detail_karya' k.id %}" class="btn btn-outline-primary w-100 rounded-pill btn-sm fw-bold">Detail</a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="{{ k.link_video }}" target="_blank" class="btn btn-danger w-100 rounded-pill btn-sm fw-bold">
-                                        <i class="fa fa-play me-1"></i> Demo
-                                    </a>
-                                </div>
-                            {% else %}
-                                <div class="col-12">
-                                    <a href="{% url 'detail_karya' k.id %}" class="btn btn-outline-primary w-100 rounded-pill btn-sm fw-bold">Detail Karya</a>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="col-12 text-center py-5">
-                <p class="text-muted fst-italic">Belum ada karya yang ditampilkan.</p>
+                    
+                    <h6 class="fw-bold text-dark mb-1">{{ p_name }}</h6>
+                    <small class="text-muted">Lihat Materi</small>
+                </a>
             </div>
             {% endfor %}
-        </div>
-
-        <div class="text-center mt-5 reveal-on-scroll">
-            <a href="{% url 'list_karya' %}" class="btn btn-primary rounded-pill px-5 py-2 fw-bold shadow-lg hover-scale">
-                Lihat Semua Galeri <i class="fa fa-arrow-right ms-2"></i>
-            </a>
         </div>
     </div>
 </section>
 
 <style>
-    /* 1. HERO SECTION */
-    .hero-wrapper {
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+
+    /* --- PERBAIKAN UTAMA: BUTTON CARI MATERI --- */
+    .btn-cari-animasi {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        color: #fff !important;
+        padding: 12px 35px;
+        letter-spacing: 2px;
+        transition: all 0.2s ease-in-out; /* Transisi dipercepat sedikit agar responsif */
         position: relative;
-        height: 100vh;
-        min-height: 600px;
-        width: 100%;
         overflow: hidden;
-        display: flex;
-        align-items: center; 
-        justify-content: center;
     }
 
+    /* Hover: Efek Glow Putih */
+    .btn-cari-animasi:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: #fff;
+        color: #1e293b !important;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    /* ACTIVE (SAAT DIKLIK): BERUBAH JADI BIRU */
+    .btn-cari-animasi:active {
+        background-color: #3b82f6 !important; /* Warna Biru */
+        border-color: #3b82f6 !important;
+        color: #fff !important; /* Teks tetap putih */
+        transform: scale(0.95); /* Efek tombol ditekan */
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.6); /* Glow Biru */
+    }
+
+    /* --- IKON PRODI --- */
+    .icon-box-sharp-color { 
+        width: 80px; height: 80px; border-radius: 22px; 
+        display: flex; align-items: center; justify-content: center; 
+        font-size: 2.2rem; transition: 0.3s;
+        background-color: #eff6ff; 
+        border: 1px solid #bfdbfe; 
+    }
+    
+    .icon-box-sharp-color i {
+        color: #1d4ed8 !important; 
+        filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+    }
+
+    .category-modern-card:hover .icon-box-sharp-color { 
+        transform: scale(1.1); 
+        background-color: #1d4ed8 !important; 
+        box-shadow: 0 10px 25px -5px rgba(29, 78, 216, 0.4);
+    }
+    .category-modern-card:hover .icon-box-sharp-color i {
+        color: #ffffff !important; 
+        filter: none;
+    }
+
+    /* --- GLOBAL & KARTU --- */
+    .category-modern-card { padding: 35px 15px; background: #fff; border-radius: 25px; border: 1px solid #f1f5f9; transition: 0.3s; }
+    .category-modern-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.05); border-color: #3b82f6; }
+
+    .card-modern-clean { border-radius: 25px !important; }
+    .card-header-clean { border-radius: 25px 25px 0 0 !important; }
+
+    /* --- INFO LOMBA --- */
+    .date-minimalist { min-width: 50px; }
+    .day-text { font-size: 1.4rem; line-height: 1; color: #3b82f6; }
+    .month-text { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+    .btn-lihat-semua-bottom { background: #fff; color: #3b82f6; border: 1.5px solid #3b82f6; border-radius: 12px; padding: 10px; font-weight: 700; font-size: 0.75rem; transition: 0.3s; }
+    .btn-lihat-semua-bottom:hover { background: #3b82f6; color: #fff; }
+
+    /* --- AGENDA --- */
+    .btn-detail-link-top { font-size: 0.75rem; font-weight: 700; color: #3b82f6; background: #eff6ff; padding: 4px 12px; border-radius: 8px; }
+    .status-dot-modern { width: 10px; height: 10px; border-radius: 50%; margin-right: 18px; }
+    .dot-primary { background: #3b82f6; } .dot-warning { background: #f59e0b; } .dot-success { background: #10b981; } .dot-danger { background: #ef4444; }
+    .badge-date-clean { font-size: 0.75rem; font-weight: 700; color: #64748b; background: #f8fafc; padding: 4px 12px; border-radius: 8px; }
+    .btn-download-pdf { background: #fff; color: #ef4444; border: 1.5px solid #ef4444; border-radius: 12px; padding: 10px; font-weight: 700; font-size: 0.75rem; transition: 0.3s; display: block; text-align: center; text-decoration: none; }
+    .btn-download-pdf:hover { background: #ef4444; color: #fff; }
+
+    /* --- HERO & ANIMASI --- */
+    .hero-modern { height: 80vh; min-height: 600px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
+    .hero-brand-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 5.8rem; letter-spacing: 14px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-    .slide {
-        position: absolute; width: 100%; height: 100%;
-        background-size: cover; background-position: center; opacity: 0;
-        filter: brightness(0.9);
-        animation: slideAnimation 15s infinite; 
-    }
-
-    @keyframes slideAnimation {
-        0% { opacity: 0; transform: scale(1); }
-        5% { opacity: 1; }
-        33% { opacity: 1; }
-        38% { opacity: 0; transform: scale(1.05); } 
-        100% { opacity: 0; }
-    }
-
-    /* Overlay dinetralkan (bukan biru pekat) agar teks menyala seperti Gambar 2 */
-    .hero-overlay {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.4); 
-        z-index: 1;
-    }
+    .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; filter: brightness(0.6); animation: smoothSlideshow 15s infinite ease-in-out; }
+    @keyframes smoothSlideshow { 0% { opacity: 0; transform: scale(1); } 5% { opacity: 1; } 30% { opacity: 1; } 35% { opacity: 0; transform: scale(1.05); } 100% { opacity: 0; } }
     
-    .hero-content { position: relative; z-index: 2; width: 100%; }
-    
-    .hero-title { 
-        font-size: 3.5rem; 
-        letter-spacing: 2px; 
-        color: #ffffff !important;
-        text-shadow: 0 4px 15px rgba(0,0,0,0.8); 
-    }
-    
-    .hero-desc { 
-        max-width: 750px; 
-        color: rgba(255, 255, 255, 0.9) !important;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        font-size: 1.25rem;
-        line-height: 1.8;
-    }
+    .slide-1 { animation-delay: 0s; }
+    .slide-2 { animation-delay: 5s; }
+    .slide-3 { animation-delay: 10s; }
 
-    .fade-bottom {
-        position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; 
-        background: linear-gradient(to top, #f4f6f9 0%, transparent 100%); 
-        z-index: 3;
-    }
-
-    .overlap-section { background-color: #f4f6f9; padding-bottom: 50px; }
-    .overlap-container { margin-top: -80px; position: relative; z-index: 10; }
-
-    /* 2. BUTTONS */
-    .btn-hero {
-        padding: 15px 40px; border-radius: 50px; font-weight: 600; font-size: 1rem;
-        text-decoration: none; transition: all 0.3s ease; display: inline-block;
-        white-space: nowrap;
-    }
-    .btn-hero-primary {
-        background: linear-gradient(45deg, #0d6efd, #0099ff) !important;
-        color: white; border: none;
-        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
-    }
-    .btn-hero-outline {
-        background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px);
-        border: 2px solid rgba(255, 255, 255, 0.9); color: white;
-    }
-
-    /* 3. CARDS */
-    .card-hover-effect { transition: all 0.4s; }
-    .card-hover-effect:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important; }
-    
-    .prestasi-card { transition: all 0.3s ease; background: #000; }
-    .prestasi-img-box { height: 350px; position: relative; }
-    .prestasi-overlay {
-        position: absolute; bottom: 0; left: 0; width: 100%; height: 70%;
-        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
-    }
-    .prestasi-content { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 2; }
-
-    .karya-home-card { transition: all 0.3s ease; }
-    .zoom-effect { transition: transform 0.5s ease; }
-    
-    .object-fit-cover { object-fit: cover; }
-    .text-truncate-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-    /* 4. ANIMATIONS */
+    .hero-overlay-refined { position: absolute; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.85) 100%); z-index: 1; }
+    .hero-content { position: relative; z-index: 2; padding-top: 100px; }
+    .overlap-up { margin-top: -70px; position: relative; z-index: 10; }
+    .section-gray { background-color: #f8fafc; }
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
-    .delay-1 { animation-delay: 0.2s; } 
-    .delay-2 { animation-delay: 0.4s; } 
-    .delay-3 { animation-delay: 0.6s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-    
-    .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+    .reveal-on-scroll { opacity: 0; transform: translateY(20px); transition: all 0.8s ease; }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
 </style>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
     });

@@ -1,39 +1,55 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Materi, Prestasi, Karya, InfoLomba, AgendaKalender, FileKalender
+from .models import Materi, Prestasi, Karya, InfoLomba, AgendaAkademik, KalenderPDF
 
-# --- 1. CONFIG ADMIN UNTUK MATERI ---
+# --- 1. CONFIG ADMIN UNTUK MATERI (E-LIBRARY) ---
+@admin.register(Materi)
 class MateriAdmin(admin.ModelAdmin):
-    list_display = ('judul', 'mata_kuliah', 'prodi', 'semester', 'nama_pengupload', 'status_label', 'tanggal_upload')
-    list_filter = ('status', 'prodi', 'semester', 'tanggal_upload')
-    search_fields = ('judul', 'mata_kuliah', 'nama_pengupload')
-    readonly_fields = ('tanggal_upload',)
-    date_hierarchy = 'tanggal_upload'
+    list_display = ('mata_kuliah', 'prodi', 'semester_display', 'tanggal_upload', 'view_drive_link')
+    list_filter = ('prodi', 'semester', 'tanggal_upload')
+    search_fields = ('mata_kuliah', 'judul')
+    ordering = ('-tanggal_upload',)
     list_per_page = 20
 
     fieldsets = (
         ('Info Akademik', {
-            'fields': ('prodi', 'semester', 'mata_kuliah', 'dosen')
+            'fields': ('prodi', 'semester', 'mata_kuliah')
         }),
-        ('Detail Materi', {
-            'fields': ('judul', 'file_materi', 'link_google_drive', 'cover')
-        }),
-        ('Status & User', {
-            'fields': ('nama_pengupload', 'status', 'tanggal_upload')
+        ('Konten Materi (Google Drive)', {
+            'fields': ('judul', 'link_google_drive'),
+            'description': 'Pastikan link Google Drive sudah diatur ke "Public" agar mahasiswa dapat mengaksesnya.'
         }),
     )
 
-    def status_label(self, obj):
-        if obj.status == 'approved':
-            color = 'green'
-        elif obj.status == 'rejected':
-            color = 'red'
-        else:
-            color = 'orange'
-        return format_html('<span style="color: {}; font-weight: bold;">{}</span>', color, obj.get_status_display())
-    status_label.short_description = 'Status'
+    def semester_display(self, obj):
+        return f"Semester {obj.semester}" if obj.semester else "MKU (Tanpa Semester)"
+    semester_display.short_description = 'Semester'
 
+    def view_drive_link(self, obj):
+        if obj.link_google_drive:
+            return format_html('<a href="{}" target="_blank" style="font-weight:bold; color:#0d6efd;">Buka Drive</a>', obj.link_google_drive)
+        return "-"
+    view_drive_link.short_description = 'Cek Materi'
+
+
+# --- 2. CONFIG ADMIN UNTUK PRESTASI (HEMAT STORAGE) ---
+@admin.register(Prestasi)
+class PrestasiAdmin(admin.ModelAdmin):
+    list_display = ('preview_foto', 'nama_mahasiswa', 'nama_lomba', 'prodi', 'status_label')
+    list_filter = ('status', 'prodi', 'created_at')
+    search_fields = ('nama_mahasiswa', 'nama_lomba')
     actions = ['setujui_data', 'tolak_data']
+
+    def preview_foto(self, obj):
+        if obj.link_foto:
+            return format_html('<img src="{}" style="width: 50px; height: 50px; border-radius: 8px; object-fit:cover; border: 1px solid #ddd;" />', obj.link_foto)
+        return format_html('<span style="color: #999; font-size: 0.8rem;">No Photo</span>')
+    preview_foto.short_description = "Foto"
+
+    def status_label(self, obj):
+        color = '#10b981' if obj.status == 'approved' else '#ef4444' if obj.status == 'rejected' else '#f59e0b'
+        return format_html('<b style="color: {};">{}</b>', color, obj.get_status_display())
+    status_label.short_description = 'Status'
 
     @admin.action(description='✅ Setujui Data Terpilih')
     def setujui_data(self, request, queryset):
@@ -44,147 +60,92 @@ class MateriAdmin(admin.ModelAdmin):
         queryset.update(status='rejected')
 
 
-# --- 2. CONFIG ADMIN UNTUK PRESTASI ---
-class PrestasiAdmin(admin.ModelAdmin):
-    list_display = ('preview_foto', 'nama_mahasiswa', 'nama_lomba', 'juara', 'prodi', 'status_label')
-    list_filter = ('status', 'prodi', 'tingkat', 'created_at')
-    search_fields = ('nama_mahasiswa', 'nama_lomba', 'penyelenggara')
-    readonly_fields = ('created_at',)
-    list_display_links = ('nama_mahasiswa',)
-
-    fieldsets = (
-        ('Identitas Mahasiswa', {
-            'fields': ('nama_mahasiswa', 'nim', 'prodi', 'no_hp')
-        }),
-        ('Detail Lomba', {
-            'fields': ('nama_lomba', 'penyelenggara', 'tempat_tanggal', 'tingkat', 'kategori', 'juara')
-        }),
-        ('Bukti Dukung', {
-            'fields': ('no_sk', 'link_sertifikat', 'foto_diri', 'is_public')
-        }),
-        ('Validasi', {
-            'fields': ('status', 'created_at')
-        }),
-    )
-
-    def preview_foto(self, obj):
-        if obj.foto_diri:
-            return format_html('<img src="{}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;" />', obj.foto_diri.url)
-        return "-"
-    preview_foto.short_description = "Foto"
-
-    def status_label(self, obj):
-        if obj.status == 'approved':
-            return format_html('<span style="color: green;">✔ Approved</span>')
-        elif obj.status == 'rejected':
-            return format_html('<span style="color: red;">✖ Rejected</span>')
-        return format_html('<span style="color: orange;">⏳ Pending</span>')
-    status_label.short_description = 'Status'
-
-    actions = ['setujui_data', 'tolak_data']
-
-    @admin.action(description='✅ Setujui Prestasi')
-    def setujui_data(self, request, queryset):
-        queryset.update(status='approved')
-
-    @admin.action(description='❌ Tolak Prestasi')
-    def tolak_data(self, request, queryset):
-        queryset.update(status='rejected')
-
-
-# --- 3. CONFIG ADMIN UNTUK KARYA ---
+# --- 3. CONFIG ADMIN UNTUK KARYA INOVASI ---
+@admin.register(Karya)
 class KaryaAdmin(admin.ModelAdmin):
-    list_display = ('preview_cover', 'judul_karya', 'pembuat', 'prodi', 'status_label')
+    list_display = ('judul_karya', 'pembuat', 'prodi', 'status_label')
     list_filter = ('status', 'prodi', 'created_at')
     search_fields = ('judul_karya', 'pembuat')
-    readonly_fields = ('created_at',)
-
-    fieldsets = (
-        ('Info Karya', {
-            'fields': ('judul_karya', 'deskripsi', 'pembuat', 'prodi')
-        }),
-        ('Media & File', {
-            'fields': ('gambar_cover', 'link_video')
-        }),
-        ('Validasi', {
-            'fields': ('status', 'created_at')
-        }),
-    )
-
-    def preview_cover(self, obj):
-        if obj.gambar_cover:
-            return format_html('<img src="{}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;" />', obj.gambar_cover.url)
-        return "-"
-    preview_cover.short_description = "Cover"
+    actions = ['setujui_data', 'tolak_data']
 
     def status_label(self, obj):
-        color = 'green' if obj.status == 'approved' else 'red' if obj.status == 'rejected' else 'orange'
+        color = '#10b981' if obj.status == 'approved' else '#ef4444' if obj.status == 'rejected' else '#f59e0b'
         return format_html('<b style="color: {};">{}</b>', color, obj.get_status_display())
     status_label.short_description = 'Status'
 
-    actions = ['setujui_data', 'tolak_data']
-
-    @admin.action(description='✅ Setujui Karya')
+    @admin.action(description='✅ Setujui Karya Terpilih')
     def setujui_data(self, request, queryset):
         queryset.update(status='approved')
 
-    @admin.action(description='❌ Tolak Karya')
+    @admin.action(description='❌ Tolak Karya Terpilih')
     def tolak_data(self, request, queryset):
         queryset.update(status='rejected')
 
 
-# --- 4. CONFIG ADMIN UNTUK INFO LOMBA ---
+# --- 4. CONFIG ADMIN UNTUK INFO LOMBA (UPDATE: LINK POSTER KEMBALI) ---
+@admin.register(InfoLomba)
 class InfoLombaAdmin(admin.ModelAdmin):
-    list_display = ('judul', 'penyelenggara', 'kategori', 'tanggal_deadline', 'status_aktif')
-    list_filter = ('kategori', 'tanggal_deadline')
+    list_display = ('judul', 'penyelenggara', 'kategori', 'tanggal_deadline', 'is_active', 'view_poster_link')
+    list_filter = ('is_active', 'kategori', 'tanggal_deadline')
     search_fields = ('judul', 'penyelenggara')
     date_hierarchy = 'tanggal_deadline'
-
+    
     fieldsets = (
-        ('Info Utama', {
-            'fields': ('judul', 'penyelenggara', 'kategori', 'poster')
+        ('Informasi Dasar', {
+            'fields': ('judul', 'penyelenggara', 'kategori', 'deskripsi')
         }),
-        ('Jadwal', {
-            'fields': ('tanggal_pelaksanaan', 'tanggal_deadline')
+        ('Link Eksternal (Hemat Storage)', {
+            'fields': ('link_poster', 'link_pendaftaran', 'link_sosmed', 'link_booklet'),
+            'description': 'Simpan gambar di Google Drive/Imgur dan tempel linknya di sini untuk menghemat ruang server.'
         }),
-        ('Detail & Link', {
-            'fields': ('deskripsi_lengkap', 'link_pendaftaran', 'url_penyelenggara')
+        ('Waktu & Status', {
+            'fields': ('tanggal_deadline', 'tanggal_pelaksanaan', 'is_active')
         }),
     )
-    
-    def status_aktif(self, obj):
-        return obj.is_active
-    status_aktif.boolean = True
-    status_aktif.short_description = "Buka?"
+
+    def view_poster_link(self, obj):
+        if obj.link_poster:
+            return format_html('<a href="{}" target="_blank" style="font-weight:bold; color:#0d6efd;">Lihat Poster</a>', obj.link_poster)
+        return "-"
+    view_poster_link.short_description = 'Cek Poster'
 
 
-# --- 5. CONFIG ADMIN UNTUK KALENDER ---
+# --- 5. CONFIG ADMIN UNTUK AGENDA AKADEMIK (UPDATED: RANGE TANGGAL) ---
+@admin.register(AgendaAkademik)
 class AgendaAdmin(admin.ModelAdmin):
+    # Menampilkan tanggal mulai dan selesai di daftar tabel
     list_display = ('kegiatan', 'tanggal_mulai', 'tanggal_selesai', 'color_preview')
     ordering = ['tanggal_mulai']
     search_fields = ('kegiatan',)
 
+    fieldsets = (
+        (None, {
+            'fields': ('kegiatan', 'warna')
+        }),
+        ('Rentang Waktu Kegiatan', {
+            # Mengelompokkan tanggal mulai dan selesai dalam satu baris agar rapi
+            'fields': (('tanggal_mulai', 'tanggal_selesai'),),
+            'description': 'Jika kegiatan hanya berlangsung satu hari, biarkan Tanggal Selesai kosong.'
+        }),
+    )
+
     def color_preview(self, obj):
         color_map = {
-            'primary': '#0d6efd',
-            'danger': '#dc3545',
-            'warning': '#ffc107',
-            'success': '#198754',
-            'info': '#0dcaf0'
+            'primary': '#3b82f6', 
+            'warning': '#f59e0b', 
+            'success': '#10b981', 
+            'danger': '#ef4444',  
         }
         hex_color = color_map.get(obj.warna, '#6c757d')
-        return format_html('<div style="width: 20px; height: 20px; background-color: {}; border-radius: 50%;"></div>', hex_color)
+        return format_html('<div style="width: 18px; height: 18px; background-color: {}; border-radius: 50%; box-shadow: 0 0 5px rgba(0,0,0,0.1);"></div>', hex_color)
     color_preview.short_description = "Warna"
 
-class FileKalenderAdmin(admin.ModelAdmin):
-    list_display = ('nama_file', 'updated_at')
-    readonly_fields = ('updated_at',)
 
-
-# --- REGISTER ---
-admin.site.register(Materi, MateriAdmin)
-admin.site.register(Prestasi, PrestasiAdmin)
-admin.site.register(Karya, KaryaAdmin)
-admin.site.register(InfoLomba, InfoLombaAdmin)
-admin.site.register(AgendaKalender, AgendaAdmin)
-admin.site.register(FileKalender, FileKalenderAdmin)
+# --- 6. CONFIG ADMIN UNTUK FILE KALENDER PDF ---
+@admin.register(KalenderPDF)
+class KalenderPDFAdmin(admin.ModelAdmin):
+    list_display = ('nama_file', 'tanggal_update', 'view_pdf_link')
+    
+    def view_pdf_link(self, obj):
+        return format_html('<a href="{}" target="_blank" style="font-weight:bold; color:#10b981;">Buka PDF</a>', obj.link_google_drive)
+    view_pdf_link.short_description = 'Cek Dokumen'

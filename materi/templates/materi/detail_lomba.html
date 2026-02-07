@@ -1,141 +1,129 @@
 {% extends 'materi/base.html' %}
 {% load static %}
 
-{% block title %}{{ lomba.judul }} - Detail Lomba{% endblock %}
+{% block title %}{{ info_lomba.judul }} - Detail Kompetisi{% endblock %}
 
 {% block content %}
 
-<section class="hero-lomba">
-    <div class="container position-relative animate-up" style="z-index: 2;">
-        
+<section class="hero-lomba-detail">
+    <div class="hero-overlay-refined"></div>
+    <div class="container hero-content text-center animate-up">
         <div class="mb-3">
-            <span class="badge rounded-pill bg-info text-dark px-3 py-2 fw-bold text-uppercase shadow-sm">
-                <i class="fa fa-tag me-1"></i> {{ lomba.kategori|default:"Kompetisi" }}
+            <span class="badge rounded-pill bg-soft-primary text-primary px-3 py-2 fw-bold text-uppercase shadow-sm">
+                <i class="fa fa-tag me-1"></i> {{ info_lomba.kategori|default:"Kompetisi" }}
             </span>
-            {% if lomba.is_active %}
-                <span class="badge rounded-pill bg-success text-white px-3 py-2 ms-2 shadow-sm">
-                    <i class="fa fa-check-circle me-1"></i> Pendaftaran Buka
-                </span>
-            {% else %}
-                <span class="badge rounded-pill bg-danger text-white px-3 py-2 ms-2 shadow-sm">
-                    <i class="fa fa-lock me-1"></i> Ditutup
-                </span>
-            {% endif %}
         </div>
-
-        <h1 class="fw-bold text-white mb-3 hero-title">
-            {{ lomba.judul }}
-        </h1>
-        
+        <h1 class="fw-bold text-white mb-3 hero-title-detail">{{ info_lomba.judul }}</h1>
         <p class="text-white-50 fs-5 mb-0">
-            <i class="fa fa-building-o me-2"></i>Diselenggarakan oleh <strong class="text-white">{{ lomba.penyelenggara }}</strong>
+            <i class="fa fa-university me-2"></i> {{ info_lomba.penyelenggara }}
         </p>
-
     </div>
 </section>
 
-<section class="main-body">
-    <div class="container content-container">
-        <div class="row g-4 g-lg-5">
+<section class="py-5 section-gray">
+    <div class="container overlap-up-detail">
+        <div class="row g-4">
             
             <div class="col-lg-4 animate-up delay-1">
-                <div class="sidebar-wrapper">
+                <div class="sticky-sidebar">
                     
-                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white mb-4">
-                        <div class="p-2 bg-white position-relative group-zoom">
-                            {% if lomba.poster %}
-                                <a href="{{ lomba.poster.url }}" target="_blank" class="d-block cursor-zoom">
-                                    <img src="{{ lomba.poster.url }}" class="w-100 rounded-3 shadow-sm" alt="{{ lomba.judul }}">
-                                    <div class="overlay-zoom d-flex align-items-center justify-content-center rounded-3">
-                                        <span class="badge bg-dark bg-opacity-75 rounded-pill px-3 py-2">
-                                            <i class="fa fa-search-plus me-1"></i> Perbesar
-                                        </span>
-                                    </div>
-                                </a>
+                    <div class="card-modern shadow-sm border-0 mb-4 p-2">
+                        <div class="poster-preview-container bg-light rounded-4 overflow-hidden" style="min-height: 250px;">
+                            {% if info_lomba.link_poster %}
+                                <img src="{{ info_lomba.link_poster }}" class="w-100 img-fluid" alt="Poster {{ info_lomba.judul }}">
                             {% else %}
-                                <div class="ratio ratio-3x4 bg-light d-flex align-items-center justify-content-center text-muted rounded-3">
-                                    <div class="text-center">
-                                        <i class="fa fa-image fa-4x mb-2 opacity-25"></i>
-                                        <p class="small m-0">Poster Belum Ada</p>
-                                    </div>
+                                <div class="p-5 text-center text-muted opacity-25">
+                                    <i class="fa fa-picture-o fa-5x mb-3"></i>
+                                    <p class="fw-bold">Poster Tidak Tersedia</p>
                                 </div>
                             {% endif %}
                         </div>
                     </div>
 
-                    <div class="d-flex flex-column gap-3">
-                        {% if lomba.link_pendaftaran %}
-                            <a href="{{ lomba.link_pendaftaran }}" target="_blank" class="btn btn-primary rounded-pill fw-bold py-3 shadow-lg gradient-btn hover-scale w-100 border-0">
-                                Daftar Sekarang <i class="fa fa-paper-plane ms-2"></i>
-                            </a>
-                        {% else %}
-                            <button class="btn btn-secondary rounded-pill fw-bold py-3 w-100 disabled border-0 opacity-75">
-                                <i class="fa fa-ban me-2"></i> Pendaftaran Tutup
-                            </button>
-                        {% endif %}
+                    <div class="card-modern shadow-sm border-0 mb-4">
+                        <div class="text-center mb-4">
+                            {% if info_lomba.is_active %}
+                                <span class="badge-modern status-open"><i class="fa fa-check-circle me-1"></i> Pendaftaran Dibuka</span>
+                            {% else %}
+                                <span class="badge-modern status-closed"><i class="fa fa-lock me-1"></i> Pendaftaran Ditutup</span>
+                            {% endif %}
+                        </div>
 
-                        {% if lomba.url_penyelenggara %} 
-                            <a href="{{ lomba.url_penyelenggara }}" target="_blank" class="btn btn-outline-primary rounded-pill fw-bold py-3 hover-fill w-100 bg-white shadow-sm border-2">
-                                <i class="fa fa-globe me-1"></i> Website Lomba
-                            </a>
-                        {% endif %}
+                        <div class="deadline-card mb-4">
+                            <div class="deadline-accent"></div>
+                            <div class="deadline-body">
+                                <small class="label">BATAS PENDAFTARAN</small>
+                                <h4 class="value text-danger">{{ info_lomba.tanggal_deadline|date:"d F Y"|default:"-" }}</h4>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-3">
+                            {% if info_lomba.link_pendaftaran %}
+                                <a href="{{ info_lomba.link_pendaftaran }}" target="_blank" class="btn-action btn-main shadow-sm">
+                                    <span>DAFTAR SEKARANG</span> <i class="fa fa-paper-plane"></i>
+                                </a>
+                            {% endif %}
+
+                            <div class="row g-2">
+                                {% if info_lomba.link_booklet %}
+                                <div class="col-6">
+                                    <a href="{{ info_lomba.link_booklet }}" target="_blank" class="btn-action btn-soft btn-cyan">
+                                        <i class="fa fa-file-text-o"></i> <span>BOOKLET</span>
+                                    </a>
+                                </div>
+                                {% endif %}
+                                
+                                {% if info_lomba.link_sosmed %}
+                                <div class="col-6">
+                                    <a href="{{ info_lomba.link_sosmed }}" target="_blank" class="btn-action btn-soft btn-rose">
+                                        <i class="fa fa-instagram"></i> <span>SOSMED</span>
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
-
                 </div>
             </div>
 
             <div class="col-lg-8 animate-up delay-2">
-                
-                <div class="row g-3 mb-4">
-                    <div class="col-12 col-md-6">
-                        <div class="bg-white p-4 rounded-4 shadow-sm border-top border-4 border-danger h-100">
-                            <small class="text-muted text-uppercase fw-bold ls-1 d-block mb-1">
-                                <i class="fa fa-calendar-times-o me-1"></i> Deadline Pendaftaran
-                            </small>
-                            <h4 class="fw-bold m-0" style="color: #dc3545;">
-                                {{ lomba.tanggal_deadline|date:"d F Y"|default:"-" }}
-                            </h4>
+                <div class="card-modern shadow-sm border-0 p-4 p-md-5">
+                    <div class="row mb-4 pb-3 border-bottom g-3 align-items-center">
+                        <div class="col-auto">
+                            <div class="icon-box-detail">
+                                <i class="fa fa-file-text-o"></i>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h4 class="fw-bold text-dark m-0">Deskripsi & Ketentuan</h4>
+                        </div>
+                        <div class="col-md-auto">
+                             <div class="p-2 px-3 rounded-3 bg-light border-start border-primary border-4">
+                                <small class="text-muted text-uppercase fw-bold d-block" style="font-size: 0.6rem;">Pelaksanaan</small>
+                                <span class="fw-bold text-dark small">{{ info_lomba.tanggal_pelaksanaan|date:"d F Y"|default:"-" }}</span>
+                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-6">
-                        <div class="bg-white p-4 rounded-4 shadow-sm border-top border-4 border-primary h-100">
-                            <small class="text-muted text-uppercase fw-bold ls-1 d-block mb-1">
-                                <i class="fa fa-flag-checkered me-1"></i> Tanggal Pelaksanaan
-                            </small>
-                            <h4 class="fw-bold m-0" style="color: #0d6efd;">
-                                {{ lomba.tanggal_pelaksanaan|date:"d F Y"|default:"-" }}
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border border-light">
-                    <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
-                        <i class="fa fa-file-text-o text-primary me-3 fs-4"></i>
-                        <h4 class="fw-bold text-dark m-0">Deskripsi & Ketentuan</h4>
-                    </div>
-                    
-                    <div class="text-secondary description-content">
-                        {% if lomba.deskripsi_lengkap %}
-                            {{ lomba.deskripsi_lengkap|linebreaks }}
+                    <div class="description-text">
+                        {% if info_lomba.deskripsi %}
+                            <div class="content-body">
+                                {{ info_lomba.deskripsi|linebreaks }}
+                            </div>
                         {% else %}
-                            <div class="alert alert-light border d-flex align-items-center text-muted">
-                                <i class="fa fa-info-circle fs-4 me-3 opacity-50"></i>
-                                <div>
-                                    Detail deskripsi teks belum tersedia. Silakan cek <strong>Poster</strong> atau kunjungi <strong>Website Penyelenggara</strong>.
-                                </div>
+                            <div class="text-center py-5 opacity-50">
+                                <i class="fa fa-info-circle fa-3x mb-3"></i>
+                                <p>Deskripsi detail belum ditambahkan oleh Admin.</p>
                             </div>
                         {% endif %}
                     </div>
-                </div>
 
-                <div class="mt-4">
-                    <a href="{% url 'list_lomba' %}" class="btn btn-link text-decoration-none p-0 text-muted">
-                        <i class="fa fa-arrow-left me-2"></i>Kembali ke Daftar Lomba
-                    </a>
+                    <div class="mt-5 border-top pt-4">
+                        <a href="{% url 'list_lomba' %}" class="btn-back text-decoration-none">
+                            <i class="fa fa-arrow-left me-2"></i> Kembali ke Daftar Lomba
+                        </a>
+                    </div>
                 </div>
-
             </div>
 
         </div>
@@ -143,75 +131,64 @@
 </section>
 
 <style>
-    .hero-lomba {
-        background: linear-gradient(to right, rgba(0, 30, 60, 0.95) 20%, rgba(0, 51, 102, 0.9) 100%), 
-                    url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1920&auto=format&fit=crop');
-        background-size: cover; 
-        background-position: center; 
-        background-attachment: fixed;
-        padding-top: 200px; 
-        padding-bottom: 120px; 
-        margin-top: -85px; 
-        color: white; 
-        position: relative;
+    /* Hero Section Styles */
+    .hero-lomba-detail {
+        background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), 
+                    url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1920&auto=format&fit=crop');
+        background-size: cover; background-position: center; background-attachment: fixed;
+        padding: 180px 0 100px 0; margin-top: -85px; position: relative;
     }
+    .hero-title-detail { font-size: 2.8rem; font-weight: 800; text-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    .bg-soft-primary { background-color: #eff6ff; color: #3b82f6; }
+    .section-gray { background-color: #fcfdfe; min-height: 60vh; }
+    .overlap-up-detail { margin-top: -60px; position: relative; z-index: 100; }
 
-    .hero-title {
-        font-size: 3rem;
-        text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        letter-spacing: 0.5px;
-        line-height: 1.2;
-    }
+    /* Modern Card Styles */
+    .card-modern { background: #ffffff; border-radius: 20px; padding: 24px; transition: all 0.3s ease; }
+    .sticky-sidebar { position: sticky; top: 100px; }
 
-    .main-body {
-        background-color: #f8f9fa;
-        min-height: 70vh;
-        padding-bottom: 5rem;
+    /* Deadline Card Design */
+    .deadline-card { background: #f8fafc; border-radius: 12px; display: flex; overflow: hidden; border: 1px solid #f1f5f9; }
+    .deadline-accent { width: 4px; background: #ef4444; }
+    .deadline-body { padding: 12px 16px; }
+    .deadline-body .label { font-size: 0.65rem; font-weight: 800; color: #64748b; letter-spacing: 1px; }
+    .deadline-body .value { font-size: 1.1rem; font-weight: 800; margin: 0; }
+
+    /* Action Buttons (Soft UI) */
+    .btn-action {
+        border-radius: 14px; padding: 14px; font-weight: 800; font-size: 0.8rem;
+        display: flex; align-items: center; justify-content: center; gap: 10px;
+        border: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px;
     }
+    .btn-main { background: #2563eb; color: #ffffff; }
+    .btn-main:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3) !important; }
+
+    .btn-soft { background: #f1f5f9; }
+    .btn-cyan { background: #ecfeff; color: #0891b2; }
+    .btn-cyan:hover { background: #cffafe; transform: translateY(-2px); color: #0891b2; }
     
-    .content-container {
-        margin-top: -80px; 
-        position: relative;
-        z-index: 10;
-    }
+    .btn-rose { background: #fff1f2; color: #e11d48; }
+    .btn-rose:hover { background: #ffe4e6; transform: translateY(-2px); color: #e11d48; }
 
-    .description-content {
-        line-height: 1.8;
-        font-size: 1.05rem;
-        text-align: justify;
-    }
+    /* Badge & Icons */
+    .badge-modern { font-size: 0.7rem; font-weight: 800; padding: 8px 16px; border-radius: 50px; letter-spacing: 0.5px; }
+    .status-open { background: #f0fdf4; color: #16a34a; }
+    .status-closed { background: #fef2f2; color: #dc2626; }
+    .icon-box-detail { width: 45px; height: 45px; background: #f1f5f9; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #3b82f6; font-size: 1.2rem; }
 
-    .sidebar-wrapper {
-        position: sticky;
-        top: 100px;
+    /* Description Typography */
+    .description-text .content-body {
+        font-family: 'Inter', sans-serif; line-height: 1.85; color: #334155; font-size: 1.05rem; text-align: justify;
     }
+    .description-text p { margin-bottom: 1.5rem; }
 
-    .gradient-btn {
-        background: linear-gradient(135deg, #0d6efd 0%, #00438a 100%);
-    }
-    
-    .hover-scale:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3) !important; transition: 0.3s; }
-    
-    .hover-fill:hover {
-        background-color: #0d6efd !important;
-        color: white !important;
-        border-color: #0d6efd !important;
-    }
-
-    .group-zoom { overflow: hidden; }
-    .overlay-zoom {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.2); opacity: 0; transition: 0.3s;
-        backdrop-filter: blur(2px);
-    }
-    .group-zoom:hover .overlay-zoom { opacity: 1; }
-    .cursor-zoom { cursor: zoom-in; }
-
+    /* Others */
+    .btn-back { color: #6b7280; font-weight: 600; font-size: 0.9rem; transition: 0.3s; display: inline-block; }
+    .btn-back:hover { color: #3b82f6; transform: translateX(-5px); }
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
-    .delay-1 { animation-delay: 0.2s; }
-    .delay-2 { animation-delay: 0.4s; }
+    .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-    .ls-1 { letter-spacing: 1px; }
 </style>
 
 {% endblock %}
