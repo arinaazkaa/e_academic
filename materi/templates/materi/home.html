@@ -11,16 +11,16 @@
         <div class="slide slide-2" style="background-image: url('{% static 'img/img2.jpg' %}');"></div>
         <div class="slide slide-3" style="background-image: url('{% static 'img/img3.jpg' %}');"></div>
     </div>
-    <div class="hero-overlay-white-v3"></div>
+    <div class="hero-overlay-white-v2"></div>
     <div class="container-fluid hero-content text-center">
         <div class="row justify-content-center">
             <div class="col-12 px-3"> 
-                <h1 class="animate-reveal hero-brand-title-v12 text-nowrap text-dark reveal-on-scroll">E-ACADEMIC</h1>
-                <p class="animate-reveal delay-1 mx-auto hero-description-v12 mt-5 text-secondary reveal-on-scroll">
+                <h1 class="animate-reveal hero-brand-title-v11 text-nowrap text-dark">E-ACADEMIC</h1>
+                <p class="animate-reveal delay-1 mx-auto hero-description-v11 mt-4 text-dark opacity-75">
                     Wadah kolaborasi dan inovasi mahasiswa di Lingkungan Teknik Elektro. Akses materi kuliah jadi lebih mudah dan praktis
                 </p>
                 <div class="animate-reveal delay-2 mt-5">
-                    <a href="{% url 'list_materi' %}" class="btn rounded-pill fw-bold btn-cari-giant-v2 reveal-on-scroll">
+                    <a href="{% url 'list_materi' %}" class="btn rounded-pill fw-bold btn-cari-giant-dark">
                         <i class="fa fa-search me-2"></i> Cari Materi
                     </a>
                 </div>
@@ -30,74 +30,74 @@
 </section>
 
 <section id="info-section" class="pt-5 pb-5 section-gray">
-    <div class="container-fluid px-0 overlap-up">
+    <div class="container-fluid px-1 px-md-5 overlap-up">
         <div class="row gx-0 gy-5 justify-content-center">
-            <div class="col-12 col-xl-11 reveal-on-scroll">
-                <div class="card-modern-v12 h-100 shadow-lg border-0 bg-white d-flex flex-column">
-                    <div class="card-header-clean p-5 pb-0 d-flex justify-content-center"> 
-                        <h2 class="fw-900 text-dark m-0 d-flex align-items-center">
-                            <i class="fa fa-bullhorn text-primary me-4"></i> Info Lomba Terbaru
-                        </h2>
+            <div class="col-12 col-xl-7 reveal-on-scroll">
+                <div class="card-modern-v11 h-100 shadow-lg border-0 bg-white d-flex flex-column">
+                    <div class="card-header-clean p-4 pb-0 d-flex justify-content-center"> 
+                        <h3 class="fw-900 text-dark m-0 d-flex align-items-center">
+                            <i class="fa fa-bullhorn text-primary me-3"></i> Info Lomba Terbaru
+                        </h3>
                     </div>
-                    <div class="card-body p-5 pt-4 flex-grow-1">
+                    <div class="card-body p-4 pt-4 flex-grow-1">
                         {% for lomba in info_lomba_list %}
-                        <div class="item-interactive-v12 d-flex align-items-center mb-4 pb-4 border-bottom border-light">
-                            <div class="date-minimalist text-center" style="margin-right: 2.5rem; min-width: 80px;">
-                                <span class="d-block fw-bold text-primary day-text-v12">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
-                                <span class="d-block text-muted month-text-v12">{{ lomba.tanggal_pelaksanaan|date:"M" }}</span>
+                        <div class="item-interactive-v11 d-flex align-items-center mb-4 pb-3 border-bottom border-light">
+                            <div class="date-minimalist text-center" style="margin-right: 2rem; min-width: 70px;">
+                                <span class="d-block fw-bold text-primary day-text-v11">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
+                                <span class="d-block text-muted month-text-v11">{{ lomba.tanggal_pelaksanaan|date:"M" }}</span>
                             </div>
                             <div class="flex-grow-1">
-                                <h3 class="fw-bold mb-2 item-title-v12">
+                                <h4 class="fw-bold mb-1 item-title-v11">
                                     <a href="{% url 'detail_lomba' lomba.id %}" class="text-dark text-decoration-none title-hover-blue">
                                         {{ lomba.judul }}
                                     </a>
-                                </h3>
-                                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-2 gap-3">
-                                    <div class="text-muted info-text-v12">
-                                        <i class="fa fa-university me-1 text-primary"></i> {{ lomba.penyelenggara }}
+                                </h4>
+                                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-1 gap-2">
+                                    <div class="text-muted small-text-v11">
+                                        <i class="fa fa-university me-1"></i> {{ lomba.penyelenggara|truncatechars:35 }}
                                     </div>
-                                    <div class="text-danger fw-bold info-text-v12">
-                                        <i class="fa fa-clock-o me-1"></i> Deadline: {{ lomba.tanggal_deadline|date:"d M Y" }}
+                                    <div class="text-danger fw-bold small-text-v11">
+                                        <i class="fa fa-clock-o me-1"></i> Deadline: {{ lomba.tanggal_deadline|date:"d M" }}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {% endfor %}
                     </div>
-                    <div class="card-footer bg-white border-0 p-5 pt-0">
-                        <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-pill-v12-blue w-100 text-center text-decoration-none d-block">
+                    <div class="card-footer bg-white border-0 p-4 pt-0">
+                        <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-pill-premium-blue w-100 text-center text-decoration-none d-block">
                             LIHAT SEMUA KOMPETISI
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-12 col-xl-11 reveal-on-scroll" style="transition-delay: 0.2s;">
-                <div class="card-modern-v12 h-100 shadow-lg border-0 bg-white">
-                    <div class="card-header-clean d-flex justify-content-center align-items-center p-5 pb-0"> 
-                        <h2 class="fw-900 text-dark m-0">
-                            <i class="fa fa-calendar-check-o text-primary me-4"></i> Agenda Akademik
-                        </h2>
+            <div class="col-12 col-xl-5 reveal-on-scroll" style="transition-delay: 0.2s;">
+                <div class="card-modern-v11 h-100 shadow-lg border-0 bg-white">
+                    <div class="card-header-clean d-flex justify-content-center align-items-center p-4 pb-0"> 
+                        <h3 class="fw-900 text-dark m-0">
+                            <i class="fa fa-calendar-check-o text-primary me-3"></i> Agenda Akademik
+                        </h3>
                     </div>
-                    <div class="card-body p-5 pt-0"> 
-                        <div class="text-center mb-4">
-                            <a href="{% url 'kalender' %}" class="link-detail-v12 text-decoration-none">Lihat Detail Agenda</a>
+                    <div class="card-body p-4 pt-0"> 
+                        <div class="text-center mb-2">
+                            <a href="{% url 'kalender' %}" class="link-detail-v11 text-decoration-none">Detail</a>
                         </div>
-                        <div class="agenda-list-minimal mt-n4"> 
+                        <div class="agenda-list-minimal mt-n3"> 
                             {% for agenda in agenda_list %}
-                            <div class="item-interactive-v12 d-flex justify-content-between align-items-center py-4 border-bottom border-light last-no-border">
+                            <div class="item-interactive-v11 d-flex justify-content-between align-items-center py-3 border-bottom border-light last-no-border">
                                 <div class="d-flex align-items-center me-3">
-                                    <div class="status-dot-modern dot-{{ agenda.warna }} me-4"></div>
-                                    <span class="text-dark fw-bold agenda-font-v12 text-truncate">{{ agenda.kegiatan }}</span>
+                                    <div class="status-dot-modern dot-{{ agenda.warna }} me-3"></div>
+                                    <span class="text-dark fw-bold agenda-font-v11 text-truncate">{{ agenda.kegiatan }}</span>
                                 </div>
-                                <span class="badge-date-v12 flex-shrink-0 text-center">
+                                <span class="badge-date-v11 flex-shrink-0 text-center">
                                     {{ agenda.tanggal_mulai|date:"d" }}{% if agenda.tanggal_selesai %}-{{ agenda.tanggal_selesai|date:"d M" }}{% else %} {{ agenda.tanggal_mulai|date:"M" }}{% endif %}
                                 </span>
                             </div>
                             {% endfor %}
                         </div>
-                        <div class="mt-5">
-                            <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-v12-red w-100">
+                        <div class="mt-4">
+                            <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-premium-red w-100">
                                 <i class="fa fa-file-pdf-o me-2"></i> DOWNLOAD PDF KALENDER
                             </a>
                         </div>
@@ -109,29 +109,48 @@
 </section>
 
 <section class="mt-5 pt-5 pb-5 bg-white">
-    <div class="container py-4 text-center">
+    <div class="container-fluid px-md-5 py-4 text-center">
         <div class="mb-5 reveal-on-scroll">
-            <h1 class="text-primary fw-900 text-uppercase tracking-widest mb-2 library-title-v12">ELECTRICAL LIBRARY</h1>
-            <h4 class="fw-bold text-muted mb-4 category-subtitle-v12">Kategori Pilihan Program Studi</h4>
-            <div class="divider-v12 mx-auto bg-primary"></div>
+            <h1 class="text-primary fw-900 text-uppercase tracking-widest mb-1 library-title-v11">ELECTRICAL LIBRARY</h1>
+            <h4 class="fw-bold text-muted mb-4 category-subtitle-v11">Kategori Program Studi</h4>
+            <div class="divider-v11 mx-auto bg-primary"></div>
         </div>
         
-        <div class="row g-5 justify-content-center prodi-grid-v12">
-            {% for p_code, p_name, p_bg in prodi_data %}
-            <div class="col-12 col-md-4 reveal-on-scroll prodi-col-v12"> 
-                <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v12 text-decoration-none d-block">
-                    <div class="icon-box-v12 mb-4 mx-auto">
-                        {% if p_code == 'PTIK' %}<i class="fa fa-code"></i>
-                        {% elif p_code == 'PTE' %}<i class="fa fa-bolt"></i>
-                        {% elif p_code == 'TE' %}<i class="fa fa-cogs"></i>
-                        {% elif p_code == 'TK' %}<i class="fa fa-microchip"></i>
-                        {% else %}<i class="fa fa-university"></i>{% endif %}
-                    </div>
-                    <h3 class="fw-bold text-dark mb-2">{{ p_name }}</h3>
-                    <span class="text-primary fw-bold">Jelajahi Materi <i class="fa fa-arrow-right ms-2"></i></span>
-                </a>
+        <div class="prodi-grid-v12">
+            <div class="row g-5 justify-content-center mb-5">
+                {% for p_code, p_name, p_bg in prodi_data|slice:":3" %}
+                <div class="col-12 col-md-4 reveal-on-scroll"> 
+                    <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v12 text-decoration-none d-block">
+                        <div class="icon-box-v12 mb-4 mx-auto">
+                            {% if p_code == 'PTIK' %}<i class="fa fa-code"></i>
+                            {% elif p_code == 'PTE' %}<i class="fa fa-bolt"></i>
+                            {% elif p_code == 'TE' %}<i class="fa fa-cogs"></i>
+                            {% elif p_code == 'TK' %}<i class="fa fa-microchip"></i>
+                            {% else %}<i class="fa fa-university"></i>{% endif %}
+                        </div>
+                        <h2 class="fw-900 text-dark mb-2">{{ p_name }}</h2>
+                        <span class="text-primary fw-bold">Buka Materi <i class="fa fa-chevron-right ms-1"></i></span>
+                    </a>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            <div class="row g-5 justify-content-center">
+                {% for p_code, p_name, p_bg in prodi_data|slice:"3:5" %}
+                <div class="col-12 col-md-4 reveal-on-scroll"> 
+                    <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v12 text-decoration-none d-block">
+                        <div class="icon-box-v12 mb-4 mx-auto">
+                            {% if p_code == 'PTIK' %}<i class="fa fa-code"></i>
+                            {% elif p_code == 'PTE' %}<i class="fa fa-bolt"></i>
+                            {% elif p_code == 'TE' %}<i class="fa fa-cogs"></i>
+                            {% elif p_code == 'TK' %}<i class="fa fa-microchip"></i>
+                            {% else %}<i class="fa fa-university"></i>{% endif %}
+                        </div>
+                        <h2 class="fw-900 text-dark mb-2">{{ p_name }}</h2>
+                        <span class="text-primary fw-bold">Buka Materi <i class="fa fa-chevron-right ms-1"></i></span>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </section>
@@ -140,77 +159,58 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; background-color: #fff; }
 
-    /* --- NAVBAR REVISIONS (Mepet Ujung) --- */
+    /* --- NAVBAR MODIFICATIONS (Mepet Ujung) --- */
     @media (max-width: 1200px) {
-        .navbar { padding: 25px 0 !important; }
-        .container-fluid.nav-container { padding: 0 10px !important; width: 100% !important; max-width: 100% !important; display: flex !important; justify-content: space-between !important; }
-        .navbar-brand { font-size: 1.6rem !important; font-weight: 900 !important; margin-right: auto !important; }
-        .navbar-nav { flex-direction: row !important; gap: 35px !important; margin-left: auto !important; align-items: center !important; }
-        .nav-link { font-size: 1.2rem !important; font-weight: 800 !important; }
-        .btn-pendataan { font-size: 1.1rem !important; padding: 12px 30px !important; font-weight: 900 !important; }
+        .navbar { padding: 15px 5px !important; } /* Padding minim agar mepet ujung */
+        .container-fluid.nav-container { padding: 0 10px !important; width: 100% !important; max-width: 100% !important; }
+        .navbar-brand { font-size: 1.4rem !important; font-weight: 900 !important; margin-left: 0 !important; }
+        .navbar-nav { flex-direction: row !important; gap: 15px !important; margin-right: 0 !important; }
+        .nav-link { font-size: 0.95rem !important; font-weight: 800 !important; }
+        .btn-pendataan { font-size: 0.95rem !important; padding: 8px 15px !important; margin-left: 5px !important; }
+        .navbar-toggler { display: none !important; }
     }
 
-    /* --- HERO REVISIONS (Overlay Putih & No Zoom) --- */
-    .hero-modern { height: 80vh; min-height: 650px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
+    /* --- HERO REVISIONS --- */
+    .hero-modern { height: 75vh; min-height: 600px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #fff; }
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: smoothSlideshow 15s infinite linear; }
     @keyframes smoothSlideshow { 0%, 33% { opacity: 1; z-index: 3; } 38%, 100% { opacity: 0; z-index: 1; } }
     .slide-1 { animation-delay: 0s; } .slide-2 { animation-delay: 5s; } .slide-3 { animation-delay: 10s; }
-
-    .hero-overlay-white-v3 { position: absolute; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,1) 100%); z-index: 4; pointer-events: none; }
+    .hero-overlay-white-v2 { position: absolute; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.95) 100%); z-index: 4; pointer-events: none; }
     
-    /* Judul Naik & Besar */
-    .hero-content { position: relative; z-index: 5; padding-top: 100px; }
-    .hero-brand-title-v12 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 9rem; letter-spacing: 20px; text-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-    .hero-description-v12 { font-size: 1.8rem; max-width: 1000px; line-height: 1.6; font-weight: 700; }
+    .hero-content { position: relative; z-index: 5; padding-top: 150px; }
+    .hero-brand-title-v11 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 8rem; letter-spacing: 15px; }
+    .hero-description-v11 { font-size: 1.8rem; max-width: 900px; line-height: 1.5; font-weight: 600; }
+    .btn-cari-giant-dark { background: #000 !important; color: #fff !important; padding: 20px 60px; font-size: 1.4rem; transition: 0.4s ease; border: none; }
 
-    /* Button Cari Materi Giant V2 */
-    .btn-cari-giant-v2 { background: #000 !important; color: #fff !important; padding: 25px 80px; font-size: 1.6rem; transition: 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); border: none; box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
-    .btn-cari-giant-v2:hover { transform: scale(1.1) translateY(-8px); box-shadow: 0 25px 60px rgba(0,0,0,0.3); }
+    /* --- CARDS PREMIUM V11 (Tumpul & Berjarak) --- */
+    .card-modern-v11 { border-radius: 45px !important; transition: 0.5s ease; border: 1px solid rgba(0,0,0,0.06) !important; overflow: hidden; }
+    .card-modern-v11:hover { transform: translateY(-15px); box-shadow: 0 50px 100px rgba(0,0,0,0.15) !important; }
+    .item-interactive-v11 { transition: 0.3s; padding: 15px; border-radius: 25px; }
+    .item-interactive-v11:hover { background-color: #f8fafc; transform: translateX(12px); }
 
-    /* --- CARDS PREMIUM V12 (Extreme Stretch & Tumpul) --- */
-    .card-modern-v12 { border-radius: 60px !important; transition: 0.5s ease; border: 1px solid rgba(0,0,0,0.08) !important; }
-    .card-modern-v12:hover { transform: translateY(-20px); box-shadow: 0 60px 120px rgba(0,0,0,0.15) !important; }
-    
-    .item-interactive-v12 { transition: 0.4s; padding: 20px; border-radius: 30px; }
-    .item-interactive-v12:hover { background-color: #f1f5f9; transform: translateX(15px); }
+    /* --- PRODI CARD V12 (Lebih Besar & Berjarak) --- */
+    .prodi-card-v12 { padding: 70px 40px; background: #fff; border-radius: 50px; border: 1px solid #f1f5f9; transition: 0.5s; height: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.03); }
+    .prodi-card-v12:hover { transform: scale(1.08) translateY(-15px); border-color: #3b82f6; box-shadow: 0 40px 80px rgba(59,130,246,0.15); }
+    .icon-box-v12 { width: 120px; height: 120px; border-radius: 40px; font-size: 4rem; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; transition: 0.4s; }
+    .prodi-card-v12:hover .icon-box-v12 { background-color: #3b82f6; color: #fff; transform: rotate(8deg); }
 
-    .day-text-v12 { font-size: 2.5rem; line-height: 1; }
-    .month-text-v12 { font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; }
-    .item-title-v12 { font-size: 1.8rem !important; line-height: 1.3; }
-    .info-text-v12 { font-size: 1.1rem !important; }
-    .agenda-font-v12 { font-size: 1.5rem !important; }
-    .badge-date-v12 { background: #eff6ff; padding: 15px 30px; border-radius: 20px; font-size: 1.2rem; font-weight: 900; color: #1d4ed8; border: 1px solid #dbeafe; }
-    .link-detail-v12 { font-size: 1rem; color: #3b82f6; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; }
-
-    /* Buttons Premium V12 */
-    .btn-pill-v12-blue { background: linear-gradient(135deg, #1d4ed8, #1e40af) !important; color: #fff !important; font-size: 1.3rem; font-weight: 900; border-radius: 100px !important; padding: 25px; border: none; }
-    .btn-pill-v12-red { background: linear-gradient(135deg, #dc2626, #991b1b) !important; color: #fff !important; font-size: 1.3rem; font-weight: 900; border-radius: 100px !important; padding: 25px; border: none; }
-
-    /* --- LIBRARY V12 (Layout 3-2) --- */
-    .library-title-v12 { font-size: 4.5rem !important; font-weight: 900 !important; }
-    .category-subtitle-v12 { font-size: 1.8rem !important; letter-spacing: 4px; }
-    .divider-v12 { width: 180px; height: 10px; border-radius: 20px; }
-
-    .prodi-card-v12 { padding: 70px 40px; background: #fff; border-radius: 50px; border: 1.5px solid #f1f5f9; transition: 0.6s; height: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.04); }
-    .prodi-card-v12:hover { transform: scale(1.1) translateY(-15px); border-color: #3b82f6; box-shadow: 0 40px 80px rgba(59,130,246,0.15); }
-    .icon-box-v12 { width: 120px; height: 120px; border-radius: 35px; font-size: 4rem; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; transition: 0.5s; }
-    .prodi-card-v12:hover .icon-box-v12 { background-color: #3b82f6; color: #fff; transform: rotate(15deg); }
-
-    /* --- HP MODE DESKTOP OPTIMIZATION --- */
-    @media (max-width: 1200px) {
-        .hero-brand-title-v12 { font-size: 4.5rem; letter-spacing: 8px; }
-        .hero-description-v12 { font-size: 1.4rem; max-width: 90%; }
-        .hero-content { padding-top: 150px; }
-        .overlap-up { margin-top: -80px; }
-        /* Kartu mepet ujung */
-        .container-fluid { padding-left: 5px !important; padding-right: 5px !important; }
-        .col-12 { width: 100% !important; padding: 0 !important; }
+    /* --- MOBILE & HP DESKTOP OPTIMIZATION --- */
+    @media (max-width: 1024px) {
+        .hero-brand-title-v11 { font-size: 4.2rem; letter-spacing: 5px; }
+        .hero-description-v11 { font-size: 1.3rem; max-width: 95%; }
+        .overlap-up { margin-top: -60px; }
+        /* Kartu mepet ujung di HP Desktop */
+        .container-fluid { padding-left: 2px !important; padding-right: 2px !important; }
+        .col-12 { padding: 0 8px !important; }
+        /* Perbesar teks prodi di HP */
+        .fw-900 { font-size: 2.2rem !important; }
     }
-    
-    .reveal-on-scroll { opacity: 0; transform: translateY(80px); transition: all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1); }
+
+    .reveal-on-scroll { opacity: 0; transform: translateY(80px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
-    .mt-n4 { margin-top: -40px !important; }
+    .mt-n3 { margin-top: -30px !important; }
+    .section-gray { background-color: #f8fafc; }
     .fw-900 { font-weight: 900 !important; }
 </style>
 
@@ -222,7 +222,7 @@
                     entry.target.classList.add('active');
                 }
             });
-        }, { threshold: 0.05 });
+        }, { threshold: 0.1 });
         document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
     });
 </script>
