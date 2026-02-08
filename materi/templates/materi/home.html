@@ -162,10 +162,8 @@
     /* --- LOGIKA KHUSUS LAPTOP --- */
     @media (min-width: 1201px) {
         .hero-modern { height: 100vh !important; }
-        /* Note 1: Judul dan konten dinaikkan lagi (padding-top dikurangi) */
         .hero-content { padding-top: 220px !important; } 
         
-        /* Note 1: Font judul diperkecil (dari 4.8rem ke 4rem) */
         .hero-brand-title-v14 { font-size: 4rem !important; } 
         
         .hero-description-v12 { font-size: 1.25rem; max-width: 700px; }
@@ -185,12 +183,12 @@
     /* --- LOGIKA KHUSUS HP MODE DESKTOP --- */
     @media (max-width: 1200px) {
         .navbar { padding: 15px 5px !important; } 
-        .hero-modern { height: 50vh !important; min-height: 450px !important; }
+        /* UPDATE: Tinggi hero diperbesar (dari 50vh ke 65vh) agar foto lebih terlihat */
+        .hero-modern { height: 65vh !important; min-height: 550px !important; }
         .hero-content { padding-top: 180px !important; }
         
         .info-card-wrapper { row-gap: 4.5rem !important; }
         
-        /* Di HP tetap besar */
         .hero-brand-title-v14 { font-size: 5.5rem; letter-spacing: 6px; }
         .hero-description-v12 { font-size: 1.6rem !important; max-width: 90%; font-weight: 700 !important; }
         
@@ -203,7 +201,6 @@
     .hero-modern { position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #fff; }
     
-    /* Note 2: Animasi Slideshow Diperbaiki (Pastikan nama keyframe unik) */
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: sliderAnimation 15s infinite linear; }
     
     @keyframes sliderAnimation { 
@@ -232,12 +229,12 @@
 
     .btn-pill-animate-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; }
     .btn-pill-animate-red { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; }
-    /* Note 3: Class text-white ditambahkan langsung di HTML button */
     .text-white { color: #fff !important; }
 
-    .border-blue-prodi { border: 2px solid #3b82f6 !important; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.05) !important; }
+    /* UPDATE: Border Prodi menjadi Abu-abu halus (#e2e8f0) */
+    .border-blue-prodi { border: 2px solid #e2e8f0 !important; box-shadow: 0 10px 25px rgba(0,0,0,0.05) !important; }
     .prodi-card-v13 { background: #fff; transition: 0.5s; text-align: center; }
-    .prodi-card-v13:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15) !important; }
+    .prodi-card-v13:hover { transform: translateY(-12px); border-color: #3b82f6 !important; box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15) !important; }
     .icon-box-v12 { border-radius: 40px; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; }
 
     .card-modern-v11 { transition: 0.5s ease; border: 1px solid rgba(0,0,0,0.06) !important; overflow: hidden; border-radius: 50px !important; }
