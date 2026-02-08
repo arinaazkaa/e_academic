@@ -13,7 +13,7 @@
     </div>
     <div class="hero-overlay-refined"></div>
     <div class="container hero-content text-center text-white animate-up">
-        <h1 class="fw-900 mb-2 hero-brand-title-large">ELECTRICAL LIBRARY</h1>
+        <h1 class="fw-900 mb-1 hero-brand-title-large">ELECTRICAL LIBRARY</h1>
         <p class="text-white-50 mx-auto hero-description">
             Akses materi kuliah secara terorganisir berdasarkan Program Studi dan Semester.
         </p>
@@ -105,7 +105,7 @@
                 <h2 class="fw-900 text-dark mb-1">PILIH SEMESTER</h2>
                 <div class="divider-minimal mx-auto mt-2"></div>
             </div>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-5 justify-content-center">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-5 justify-content-center">
                 {% for i in "12345678" %} 
                 <div class="col reveal-on-scroll">
                     <a href="?prodi={{ filter_prodi }}&semester={{ i }}" class="card-protrude-library-large text-decoration-none h-100">
@@ -196,29 +196,29 @@
         .navbar-toggler { display: none !important; }
     }
 
-    /* --- HERO REVISIONS (Tinggi Diperkecil) --- */
-    .hero-library-modern { height: 45vh; min-height: 350px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; background: #000; }
+    /* --- HERO REVISIONS (Tinggi Diperkecil Drastis) --- */
+    .hero-library-modern { height: 35vh; min-height: 300px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; background: #000; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: smoothSlideshow 15s infinite linear; }
     @keyframes smoothSlideshow { 0%, 33.33% { opacity: 1; z-index: 3; } 38.33%, 100% { opacity: 0; z-index: 1; } }
     .slide-1 { animation-delay: 0s; } .slide-2 { animation-delay: 5s; } .slide-3 { animation-delay: 10s; }
     
-    .hero-brand-title-large { font-family: 'Montserrat', sans-serif; letter-spacing: 8px; font-size: 3.2rem; }
+    .hero-brand-title-large { font-family: 'Montserrat', sans-serif; letter-spacing: 6px; font-size: 2.8rem; }
     .hero-overlay-refined { position: absolute; width: 100%; height: 100%; background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.85)); z-index: 4; }
-    .hero-content { position: relative; z-index: 5; padding-top: 80px; }
+    .hero-content { position: relative; z-index: 5; padding-top: 60px; }
 
     /* --- PRODI CARD V13 (DIPERBESAR & 2-2-1) --- */
-    .prodi-card-giant-v13 { padding: 80px 40px; background: #fff; border-radius: 55px; border: 1px solid #f1f5f9; transition: 0.5s; height: 100%; box-shadow: 0 25px 50px rgba(0,0,0,0.04); text-align: center; }
-    .prodi-card-giant-v13:hover { transform: translateY(-15px); border-color: #3b82f6; box-shadow: 0 45px 90px rgba(59,130,246,0.15); }
-    .icon-box-giant-v13 { width: 140px; height: 140px; border-radius: 45px; font-size: 4.5rem; display: flex; align-items: center; justify-content: center; transition: 0.4s; }
+    .prodi-card-giant-v13 { padding: 90px 40px; background: #fff; border-radius: 60px; border: 1px solid #f1f5f9; transition: 0.5s; height: 100%; box-shadow: 0 30px 60px rgba(0,0,0,0.05); text-align: center; }
+    .prodi-card-giant-v13:hover { transform: translateY(-18px); border-color: #3b82f6; box-shadow: 0 50px 100px rgba(59,130,246,0.18); }
+    .icon-box-giant-v13 { width: 150px; height: 150px; border-radius: 50px; font-size: 5rem; display: flex; align-items: center; justify-content: center; transition: 0.4s; }
     
     /* --- LAINNYA --- */
-    .overlap-up-library { margin-top: -50px; position: relative; z-index: 100; }
+    .overlap-up-library { margin-top: -45px; position: relative; z-index: 100; }
     .glass-search-box { background: #ffffff; border-radius: 60px; max-width: 800px; padding: 10px; border: 1px solid rgba(0,0,0,0.05); }
     .btn-capsule-outline-blue { border: 2.5px solid #3b82f6; color: #3b82f6; padding: 10px 25px; border-radius: 50px; font-weight: 800; font-size: 0.9rem; transition: 0.3s; display: inline-block; }
     .btn-capsule-outline-blue:hover { background: #3b82f6; color: #fff; }
     .fw-900 { font-weight: 900 !important; }
-    .btn-explore-link-bold { font-size: 1rem; font-weight: 900; color: #3b82f6; text-transform: uppercase; letter-spacing: 2px; margin-top: 20px; display: block; }
+    .btn-explore-link-bold { font-size: 1.1rem; font-weight: 900; color: #3b82f6; text-transform: uppercase; letter-spacing: 2px; margin-top: 25px; display: block; }
 
     /* Animasi */
     .reveal-on-scroll { opacity: 0; transform: translateY(80px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
