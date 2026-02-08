@@ -11,7 +11,7 @@
         <div class="slide slide-2" style="background-image: url('{% static 'img/img2.jpg' %}');"></div>
         <div class="slide slide-3" style="background-image: url('{% static 'img/img3.jpg' %}');"></div>
     </div>
-    <div class="hero-overlay-white-v4"></div>
+    <div class="hero-overlay-light"></div>
     <div class="container-fluid hero-content text-center">
         <div class="row justify-content-center">
             <div class="col-12 px-3"> 
@@ -120,7 +120,7 @@
             <div class="row g-4 g-lg-5 justify-content-center mb-lg-5">
                 {% for p_code, p_name, p_bg in prodi_data|slice:":3" %}
                 <div class="col-12 col-md-4 reveal-on-scroll"> 
-                    <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v13 text-decoration-none d-block border-blue-prodi">
+                    <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v13 text-decoration-none d-block border-gray-prodi">
                         <div class="icon-box-v12 mb-4 mx-auto">
                             {% if p_code == 'PTIK' %}<i class="fa fa-code"></i>
                             {% elif p_code == 'PTE' %}<i class="fa fa-bolt"></i>
@@ -137,7 +137,7 @@
             <div class="row g-4 g-lg-5 justify-content-center mt-3 mt-lg-0">
                 {% for p_code, p_name, p_bg in prodi_data|slice:"3:5" %}
                 <div class="col-12 col-md-4 reveal-on-scroll"> 
-                    <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v13 text-decoration-none d-block border-blue-prodi">
+                    <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v13 text-decoration-none d-block border-gray-prodi">
                         <div class="icon-box-v12 mb-4 mx-auto">
                             {% if p_code == 'PTIK' %}<i class="fa fa-code"></i>
                             {% elif p_code == 'PTE' %}<i class="fa fa-bolt"></i>
@@ -163,21 +163,19 @@
     @media (min-width: 1201px) {
         .hero-modern { height: 100vh !important; }
         .hero-content { padding-top: 220px !important; } 
-        
         .hero-brand-title-v14 { font-size: 4rem !important; } 
-        
         .hero-description-v12 { font-size: 1.25rem; max-width: 700px; }
         .library-title-v12 { font-size: 2.1rem !important; }
         .prodi-card-v13 { padding: 40px 20px; border-radius: 30px; }
         .icon-box-v12 { width: 80px; height: 80px; font-size: 2rem; }
         .prodi-title-v12 { font-size: 1.4rem !important; }
-        
-        /* Font kartu laptop */
         .card-header-font-v12 { font-size: 1.35rem !important; }
         .item-title-v12 { font-size: 1.1rem !important; }
         .small-text-v12 { font-size: 0.8rem !important; }
-        
         .overlap-up-v12 { margin-top: -30px !important; }
+        
+        /* Note: Button diperkecil di laptop */
+        .btn-cari-v12 { padding: 12px 35px !important; font-size: 1rem !important; }
     }
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP --- */
@@ -186,44 +184,36 @@
         /* UPDATE: Tinggi hero diperbesar (dari 50vh ke 65vh) agar foto lebih terlihat */
         .hero-modern { height: 65vh !important; min-height: 550px !important; }
         .hero-content { padding-top: 180px !important; }
-        
         .info-card-wrapper { row-gap: 4.5rem !important; }
-        
         .hero-brand-title-v14 { font-size: 5.5rem; letter-spacing: 6px; }
         .hero-description-v12 { font-size: 1.6rem !important; max-width: 90%; font-weight: 700 !important; }
-        
         .prodi-card-v13 { padding: 75px 40px; border-radius: 60px; }
         .icon-box-v12 { width: 140px; height: 140px; font-size: 4.8rem; }
         .library-title-v12 { font-size: 3.8rem !important; }
+        /* Button tetap besar di HP Desktop agar mudah disentuh */
+        .btn-cari-v12 { padding: 18px 55px; font-size: 1.2rem; }
     }
 
     /* --- GLOBAL CSS --- */
     .hero-modern { position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #fff; }
     
+    /* Animasi Slideshow Bergantian */
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: sliderAnimation 15s infinite linear; }
-    
     @keyframes sliderAnimation { 
-        0% { opacity: 0; } 
-        5% { opacity: 1; } 
-        33.33% { opacity: 1; } 
-        38.33% { opacity: 0; } 
-        100% { opacity: 0; } 
+        0% { opacity: 0; } 5% { opacity: 1; } 33.33% { opacity: 1; } 38.33% { opacity: 0; } 100% { opacity: 0; } 
     }
-    
-    .slide-1 { animation-delay: 0s; z-index: 3; } 
-    .slide-2 { animation-delay: 5s; z-index: 2; } 
-    .slide-3 { animation-delay: 10s; z-index: 1; }
+    .slide-1 { animation-delay: 0s; z-index: 3; } .slide-2 { animation-delay: 5s; z-index: 2; } .slide-3 { animation-delay: 10s; z-index: 1; }
 
-    .hero-overlay-white-v4 { 
+    /* Note: Overlay Light (Transparansi Tipis / Lapisan Putih) */
+    .hero-overlay-light { 
         position: absolute; width: 100%; height: 100%; 
-        background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.4) 40%, #f8fafc 100%); 
+        background: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.5) 40%, #f8fafc 100%); 
         z-index: 4; pointer-events: none; 
     }
     .hero-content { position: relative; z-index: 10; }
 
-    .btn-cari-v12 { background: #000 !important; color: #fff !important; padding: 18px 55px; font-size: 1.2rem; border: 2px solid #fff; }
-    
+    .btn-cari-v12 { background: #000 !important; color: #fff !important; border: 2px solid #fff; }
     .btn-animate-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
     .btn-animate-hover:hover { transform: scale(1.06) translateY(-5px) !important; box-shadow: 0 15px 35px rgba(0,0,0,0.12) !important; }
 
@@ -231,12 +221,13 @@
     .btn-pill-animate-red { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; }
     .text-white { color: #fff !important; }
 
-    /* UPDATE: Border Prodi menjadi Abu-abu halus (#e2e8f0) */
-    .border-blue-prodi { border: 2px solid #e2e8f0 !important; box-shadow: 0 10px 25px rgba(0,0,0,0.05) !important; }
+    /* Note: Border Abu-abu pada Kartu Prodi */
+    .border-gray-prodi { border: 2px solid #e2e8f0 !important; box-shadow: 0 10px 25px rgba(0,0,0,0.03) !important; }
     .prodi-card-v13 { background: #fff; transition: 0.5s; text-align: center; }
     .prodi-card-v13:hover { transform: translateY(-12px); border-color: #3b82f6 !important; box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15) !important; }
     .icon-box-v12 { border-radius: 40px; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; }
 
+    /* Kartu Tumpul */
     .card-modern-v11 { transition: 0.5s ease; border: 1px solid rgba(0,0,0,0.06) !important; overflow: hidden; border-radius: 50px !important; }
     .item-interactive-v11 { transition: 0.3s; padding: 15px; border-radius: 25px; }
     .item-interactive-v11:hover { background-color: #f8fafc; transform: translateX(10px); }
