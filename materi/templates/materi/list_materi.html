@@ -105,11 +105,10 @@
                 <h2 class="fw-900 text-dark mb-1">PILIH SEMESTER</h2>
                 <div class="divider-minimal mx-auto mt-2"></div>
             </div>
-            
-            <div class="row g-4 g-lg-5 justify-content-center">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-5 justify-content-center">
                 {% for i in "1234" %} 
-                <div class="col-6 col-md-6 col-lg-3 reveal-on-scroll">
-                    <a href="?prodi={{ filter_prodi }}&semester={{ i }}" class="card-protrude-library-large text-decoration-none h-100 d-block">
+                <div class="col reveal-on-scroll">
+                    <a href="?prodi={{ filter_prodi }}&semester={{ i }}" class="card-protrude-library-large text-decoration-none h-100">
                         <div class="icon-circle-box-large mb-4 bg-soft-blue">
                             <span class="fw-900 text-primary">{{ i }}</span>
                         </div>
@@ -165,7 +164,7 @@
                 </div>
 
                 <div class="layout-hp">
-                    <div class="row g-5 justify-content-center mb-5">
+                    <div class="row g-5 justify-content-center mb-5 hp-row-gap">
                         {% for p_code, p_name, p_bg in prodi_data|slice:":2" %}
                         <div class="col-12 col-md-6 reveal-on-scroll">
                             <a href="?prodi={{ p_code }}" class="prodi-card-giant-v13 text-decoration-none d-block">
@@ -183,7 +182,7 @@
                         {% endfor %}
                     </div>
 
-                    <div class="row g-5 justify-content-center mb-5">
+                    <div class="row g-5 justify-content-center mb-5 hp-row-gap">
                         {% for p_code, p_name, p_bg in prodi_data|slice:"2:4" %}
                         <div class="col-12 col-md-6 reveal-on-scroll">
                             <a href="?prodi={{ p_code }}" class="prodi-card-giant-v13 text-decoration-none d-block">
@@ -201,7 +200,7 @@
                         {% endfor %}
                     </div>
 
-                    <div class="row g-5 justify-content-center">
+                    <div class="row g-5 justify-content-center hp-row-gap">
                         {% for p_code, p_name, p_bg in prodi_data|slice:"4:5" %}
                         <div class="col-12 col-md-8 reveal-on-scroll">
                             <a href="?prodi={{ p_code }}" class="prodi-card-giant-v13 text-decoration-none d-block">
@@ -237,14 +236,14 @@
         .layout-laptop { display: block; }
         .layout-hp { display: none; }
 
-        /* Note 1: Ukuran Kartu Prodi Diperkecil di Laptop */
+        /* Ukuran Kartu Prodi Laptop */
         .prodi-card-v12 { padding: 40px 20px !important; border-radius: 30px !important; }
         .icon-box-v12 { width: 90px !important; height: 90px !important; font-size: 2.2rem !important; }
         .prodi-title-v12 { font-size: 1.5rem !important; }
         
-        /* Kartu Semester di Laptop (Sebaris 4) */
-        .card-protrude-library-large { padding: 30px 15px !important; }
-        .icon-circle-box-large { width: 80px !important; height: 80px !important; font-size: 2rem !important; }
+        /* Semester Card Laptop */
+        .card-protrude-library-large { padding: 40px 20px !important; border-radius: 30px !important; text-align: center; background: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.05); transition: 0.3s; }
+        .icon-circle-box-large { width: 80px !important; height: 80px !important; font-size: 2rem !important; border-radius: 25px !important; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
     }
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP & MOBILE --- */
@@ -263,18 +262,27 @@
 
         .hero-brand-title-large { font-size: 3.8rem !important; letter-spacing: 10px !important; }
         .hero-description { font-size: 1.3rem !important; font-weight: 600 !important; max-width: 95% !important; }
-        
         .hero-library-modern { height: 35vh !important; min-height: 300px !important; }
         .hero-content { padding-top: 60px !important; }
         
-        /* Ukuran Besar Tetap di HP */
-        .prodi-card-giant-v13 { padding: 80px 40px; border-radius: 55px; }
-        .icon-box-giant-v13 { width: 140px; height: 140px; font-size: 4.5rem; }
+        /* Prodi HP */
+        .prodi-card-giant-v13 { padding: 80px 40px !important; border-radius: 55px !important; }
+        .icon-box-giant-v13 { width: 140px !important; height: 140px !important; font-size: 4.5rem !important; }
+        .prodi-title-responsive { font-size: 2.2rem !important; }
+
+        /* UPDATE: Tambah jarak vertikal antar kartu (atas-bawah) di HP Desktop */
+        /* Memaksa margin bottom lebih besar antar baris */
+        .hp-row-gap { margin-bottom: 5rem !important; } 
+        /* Memaksa jarak gutter Bootstrap lebih lebar */
+        .g-5 { --bs-gutter-y: 4rem !important; }
+
+        /* Semester Card HP */
+        .card-protrude-library-large { padding: 60px 20px !important; border-radius: 45px !important; text-align: center; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.06); transition: 0.3s; display: block; }
+        .icon-circle-box-large { width: 110px !important; height: 110px !important; font-size: 3rem !important; border-radius: 35px !important; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
     }
 
     /* --- GLOBAL CSS --- */
     .hero-library-modern { height: 35vh; min-height: 300px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; background: #000; }
-    
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: smoothSlideshow 15s infinite linear; }
     @keyframes smoothSlideshow { 0%, 33.33% { opacity: 1; z-index: 3; } 38.33%, 100% { opacity: 0; z-index: 1; } }
@@ -284,38 +292,34 @@
     .hero-overlay-refined { position: absolute; width: 100%; height: 100%; background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.85)); z-index: 4; }
     .hero-content { position: relative; z-index: 5; padding-top: 80px; }
 
-    /* --- PRODI CARD V13 --- */
-    .prodi-card-giant-v13 { padding: 80px 40px; background: #fff; border-radius: 55px; border: 1px solid #f1f5f9; transition: 0.5s; height: 100%; box-shadow: 0 25px 50px rgba(0,0,0,0.04); text-align: center; }
-    .prodi-card-giant-v13:hover { transform: translateY(-15px); border-color: #3b82f6; box-shadow: 0 45px 90px rgba(59,130,246,0.15); }
-    .icon-box-giant-v13 { width: 140px; height: 140px; border-radius: 45px; font-size: 4.5rem; display: flex; align-items: center; justify-content: center; transition: 0.4s; }
+    /* PRODI GLOBAL */
+    .prodi-card-giant-v13, .prodi-card-v12 { background: #fff; border: 1px solid #f1f5f9; transition: 0.5s; text-align: center; }
+    .prodi-card-giant-v13:hover, .prodi-card-v12:hover { transform: translateY(-15px); border-color: #3b82f6; box-shadow: 0 45px 90px rgba(59,130,246,0.15); }
+    .icon-box-giant-v13, .icon-box-v12 { display: flex; align-items: center; justify-content: center; transition: 0.4s; }
     
-    /* --- SEMESTER CARD --- */
-    .card-protrude-library-large { display: flex; flex-direction: column; padding: 50px 25px; background: #fff; border-radius: 40px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.04); transition: 0.4s; }
-    .card-protrude-library-large:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(59,130,246,0.15); }
-    .icon-circle-box-large { width: 100px; height: 100px; margin: 0 auto; border-radius: 30px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
-
-    /* --- LAINNYA --- */
     .overlap-up-library { margin-top: -50px; position: relative; z-index: 100; }
     .glass-search-box { background: #ffffff; border-radius: 60px; max-width: 800px; padding: 10px; border: 1px solid rgba(0,0,0,0.05); }
     .btn-capsule-outline-blue { border: 2.5px solid #3b82f6; color: #3b82f6; padding: 10px 25px; border-radius: 50px; font-weight: 800; font-size: 0.9rem; transition: 0.3s; display: inline-block; }
     .btn-capsule-outline-blue:hover { background: #3b82f6; color: #fff; }
     .fw-900 { font-weight: 900 !important; }
     .btn-explore-link-bold { font-size: 1rem; font-weight: 900; color: #3b82f6; text-transform: uppercase; letter-spacing: 2px; margin-top: 20px; display: block; }
+    .bg-soft-blue { background-color: #eff6ff; }
 
+    /* Animasi */
     .reveal-on-scroll { opacity: 0; transform: translateY(80px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
     .section-gray { background-color: #f8fafc; }
 </style>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { 
-                if (entry.isIntersecting) entry.target.classList.add('active'); 
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
-    });
+    document.addEventListener("DOMContentLoaded", function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) entry.target.classList.add('active'); 
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
+    });
 </script>
 
 {% endblock %}
