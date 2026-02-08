@@ -13,7 +13,7 @@
     </div>
     <div class="hero-overlay-refined"></div>
     <div class="container hero-content text-center text-white animate-up">
-        <h1 class="fw-900 mb-1 hero-brand-title-large">ELECTRICAL LIBRARY</h1>
+        <h1 class="fw-900 mb-2 hero-brand-title-large">ELECTRICAL LIBRARY</h1>
         <p class="text-white-50 mx-auto hero-description">
             Akses materi kuliah secara terorganisir berdasarkan Program Studi dan Semester.
         </p>
@@ -105,7 +105,7 @@
                 <h2 class="fw-900 text-dark mb-1">PILIH SEMESTER</h2>
                 <div class="divider-minimal mx-auto mt-2"></div>
             </div>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-5 justify-content-center">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-5 justify-content-center">
                 {% for i in "12345678" %} 
                 <div class="col reveal-on-scroll">
                     <a href="?prodi={{ filter_prodi }}&semester={{ i }}" class="card-protrude-library-large text-decoration-none h-100">
@@ -126,36 +126,50 @@
             </div>
             
             <div class="prodi-grid-custom">
-                <div class="row g-4 g-lg-5 justify-content-center mb-lg-5">
+                <div class="row g-5 justify-content-center mb-5">
                     {% for p_code, p_name, p_bg in prodi_data|slice:":3" %}
                     <div class="col-12 col-md-6 col-lg-4 reveal-on-scroll"> 
-                        <a href="?prodi={{ p_code }}" class="prodi-card-giant-v13 text-decoration-none d-block">
-                            <div class="icon-box-giant-v13 mb-4 mx-auto" style="background-color: {{ p_bg }}20;">
+                        <a href="?prodi={{ p_code }}" class="prodi-card-responsive text-decoration-none d-block">
+                            <div class="icon-box-responsive mb-4 mx-auto" style="background-color: {{ p_bg }}20;">
                                 {% if p_code == 'PTIK' %}<i class="fa fa-code" style="color: #3b82f6;"></i>
                                 {% elif p_code == 'PTE' %}<i class="fa fa-bolt" style="color: #dc2626;"></i>
                                 {% elif p_code == 'TE' %}<i class="fa fa-cogs" style="color: #7c3aed;"></i>
                                 {% elif p_code == 'TK' %}<i class="fa fa-microchip" style="color: #059669;"></i>
                                 {% else %}<i class="fa fa-university" style="color: #d97706;"></i>{% endif %}
                             </div>
-                            <h2 class="fw-900 text-dark mb-2 prodi-title-v13">{{ p_name }}</h2>
+                            <h2 class="fw-900 text-dark mb-2 prodi-title-res">{{ p_name }}</h2>
                             <span class="btn-explore-link-bold">BUKA FOLDER <i class="fa fa-folder-open ms-2"></i></span>
                         </a>
                     </div>
                     {% endfor %}
                 </div>
 
-                <div class="row g-4 g-lg-5 justify-content-center mt-3 mt-lg-0">
+                <div class="row g-5 justify-content-center mb-5 mb-lg-0">
                     {% for p_code, p_name, p_bg in prodi_data|slice:"3:5" %}
-                    <div class="col-12 {% if forloop.last %}col-md-8{% else %}col-md-6{% endif %} col-lg-4 reveal-on-scroll"> 
-                        <a href="?prodi={{ p_code }}" class="prodi-card-giant-v13 text-decoration-none d-block">
-                            <div class="icon-box-giant-v13 mb-4 mx-auto" style="background-color: {{ p_bg }}20;">
+                    <div class="col-12 col-md-6 col-lg-4 reveal-on-scroll"> 
+                        <a href="?prodi={{ p_code }}" class="prodi-card-responsive text-decoration-none d-block">
+                            <div class="icon-box-responsive mb-4 mx-auto" style="background-color: {{ p_bg }}20;">
                                 {% if p_code == 'PTIK' %}<i class="fa fa-code" style="color: #3b82f6;"></i>
                                 {% elif p_code == 'PTE' %}<i class="fa fa-bolt" style="color: #dc2626;"></i>
                                 {% elif p_code == 'TE' %}<i class="fa fa-cogs" style="color: #7c3aed;"></i>
                                 {% elif p_code == 'TK' %}<i class="fa fa-microchip" style="color: #059669;"></i>
                                 {% else %}<i class="fa fa-university" style="color: #d97706;"></i>{% endif %}
                             </div>
-                            <h2 class="fw-900 text-dark mb-2 prodi-title-v13">{{ p_name }}</h2>
+                            <h2 class="fw-900 text-dark mb-2 prodi-title-res">{{ p_name }}</h2>
+                            <span class="btn-explore-link-bold">BUKA FOLDER <i class="fa fa-folder-open ms-2"></i></span>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="row g-5 justify-content-center d-lg-none">
+                    {% for p_code, p_name, p_bg in prodi_data|slice:"4:5" %}
+                    <div class="col-12 col-md-8 reveal-on-scroll">
+                        <a href="?prodi={{ p_code }}" class="prodi-card-responsive text-decoration-none d-block">
+                            <div class="icon-box-responsive mb-4 mx-auto" style="background-color: {{ p_bg }}20;">
+                                <i class="fa fa-university" style="color: #d97706;"></i>
+                            </div>
+                            <h2 class="fw-900 text-dark mb-2 prodi-title-res">{{ p_name }}</h2>
                             <span class="btn-explore-link-bold">BUKA FOLDER <i class="fa fa-folder-open ms-2"></i></span>
                         </a>
                     </div>
@@ -173,19 +187,6 @@
 
     /* --- LOGIKA KHUSUS LAPTOP (Standard Desktop) --- */
     @media (min-width: 1201px) {
-        .navbar { padding: 10px 80px !important; }
-        .hero-library-modern { height: 60vh !important; min-height: 500px !important; }
-        .hero-content { padding-top: 150px !important; } 
-        
-        /* Note 1: Perkecil ukuran kartu prodi di laptop */
-        .prodi-card-giant-v13 { padding: 45px 25px !important; border-radius: 35px !important; }
-        .icon-box-giant-v13 { width: 90px !important; height: 90px !important; font-size: 2.5rem !important; border-radius: 25px !important; }
-        .prodi-title-v13 { font-size: 1.5rem !important; }
-        .btn-explore-link-bold { font-size: 0.8rem !important; margin-top: 15px !important; }
-    }
-
-    /* --- LOGIKA KHUSUS HP MODE DESKTOP & MOBILE --- */
-    @media (max-width: 1200px) {
         .navbar { padding: 15px 5px !important; } 
         .container-fluid.nav-container { padding: 0 15px !important; width: 100% !important; max-width: 100% !important; }
         .navbar-brand { font-size: 1.4rem !important; font-weight: 900 !important; margin-left: -5px !important; }
@@ -193,22 +194,45 @@
         .nav-link { font-size: 0.95rem !important; font-weight: 800 !important; white-space: nowrap !important; }
         .btn-pendataan { font-size: 0.95rem !important; padding: 8px 15px !important; }
         .navbar-toggler { display: none !important; }
+
+        .hero-brand-title-large { font-size: 3.2rem; }
+        .hero-description { font-size: 1.1rem; max-width: 800px; }
+        .hero-content { padding-top: 100px; }
+
+        /* Note 1: Perkecil Ukuran Kartu Prodi di Laptop */
+        .prodi-card-responsive { padding: 45px 25px; border-radius: 35px; }
+        .icon-box-responsive { width: 90px; height: 90px; font-size: 2.5rem; border-radius: 30px; }
+        .prodi-title-res { font-size: 1.5rem !important; }
+    }
+
+    /* --- LOGIKA KHUSUS HP MODE DESKTOP & MOBILE --- */
+    @media (max-width: 1200px) {
+        .navbar { padding: 15px 5px !important; }
+        .container-fluid.nav-container { padding: 0 15px !important; width: 100% !important; max-width: 100% !important; }
+        .navbar-brand { font-size: 1.4rem !important; font-weight: 900 !important; margin-left: -5px !important; }
+        .navbar-nav { flex-direction: row !important; gap: 15px !important; margin-right: -5px !important; }
+        .nav-link { font-size: 0.95rem !important; font-weight: 800 !important; white-space: nowrap !important; }
+        .btn-pendataan { font-size: 0.95rem !important; padding: 8px 15px !important; }
+        .navbar-toggler { display: none !important; }
+
+        /* Note 2: Header BG Foto Diperbesar (Tidak diubah dari HP Desktop) */
+        .hero-library-modern { height: 35vh; min-height: 300px; }
+        .hero-content { padding-top: 60px; }
         
-        .hero-brand-title-large { font-size: 3.8rem !important; letter-spacing: 10px !important; }
+        /* Note 3: Judul Electrical Library di HP Diperbesar */
+        .hero-brand-title-large { font-size: 3.5rem !important; letter-spacing: 5px !important; }
         .hero-description { font-size: 1.3rem !important; font-weight: 600 !important; max-width: 95% !important; }
-        
-        /* Tinggi hero HP Desktop tetap 35vh */
-        .hero-library-modern { height: 35vh !important; min-height: 300px !important; }
-        .hero-content { padding-top: 60px !important; }
-        
-        /* Note 2: Ukuran Kartu Prodi di HP tetap Besar */
-        .prodi-card-giant-v13 { padding: 80px 40px; border-radius: 55px; }
-        .icon-box-giant-v13 { width: 140px; height: 140px; font-size: 4.5rem; }
-        .prodi-title-v13 { font-size: 2.2rem !important; }
+
+        /* Ukuran Kartu Prodi Tetap Besar di HP */
+        .prodi-card-responsive { padding: 80px 40px; border-radius: 55px; }
+        .icon-box-responsive { width: 140px; height: 140px; font-size: 4.5rem; border-radius: 45px; }
+        .prodi-title-res { font-size: 2.2rem !important; }
     }
 
     /* --- GLOBAL CSS --- */
-    .hero-library-modern { height: 35vh; min-height: 300px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; background: #000; }
+    /* Note 2: Header BG Foto Laptop Diperbesar (Default) */
+    .hero-library-modern { height: 50vh; min-height: 400px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; background: #000; }
+    
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: smoothSlideshow 15s infinite linear; }
     @keyframes smoothSlideshow { 0%, 33.33% { opacity: 1; z-index: 3; } 38.33%, 100% { opacity: 0; z-index: 1; } }
@@ -216,20 +240,21 @@
     
     .hero-brand-title-large { font-family: 'Montserrat', sans-serif; letter-spacing: 8px; font-size: 3.2rem; }
     .hero-overlay-refined { position: absolute; width: 100%; height: 100%; background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.85)); z-index: 4; }
-    .hero-content { position: relative; z-index: 5; padding-top: 80px; }
 
-    /* Prodi Card Base Style */
-    .prodi-card-giant-v13 { background: #fff; border: 1px solid #f1f5f9; transition: 0.5s; height: 100%; box-shadow: 0 25px 50px rgba(0,0,0,0.04); text-align: center; }
-    .prodi-card-giant-v13:hover { transform: translateY(-15px); border-color: #3b82f6; box-shadow: 0 45px 90px rgba(59,130,246,0.15); }
-    .icon-box-giant-v13 { border-radius: 45px; display: flex; align-items: center; justify-content: center; transition: 0.4s; }
+    /* --- PRODI CARD RESPONSIVE --- */
+    .prodi-card-responsive { background: #fff; border-radius: 55px; border: 1px solid #f1f5f9; transition: 0.5s; height: 100%; box-shadow: 0 25px 50px rgba(0,0,0,0.04); text-align: center; }
+    .prodi-card-responsive:hover { transform: translateY(-15px); border-color: #3b82f6; box-shadow: 0 45px 90px rgba(59,130,246,0.15); }
+    .icon-box-responsive { background-color: #eff6ff; display: flex; align-items: center; justify-content: center; transition: 0.4s; }
     
+    /* --- LAINNYA --- */
     .overlap-up-library { margin-top: -50px; position: relative; z-index: 100; }
     .glass-search-box { background: #ffffff; border-radius: 60px; max-width: 800px; padding: 10px; border: 1px solid rgba(0,0,0,0.05); }
     .btn-capsule-outline-blue { border: 2.5px solid #3b82f6; color: #3b82f6; padding: 10px 25px; border-radius: 50px; font-weight: 800; font-size: 0.9rem; transition: 0.3s; display: inline-block; }
     .btn-capsule-outline-blue:hover { background: #3b82f6; color: #fff; }
     .fw-900 { font-weight: 900 !important; }
-    .btn-explore-link-bold { font-size: 1.1rem; font-weight: 900; color: #3b82f6; text-transform: uppercase; letter-spacing: 2px; margin-top: 25px; display: block; }
+    .btn-explore-link-bold { font-size: 1rem; font-weight: 900; color: #3b82f6; text-transform: uppercase; letter-spacing: 2px; margin-top: 20px; display: block; }
 
+    /* Animasi */
     .reveal-on-scroll { opacity: 0; transform: translateY(80px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
     .section-gray { background-color: #f8fafc; }
