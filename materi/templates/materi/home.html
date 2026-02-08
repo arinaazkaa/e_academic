@@ -65,7 +65,7 @@
                         {% endfor %}
                     </div>
                     <div class="card-footer bg-white border-0 p-4 pt-0">
-                        <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-pill-premium-blue w-100 text-center text-decoration-none d-block">
+                        <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-pill-premium-blue w-100 text-center text-decoration-none d-block btn-animated">
                             LIHAT SEMUA KOMPETISI
                         </a>
                     </div>
@@ -97,7 +97,7 @@
                             {% endfor %}
                         </div>
                         <div class="mt-4">
-                            <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-premium-red w-100">
+                            <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-premium-red w-100 btn-animated">
                                 <i class="fa fa-file-pdf-o me-2"></i> DOWNLOAD PDF KALENDER
                             </a>
                         </div>
@@ -159,47 +159,50 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; background-color: #fff; }
 
-    /* --- LOGIKA KHUSUS LAPTOP (Standard Desktop) --- */
+    /* --- MEDIA QUERY LAPTOP (min-width: 1201px) --- */
     @media (min-width: 1201px) {
         .navbar { padding: 10px 80px !important; }
-        /* Note 1 & 2: Tambah tinggi hero & turunkan judul di laptop */
-        .hero-modern { height: 90vh !important; } 
-        .hero-content { padding-top: 300px !important; }
+        /* Note 3: Tambah tinggi foto hero sedikit di Laptop */
+        .hero-modern { height: 92vh !important; } 
+        /* Note 1: Turunkan judul agar tidak mepet navbar di laptop */
+        .hero-content { padding-top: 320px !important; } 
+        /* Note 6: Kurangi overlap agar kartu tidak menabrak foto heronya */
+        .overlap-up { margin-top: -40px !important; }
+        
+        /* Note 4: Ujung kartu tumpul di laptop (sama dengan HP) */
+        .card-modern-v11 { border-radius: 45px !important; }
+        
+        /* Note 5: Perkecil font kartu info lomba di laptop saja */
+        .item-title-v11 { font-size: 1.05rem !important; }
+        .small-text-v11 { font-size: 0.78rem !important; }
+        
         .hero-brand-title-v11 { font-size: 5.5rem; }
-        .hero-description-v11 { font-size: 1.1rem; max-width: 600px; }
-        .btn-cari-giant-dark { padding: 12px 35px; font-size: 1rem; }
-        /* Note 6: Kurangi overlap agar kartu tidak menabrak foto hero */
-        .overlap-up { margin-top: -30px !important; }
-        /* Note 4: Perkecil Electrical Library di Laptop */
         .library-title-v11 { font-size: 2.2rem !important; }
-        /* Note 5: Perkecil Kartu Prodi di Laptop */
+        /* Note 5: Perkecil kartu prodi di Laptop */
         .prodi-card-v12 { padding: 40px 20px; border-radius: 30px; }
         .icon-box-v12 { width: 80px; height: 80px; font-size: 2rem; }
         .prodi-title-v11 { font-size: 1.5rem !important; }
     }
 
-    /* --- LOGIKA KHUSUS HP MODE DESKTOP & MOBILE --- */
+    /* --- MEDIA QUERY HP MODE DESKTOP & MOBILE --- */
     @media (max-width: 1200px) {
         .navbar { padding: 15px 5px !important; } 
-        .container-fluid.nav-container { padding: 0 15px !important; width: 100% !important; }
-        /* Note 1 & 2: Tambah tinggi hero & turunkan judul di HP Desktop */
-        .hero-modern { height: 80vh !important; }
-        .hero-content { padding-top: 250px !important; }
+        /* Note 2: Kurangi ketinggian foto hero di HP Desktop */
+        .hero-modern { height: 65vh !important; }
+        /* Note 1: Turunkan judul di HP Desktop agar tidak mepet navbar */
+        .hero-content { padding-top: 220px !important; } 
         
-        /* Note 3: Beri Jarak Antar Kartu di HP Mode Desktop saja */
-        #info-section .row.gy-5 { row-gap: 4rem !important; }
+        /* Note 7: Kurangi jarak antar kartu (row-gap) di HP */
+        #info-section .row.gy-5 { row-gap: 2.5rem !important; }
 
         .navbar-brand { font-size: 1.4rem !important; font-weight: 900 !important; margin-left: -5px !important; }
         .navbar-nav { flex-direction: row !important; gap: 15px !important; margin-right: -5px !important; }
-        .nav-link { font-size: 0.95rem !important; font-weight: 800 !important; white-space: nowrap !important; }
-        .btn-pendataan { font-size: 0.95rem !important; padding: 8px 15px !important; }
-        .navbar-toggler { display: none !important; }
+        .nav-link { font-size: 0.95rem !important; font-weight: 800 !important; }
         
         .hero-brand-title-v11 { font-size: 4.2rem; letter-spacing: 5px; }
         .hero-description-v11 { font-size: 1.3rem; max-width: 95%; }
-        .btn-cari-giant-dark { padding: 20px 60px; font-size: 1.4rem; }
         
-        /* Pertahankan ukuran besar di HP */
+        /* Kartu Raksasa tetap di HP */
         .card-modern-v11 { border-radius: 45px !important; }
         .item-title-v11 { font-size: 1.6rem !important; }
         .small-text-v11 { font-size: 1.1rem !important; }
@@ -209,12 +212,29 @@
     }
 
     /* --- GLOBAL CSS --- */
+    /* Note 1: Perbaikan z-index & overlay agar judul tidak tertutup */
+    .hero-overlay-white-v2 { 
+        position: absolute; width: 100%; height: 100%; 
+        background: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.9) 100%); 
+        z-index: 4; pointer-events: none; 
+    }
+    .hero-content { position: relative; z-index: 5; }
+
+    /* Note 6: Animasi untuk Capsul Button */
+    .btn-animated { 
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; 
+    }
+    .btn-animated:hover { 
+        transform: scale(1.05) translateY(-3px) !important; 
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+        filter: brightness(1.1);
+    }
+
     .hero-modern { position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #fff; }
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: smoothSlideshow 15s infinite linear; }
     @keyframes smoothSlideshow { 0%, 33.33% { opacity: 1; z-index: 3; } 38.33%, 100% { opacity: 0; z-index: 1; } }
     .slide-1 { animation-delay: 0s; } .slide-2 { animation-delay: 5s; } .slide-3 { animation-delay: 10s; }
-    .hero-overlay-white-v2 { position: absolute; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.95) 100%); z-index: 4; pointer-events: none; }
 
     .btn-cari-giant-dark { background: #000 !important; color: #fff !important; transition: 0.4s ease; border: none; }
     .btn-cari-giant-dark:hover { transform: scale(1.05); }
