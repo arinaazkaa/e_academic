@@ -12,15 +12,15 @@
         <div class="slide slide-3" style="background-image: url('{% static 'img/img3.jpg' %}');"></div>
     </div>
     <div class="hero-overlay-white-v2"></div>
-    <div class="container hero-content text-center">
+    <div class="container-fluid hero-content text-center">
         <div class="row justify-content-center">
             <div class="col-12 px-3"> 
-                <h1 class="animate-reveal-up hero-brand-title-v11 text-nowrap text-dark">E-ACADEMIC</h1>
-                <p class="animate-reveal-up delay-1 mx-auto hero-description-v11 mt-4 text-secondary">
+                <h1 class="animate-reveal hero-brand-title-v11 text-nowrap text-dark">E-ACADEMIC</h1>
+                <p class="animate-reveal delay-1 mx-auto hero-description-v11 mt-4 text-dark opacity-75">
                     Wadah kolaborasi dan inovasi mahasiswa di Lingkungan Teknik Elektro. Akses materi kuliah jadi lebih mudah dan praktis
                 </p>
-                <div class="animate-reveal-up delay-2 mt-5">
-                    <a href="{% url 'list_materi' %}" class="btn rounded-pill fw-bold btn-cari-v11">
+                <div class="animate-reveal delay-2 mt-5">
+                    <a href="{% url 'list_materi' %}" class="btn rounded-pill fw-bold btn-cari-giant-dark">
                         <i class="fa fa-search me-2"></i> Cari Materi
                     </a>
                 </div>
@@ -30,33 +30,33 @@
 </section>
 
 <section id="info-section" class="pt-5 pb-5 section-gray">
-    <div class="container-fluid px-0 px-md-5 overlap-up">
+    <div class="container-fluid px-2 px-md-5 overlap-up">
         <div class="row gx-0 gy-5 justify-content-center">
             <div class="col-12 col-xl-7 reveal-on-scroll">
-                <div class="card-premium-v5 h-100 shadow-lg border-0 bg-white d-flex flex-column">
+                <div class="card-modern-v11 h-100 shadow-lg border-0 bg-white d-flex flex-column">
                     <div class="card-header-clean p-4 pb-0 d-flex justify-content-center"> 
-                        <h4 class="fw-bold text-dark m-0 d-flex align-items-center header-title-centered">
+                        <h3 class="fw-900 text-dark m-0 d-flex align-items-center">
                             <i class="fa fa-bullhorn text-primary me-3"></i> Info Lomba Terbaru
-                        </h4>
+                        </h3>
                     </div>
                     <div class="card-body p-4 pt-4 flex-grow-1">
                         {% for lomba in info_lomba_list %}
-                        <div class="item-list-v5 d-flex align-items-center mb-4 pb-3 border-bottom border-light">
-                            <div class="date-minimalist text-center" style="margin-right: 2rem; min-width: 65px;">
+                        <div class="item-interactive-v11 d-flex align-items-center mb-4 pb-3 border-bottom border-light">
+                            <div class="date-minimalist text-center" style="margin-right: 2rem; min-width: 70px;">
                                 <span class="d-block fw-bold text-primary day-text-v11">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
                                 <span class="d-block text-muted month-text-v11">{{ lomba.tanggal_pelaksanaan|date:"M" }}</span>
                             </div>
                             <div class="flex-grow-1">
-                                <h5 class="fw-bold mb-1 item-title-v5">
+                                <h4 class="fw-bold mb-1 item-title-v11">
                                     <a href="{% url 'detail_lomba' lomba.id %}" class="text-dark text-decoration-none title-hover-blue">
                                         {{ lomba.judul }}
                                     </a>
-                                </h5>
+                                </h4>
                                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mt-1 gap-2">
-                                    <div class="text-muted small">
+                                    <div class="text-muted small-text-v11">
                                         <i class="fa fa-university me-1"></i> {{ lomba.penyelenggara|truncatechars:35 }}
                                     </div>
-                                    <div class="text-danger fw-bold small">
+                                    <div class="text-danger fw-bold small-text-v11">
                                         <i class="fa fa-clock-o me-1"></i> Deadline: {{ lomba.tanggal_deadline|date:"d M" }}
                                     </div>
                                 </div>
@@ -65,39 +65,39 @@
                         {% endfor %}
                     </div>
                     <div class="card-footer bg-white border-0 p-4 pt-0">
-                        <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-pill-blue-v5 w-100 text-center text-decoration-none d-block">
+                        <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-pill-premium-blue w-100 text-center text-decoration-none d-block">
                             LIHAT SEMUA KOMPETISI
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-12 col-xl-5 reveal-on-scroll" style="transition-delay: 0.15s;">
-                <div class="card-premium-v5 h-100 shadow-lg border-0 bg-white">
+            <div class="col-12 col-xl-5 reveal-on-scroll" style="transition-delay: 0.2s;">
+                <div class="card-modern-v11 h-100 shadow-lg border-0 bg-white">
                     <div class="card-header-clean d-flex justify-content-center align-items-center p-4 pb-0"> 
-                        <h4 class="fw-bold text-dark m-0 header-title-centered">
+                        <h3 class="fw-900 text-dark m-0">
                             <i class="fa fa-calendar-check-o text-primary me-3"></i> Agenda Akademik
-                        </h4>
+                        </h3>
                     </div>
                     <div class="card-body p-4 pt-0"> 
-                        <div class="text-center mb-3">
-                            <a href="{% url 'kalender' %}" class="link-detail-v5 text-decoration-none">Detail Agenda</a>
+                        <div class="text-center mb-2">
+                            <a href="{% url 'kalender' %}" class="link-detail-v11 text-decoration-none">Detail</a>
                         </div>
-                        <div class="agenda-list-minimal mt-2"> 
+                        <div class="agenda-list-minimal mt-n3"> 
                             {% for agenda in agenda_list %}
-                            <div class="item-list-v5 d-flex justify-content-between align-items-center py-3 border-bottom border-light last-no-border">
+                            <div class="item-interactive-v11 d-flex justify-content-between align-items-center py-3 border-bottom border-light last-no-border">
                                 <div class="d-flex align-items-center me-3">
                                     <div class="status-dot-modern dot-{{ agenda.warna }} me-3"></div>
-                                    <span class="text-dark fw-semibold text-truncate">{{ agenda.kegiatan }}</span>
+                                    <span class="text-dark fw-bold agenda-font-v11 text-truncate">{{ agenda.kegiatan }}</span>
                                 </div>
-                                <span class="badge-date-v5 flex-shrink-0 text-center">
+                                <span class="badge-date-v11 flex-shrink-0 text-center">
                                     {{ agenda.tanggal_mulai|date:"d" }}{% if agenda.tanggal_selesai %}-{{ agenda.tanggal_selesai|date:"d M" }}{% else %} {{ agenda.tanggal_mulai|date:"M" }}{% endif %}
                                 </span>
                             </div>
                             {% endfor %}
                         </div>
                         <div class="mt-4">
-                            <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-red-v5 w-100">
+                            <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-premium-red w-100">
                                 <i class="fa fa-file-pdf-o me-2"></i> DOWNLOAD PDF KALENDER
                             </a>
                         </div>
@@ -111,16 +111,16 @@
 <section class="mt-5 pt-5 pb-5 bg-white">
     <div class="container py-4 text-center">
         <div class="mb-5 reveal-on-scroll">
-            <h1 class="text-primary fw-900 text-uppercase tracking-widest mb-2 library-title-v11">ELECTRICAL LIBRARY</h1>
-            <h6 class="fw-bold text-muted mb-4 subtitle-v11">Kategori Program Studi</h6>
+            <h1 class="text-primary fw-900 text-uppercase tracking-widest mb-1 library-title-v11">ELECTRICAL LIBRARY</h1>
+            <h4 class="fw-bold text-muted mb-4 category-subtitle-v11">Kategori Program Studi</h4>
             <div class="divider-v11 mx-auto bg-primary"></div>
         </div>
         
-        <div class="row g-5 justify-content-center prodi-grid">
+        <div class="row g-5 justify-content-center prodi-grid-v11">
             {% for p_code, p_name, p_bg in prodi_data %}
-            <div class="col-12 col-md-4 reveal-on-scroll prodi-item-v11"> 
-                <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="category-card-premium-v11 text-decoration-none d-block">
-                    <div class="icon-box-v11 mb-4 mx-auto">
+            <div class="col-12 col-md-4 reveal-on-scroll"> 
+                <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-giant text-decoration-none d-block">
+                    <div class="icon-box-giant mb-4 mx-auto">
                         {% if p_code == 'PTIK' %}<i class="fa fa-code"></i>
                         {% elif p_code == 'PTE' %}<i class="fa fa-bolt"></i>
                         {% elif p_code == 'TE' %}<i class="fa fa-cogs"></i>
@@ -140,79 +140,85 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; background-color: #fff; }
 
-    /* --- NAVBAR REVISIONS (Mepet Ujung) --- */
-    @media (max-width: 1024px) {
-        .navbar { padding: 15px 0 !important; }
-        .container-fluid.nav-container { padding: 0 15px !important; width: 100% !important; max-width: 100% !important; display: flex !important; justify-content: space-between !important; }
-        .navbar-brand { font-size: 1.4rem !important; font-weight: 900 !important; margin: 0 !important; padding-left: 10px !important; }
-        .navbar-nav { flex-direction: row !important; gap: 20px !important; margin: 0 !important; padding-right: 10px !important; }
-        .nav-link { font-size: 1rem !important; font-weight: 800 !important; white-space: nowrap !important; }
-        .btn-pendataan { font-size: 0.9rem !important; padding: 10px 20px !important; margin: 0 !important; }
+    /* --- NAVBAR OVERRIDES (Perbesar & Mepet Ujung) --- */
+    @media (max-width: 1200px) {
+        .navbar { padding: 15px 15px !important; }
+        .container-fluid.nav-container { padding: 0 !important; width: 100% !important; max-width: 100% !important; }
+        .navbar-brand { font-size: 1.4rem !important; font-weight: 900 !important; margin-left: 0 !important; }
+        .navbar-nav { flex-direction: row !important; gap: 20px !important; margin-right: 0 !important; }
+        .nav-link { font-size: 1rem !important; font-weight: 800 !important; }
+        .btn-pendataan { font-size: 1rem !important; padding: 10px 25px !important; margin-left: 10px !important; }
         .navbar-toggler { display: none !important; }
     }
 
-    /* --- HERO REVISIONS (Tinggi Dikurangi & Overlay Putih) --- */
-    /* Tinggi dikurangi menjadi 75vh */
+    /* --- HERO REVISIONS (Tinggi Dikurangi & No Zoom) --- */
     .hero-modern { height: 75vh; min-height: 600px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
-    .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+    .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #fff; }
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: smoothSlideshow 15s infinite linear; }
     @keyframes smoothSlideshow { 0%, 33% { opacity: 1; z-index: 3; } 38%, 100% { opacity: 0; z-index: 1; } }
     .slide-1 { animation-delay: 0s; } .slide-2 { animation-delay: 5s; } .slide-3 { animation-delay: 10s; }
 
     /* Overlay Putih Transparan */
-    .hero-overlay-white-v2 { position: absolute; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.85) 100%); z-index: 4; pointer-events: none; }
+    .hero-overlay-white-v2 { position: absolute; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.95) 100%); z-index: 4; pointer-events: none; }
     
-    .hero-content { position: relative; z-index: 5; padding-top: 100px; }
-    /* Judul diperbesar dan dinaikkan dengan transform */
-    .hero-brand-title-v11 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 8rem; letter-spacing: 12px; text-shadow: 0 4px 10px rgba(0,0,0,0.05); transform: translateY(-40px); }
-    /* Deskripsi diperbesar */
-    .hero-description-v11 { font-size: 1.8rem; max-width: 900px; line-height: 1.5; font-weight: 600; transform: translateY(-30px); }
+    /* Judul Naik & Besar */
+    .hero-content { position: relative; z-index: 5; padding-top: 150px; }
+    .hero-brand-title-v11 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 8rem; letter-spacing: 15px; text-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+    .hero-description-v11 { font-size: 1.8rem; max-width: 900px; line-height: 1.5; font-weight: 600; }
 
-    /* Button Cari Materi Diperbesar */
-    .btn-cari-v11 { background: #0f172a !important; color: white !important; padding: 20px 65px; font-size: 1.4rem; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15); transform: translateY(-20px); transition: 0.3s; }
-    .btn-cari-v11:hover { transform: translateY(-25px) scale(1.05); box-shadow: 0 15px 35px rgba(0,0,0,0.25); background: #1e293b !important; }
+    /* Button Cari Materi Giant */
+    .btn-cari-giant-dark { background: #000 !important; color: #fff !important; padding: 20px 60px; font-size: 1.4rem; transition: 0.4s ease; border: none; box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
+    .btn-cari-giant-dark:hover { transform: scale(1.1) translateY(-5px); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
 
-    /* --- CARDS PREMIUM V5 --- */
-    .card-premium-v5 { border-radius: 40px !important; transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1); border: 1px solid rgba(0,0,0,0.04) !important; }
-    .card-premium-v5:hover { transform: translateY(-15px); box-shadow: 0 40px 80px rgba(59,130,246,0.1) !important; }
+    /* --- CARDS PREMIUM V11 (Extreme Stretch) --- */
+    .card-modern-v11 { border-radius: 45px !important; transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1); border: 1px solid rgba(0,0,0,0.06) !important; }
+    .card-modern-v11:hover { transform: translateY(-15px); box-shadow: 0 50px 100px rgba(0,0,0,0.15) !important; }
     
-    .item-list-v5 { transition: 0.3s; padding: 15px; border-radius: 20px; }
-    .item-list-v5:hover { background-color: #f8fafc; transform: translateX(10px); }
-    
-    /* Judul Kartu di Tengah */
-    .header-title-centered { text-transform: uppercase; letter-spacing: 1px; }
+    .item-interactive-v11 { transition: 0.3s; padding: 15px; border-radius: 25px; }
+    .item-interactive-v11:hover { background-color: #f8fafc; transform: translateX(12px); }
 
-    /* --- BUTTONS PILL V5 --- */
-    .btn-pill-blue-v5 { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; color: white !important; font-size: 1.1rem; font-weight: 800; border-radius: 50px !important; padding: 18px; border: none; transition: 0.3s; }
-    .btn-pill-red-v5 { background: linear-gradient(135deg, #ef4444, #dc2626) !important; color: white !important; font-size: 1.1rem; font-weight: 800; border-radius: 50px !important; padding: 18px; border: none; transition: 0.3s; }
-    .btn-pill-blue-v5:hover, .btn-pill-red-v5:hover { transform: scale(1.03); opacity: 0.95; }
+    .item-title-v11 { font-size: 1.6rem !important; }
+    .small-text-v11 { font-size: 1.1rem !important; }
+    .agenda-font-v11 { font-size: 1.3rem !important; }
+    .badge-date-v11 { background: #eff6ff; padding: 12px 25px; border-radius: 18px; font-size: 1.1rem; font-weight: 800; color: #2563eb; border: 1px solid #dbeafe; }
+    .link-detail-v11 { font-size: 0.85rem; color: #64748b; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; opacity: 0.6; }
 
-    /* --- PRODI LIBRARY REVISIONS (DIPERBESAR) --- */
-    .library-title-v11 { font-size: 3.5rem !important; font-weight: 900 !important; }
-    .subtitle-v11 { font-size: 1.3rem !important; }
-    .divider-v11 { width: 100px; height: 5px; border-radius: 10px; }
+    /* --- PILL BUTTONS PREMIUM --- */
+    .btn-pill-premium-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; color: #fff !important; font-size: 1.2rem; font-weight: 800; border-radius: 100px !important; padding: 20px; border: none; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3); }
+    .btn-pill-premium-red { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; color: #fff !important; font-size: 1.2rem; font-weight: 800; border-radius: 100px !important; padding: 20px; border: none; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3); }
 
-    .category-card-premium-v11 { padding: 65px 35px; background: #fff; border-radius: 40px; border: 1px solid #f1f5f9; transition: 0.5s; height: 100%; box-shadow: 0 10px 20px rgba(0,0,0,0.02); }
-    .category-card-premium-v11:hover { transform: scale(1.08); border-color: #3b82f6; box-shadow: 0 25px 50px rgba(59,130,246,0.08); }
-    .icon-box-v11 { width: 110px; height: 110px; border-radius: 30px; font-size: 3.2rem; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; transition: 0.4s; }
-    .category-card-premium-v11:hover .icon-box-v11 { background-color: #3b82f6; color: #fff; transform: rotate(8deg); }
+    /* --- PRODI LIBRARY 3-2 --- */
+    .library-title-v11 { font-size: 4rem !important; font-weight: 900 !important; }
+    .category-subtitle-v11 { font-size: 1.5rem !important; letter-spacing: 3px; }
+    .divider-v11 { width: 150px; height: 8px; border-radius: 20px; }
+
+    .prodi-card-giant { padding: 60px 30px; background: #fff; border-radius: 40px; border: 1px solid #f1f5f9; transition: 0.5s; height: 100%; box-shadow: 0 15px 40px rgba(0,0,0,0.03); }
+    .prodi-card-giant:hover { transform: scale(1.08) translateY(-15px); border-color: #3b82f6; box-shadow: 0 40px 80px rgba(59,130,246,0.15); }
+    .icon-box-giant { width: 110px; height: 110px; border-radius: 35px; font-size: 3.5rem; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; transition: 0.4s; }
+    .prodi-card-giant:hover .icon-box-giant { background-color: #3b82f6; color: #fff; transform: rotate(10deg); }
 
     /* --- ANIMASI REVEAL DIPERJELAS --- */
-    .reveal-on-scroll { opacity: 0; transform: translateY(60px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .reveal-on-scroll { opacity: 0; transform: translateY(80px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
     
-    .animate-reveal-up { opacity: 0; transform: translateY(50px); animation: revealUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
+    .animate-reveal { opacity: 0; transform: translateY(50px); animation: revealUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
     @keyframes revealUp { to { opacity: 1; transform: translateY(0); } }
     .delay-1 { animation-delay: 0.2s; }
     .delay-2 { animation-delay: 0.4s; }
 
-    /* --- HP DESKTOP MODE OPTIMIZATION --- */
+    /* --- HP & DESKTOP HP OPTIMIZATION --- */
     @media (max-width: 1024px) {
-        .hero-brand-title-v11 { font-size: 4.5rem; letter-spacing: 10px; }
-        .hero-description-v11 { font-size: 1.3rem; }
-        .hero-content { padding-top: 150px; }
+        .hero-brand-title-v11 { font-size: 4rem; letter-spacing: 5px; }
+        .hero-description-v11 { font-size: 1.2rem; max-width: 95%; }
+        .hero-content { padding-top: 180px; }
         .overlap-up { margin-top: -60px; }
+        /* Kartu mepet ujung di HP Desktop */
+        .container-fluid { padding-left: 5px !important; padding-right: 5px !important; }
+        .col-12 { padding: 0 !important; }
     }
+    .mt-n3 { margin-top: -25px !important; }
+    .section-gray { background-color: #f8fafc; }
+    .fw-900 { font-weight: 900 !important; }
 </style>
 
 <script>
