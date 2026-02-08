@@ -15,12 +15,12 @@
     <div class="container hero-content text-center text-white">
         <div class="row justify-content-center">
             <div class="col-12 px-3"> 
-                <h1 class="animate-up hero-brand-title-v7">E-ACADEMIC</h1>
-                <p class="animate-up delay-1 mx-auto hero-description-v7 mt-3">
+                <h1 class="animate-up hero-brand-title-v8">E-ACADEMIC</h1>
+                <p class="animate-up delay-1 mx-auto hero-description-v8 mt-3">
                     Wadah kolaborasi dan inovasi mahasiswa di Lingkungan Teknik Elektro. Akses materi kuliah jadi lebih mudah dan praktis
                 </p>
                 <div class="animate-up delay-2 mt-4">
-                    <a href="{% url 'list_materi' %}" class="btn rounded-pill fw-bold btn-cari-ghost-premium">
+                    <a href="{% url 'list_materi' %}" class="btn rounded-pill fw-bold btn-cari-ghost-small">
                         <i class="fa fa-search me-2"></i> Cari Materi
                     </a>
                 </div>
@@ -65,7 +65,7 @@
                         {% endfor %}
                     </div>
                     <div class="card-footer bg-white border-0 p-4 pt-0">
-                        <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-capsule-primary w-100 text-center text-decoration-none d-block">
+                        <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-capsule-premium-blue w-100 text-center text-decoration-none d-block">
                             LIHAT SEMUA KOMPETISI
                         </a>
                     </div>
@@ -99,7 +99,7 @@
                             {% endfor %}
                         </div>
                         <div class="mt-4">
-                            <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-capsule-danger w-100">
+                            <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-capsule-premium-red w-100">
                                 <i class="fa fa-file-pdf-o me-2"></i> DOWNLOAD PDF KALENDER
                             </a>
                         </div>
@@ -142,24 +142,32 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-    /* --- NAVBAR REVISIONS (Right Aligned & Single Line Library) --- */
+    /* --- NAVBAR HP REVISIONS --- */
     @media (max-width: 768px) {
         .navbar { padding: 4px 15px !important; } 
         .navbar-brand { font-size: 0.6rem !important; margin-right: auto !important; }
-        /* Beranda, Library (nowrap), Pendataan berdekatan di kanan */
-        .navbar-nav { flex-direction: row !important; justify-content: flex-end !important; gap: 8px !important; width: 100% !important; }
-        .nav-link { font-size: 0.45rem !important; padding: 2px 2px !important; white-space: nowrap !important; }
-        .btn-pendataan { font-size: 0.45rem !important; padding: 2px 6px !important; margin-left: 2px !important; }
-        .navbar-toggler { display: none !important; } /* Navigasi langsung tampil tanpa hamburger */
+        /* Menggeser Beranda & eLibrary ke kanan mendekati Pendataan */
+        .navbar-nav { 
+            flex-direction: row !important; 
+            justify-content: flex-end !important; 
+            gap: 5px !important; /* Jarak diperkecil agar berdekatan */
+            width: 100% !important; 
+        }
+        .nav-item { margin-left: 2px !important; }
+        .nav-link { 
+            font-size: 0.42rem !important; 
+            padding: 2px 4px !important; 
+            white-space: nowrap !important; /* ELibrary satu baris */
+        }
+        .btn-pendataan { font-size: 0.42rem !important; padding: 2px 6px !important; margin-left: 2px !important; }
+        .navbar-toggler { display: none !important; }
     }
 
     /* --- HERO & BACKGROUND SLIDESHOW --- */
     .hero-modern { height: 75vh; min-height: 550px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #000; }
-    
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; filter: brightness(0.5); animation: smoothSlideshow 15s infinite linear; }
     
-    /* Logic Animasi 3 Foto bergantian tanpa jeda */
     @keyframes smoothSlideshow { 
         0%, 33.33% { opacity: 1; z-index: 3; }
         38.33%, 100% { opacity: 0; z-index: 1; }
@@ -168,36 +176,51 @@
 
     .hero-overlay-refined { position: absolute; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.8) 100%); z-index: 4; pointer-events: none; }
     
-    /* Judul diturunkan (padding-top lebih besar) */
-    .hero-content { position: relative; z-index: 5; padding-top: 250px; }
-    .hero-brand-title-v7 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 5rem; letter-spacing: 10px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    .hero-description-v7 { font-size: 0.72rem; color: rgba(255,255,255,0.7); max-width: 480px; line-height: 1.6; }
+    /* Judul dinaikkan sedikit lebih tinggi dari sebelumnya */
+    .hero-content { position: relative; z-index: 5; padding-top: 200px; }
+    .hero-brand-title-v8 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 5.2rem; letter-spacing: 12px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .hero-description-v8 { font-size: 0.72rem; color: rgba(255,255,255,0.7); max-width: 480px; line-height: 1.6; }
 
-    /* Button Ghost */
-    .btn-cari-ghost-premium { background: transparent !important; border: 1.8px solid rgba(255,255,255,0.7); color: white !important; padding: 12px 30px; transition: 0.3s; }
-    .btn-cari-ghost-premium:hover { background: rgba(255,255,255,0.15) !important; transform: translateY(-3px); }
+    /* Button Cari Materi (Lebih Kecil & Transparan) */
+    .btn-cari-ghost-small { background: transparent !important; border: 1.8px solid rgba(255,255,255,0.7); color: white !important; padding: 8px 22px; font-size: 0.75rem; transition: 0.3s; }
+    .btn-cari-ghost-small:hover { background: rgba(255,255,255,0.15) !important; transform: translateY(-3px); }
 
-    /* --- BEAUTIFUL CARDS & CAPSULES --- */
+    /* --- PREMIUM CAPSULE BUTTONS --- */
+    .btn-capsule-premium-blue { 
+        background: linear-gradient(45deg, #3b82f6, #2563eb) !important; 
+        color: white !important; 
+        font-size: 0.68rem; 
+        font-weight: 700; 
+        border-radius: 50px !important; 
+        border: none; 
+        padding: 12px; 
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        transition: 0.3s; 
+    }
+    .btn-capsule-premium-blue:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5); }
+
+    .btn-capsule-premium-red { 
+        background: linear-gradient(45deg, #ef4444, #dc2626) !important; 
+        color: white !important; 
+        font-size: 0.68rem; 
+        font-weight: 700; 
+        border-radius: 50px !important; 
+        border: none; 
+        padding: 12px; 
+        box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        transition: 0.3s; 
+    }
+    .btn-capsule-premium-red:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5); }
+
+    /* --- CARDS --- */
     .card-premium-clean { border-radius: 24px !important; transition: 0.3s; overflow: hidden; border: 1px solid rgba(0,0,0,0.02) !important; }
-    .card-premium-clean:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important; }
-    
-    .item-list-premium { transition: 0.2s; }
     .item-list-premium:hover { background-color: #f8fafc; padding-left: 5px; border-radius: 12px; }
 
-    /* Button Capsule Styling */
-    .btn-capsule-primary { background: #3b82f6 !important; color: white !important; font-size: 0.68rem; font-weight: 700; border-radius: 50px !important; border: none; padding: 12px; transition: 0.3s; }
-    .btn-capsule-primary:hover { background: #2563eb !important; transform: scale(1.02); }
-    .btn-capsule-danger { background: #ef4444 !important; color: white !important; font-size: 0.68rem; font-weight: 700; border-radius: 50px !important; border: none; padding: 12px; transition: 0.3s; }
-    .btn-capsule-danger:hover { background: #dc2626 !important; transform: scale(1.02); }
-
-    /* --- PRODI CARD (ENLARGED) --- */
-    .category-card-premium { padding: 35px 15px; background: #fff; border-radius: 22px; border: 1px solid #f1f5f9; transition: 0.3s; height: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-    .icon-box-premium { width: 70px; height: 70px; border-radius: 18px; font-size: 1.8rem; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; }
-
-    /* Mobile Fine-Tuning */
+    /* Mobile Revisions HP */
     @media (max-width: 768px) {
-        .hero-brand-title-v7 { font-size: 2.3rem; letter-spacing: 4px; }
-        .hero-content { padding-top: 220px; }
+        .hero-brand-title-v8 { font-size: 2.3rem; letter-spacing: 5px; }
+        .hero-content { padding-top: 170px; } /* Judul dinaikkan di HP */
+        .hero-description-v8 { font-size: 0.65rem; padding: 0 20px; }
         .overlap-up { margin-top: -35px; }
         .smaller-card-text { font-size: 0.6rem !important; }
         .agenda-small-font { font-size: 0.75rem !important; }
