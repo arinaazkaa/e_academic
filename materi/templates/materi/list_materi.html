@@ -6,34 +6,38 @@
 {% block content %}
 
 <section class="hero-library-modern">
+    <div class="hero-slider">
+        <div class="slide slide-1" style="background-image: url('{% static 'img/img1.jpg' %}');"></div>
+        <div class="slide slide-2" style="background-image: url('{% static 'img/img2.jpg' %}');"></div>
+        <div class="slide slide-3" style="background-image: url('{% static 'img/img3.jpg' %}');"></div>
+    </div>
     <div class="hero-overlay-refined"></div>
     <div class="container hero-content text-center text-white animate-up">
-        <h2 class="fw-bold mb-2 hero-brand-title">ELECTRICAL LIBRARY</h2>
-        <p class="text-white-50 mx-auto hero-description" style="max-width: 500px; font-size: 0.9rem; font-weight: 400; letter-spacing: 0.5px;">
+        <h1 class="fw-900 mb-2 hero-brand-title-large">ELECTRICAL LIBRARY</h1>
+        <p class="text-white-50 mx-auto hero-description">
             Akses materi kuliah secara terorganisir berdasarkan Program Studi dan Semester.
         </p>
     </div>
 </section>
 
 <section class="search-section-library">
-    <div class="container overlap-up-library">
-        <div class="glass-search-box mx-auto shadow-sm animate-up delay-1 mb-3">
+    <div class="container-fluid px-2 px-md-5 overlap-up-library">
+        <div class="glass-search-box mx-auto shadow-sm animate-up delay-1 mb-4">
             <form action="{% url 'list_materi' %}" method="GET" class="row g-0 align-items-center p-1">
                 {% if filter_prodi %}<input type="hidden" name="prodi" value="{{ filter_prodi }}">{% endif %}
                 {% if filter_semester %}<input type="hidden" name="semester" value="{{ filter_semester }}">{% endif %}
                 
-                <div class="col-9">
+                <div class="col-8 col-md-9">
                     <div class="input-group">
                         <span class="input-group-text bg-transparent border-0 ps-3 pe-2">
-                            <i class="fa fa-search text-muted" style="font-size: 0.8rem;"></i>
+                            <i class="fa fa-search text-muted"></i>
                         </span>
                         <input type="text" name="keyword" class="form-control border-0 shadow-none bg-transparent text-dark py-1" 
-                               placeholder="Cari Mata Kuliah..." value="{{ request.GET.keyword|default:'' }}" 
-                               style="font-size: 0.85rem; font-weight: 500;">
+                               placeholder="Cari Mata Kuliah..." value="{{ request.GET.keyword|default:'' }}">
                     </div>
                 </div>
-                <div class="col-3">
-                    <button type="submit" class="btn btn-primary w-100 rounded-pill fw-bold gradient-blue btn-sm py-2" style="font-size: 0.8rem; letter-spacing: 1px;">CARI</button>
+                <div class="col-4 col-md-3">
+                    <button type="submit" class="btn btn-primary w-100 rounded-pill fw-bold gradient-blue btn-sm py-2">CARI</button>
                 </div>
             </form>
         </div>
@@ -57,38 +61,38 @@
 </section>
 
 <section class="pt-4 pb-5 section-gray" style="min-height: 50vh;">
-    <div class="container py-2">
+    <div class="container-fluid px-2 px-md-5 py-2">
 
         {% if request.GET.keyword or filter_semester or filter_prodi == 'MKU' %}
-            
-            <div class="text-center mb-4 reveal-on-scroll">
-                <h5 class="fw-bold text-dark mb-1">
+            <div class="text-center mb-5 reveal-on-scroll">
+                <h3 class="fw-bold text-dark mb-1">
                     {% if request.GET.keyword %}Hasil Pencarian: "{{ request.GET.keyword }}"
                     {% elif filter_prodi == 'MKU' %}Mata Kuliah Umum (MKU)
                     {% else %}Mata Kuliah Semester {{ filter_semester }}{% endif %}
-                </h5>
-                <div class="divider-minimal mx-auto"></div>
+                </h3>
+                <div class="divider-minimal mx-auto mt-2"></div>
             </div>
 
-            <div class="row justify-content-center reveal-on-scroll">
-                <div class="col-lg-9">
-                    <div class="card card-protrude-list p-0 overflow-hidden border-0 shadow-sm">
-                        <div class="d-flex justify-content-between align-items-center p-3 border-bottom bg-light">
-                            <h6 class="fw-bold text-dark m-0 small">Daftar Dokumen</h6>
-                            <span class="badge bg-primary rounded-pill px-3" style="font-size: 0.7rem;">{{ materi.paginator.count }} Materi</span>
+            <div class="row justify-content-center reveal-on-scroll gy-5"> <div class="col-12 col-lg-10">
+                    <div class="card card-protrude-list p-0 overflow-hidden border-0 shadow-lg">
+                        <div class="d-flex justify-content-between align-items-center p-4 border-bottom bg-light">
+                            <h5 class="fw-bold text-dark m-0">Daftar Dokumen</h5>
+                            <span class="badge bg-primary rounded-pill px-4 py-2">{{ materi.paginator.count }} Materi</span>
                         </div>
                         <div class="list-group list-group-flush">
                             {% for m in materi %}
-                            <a href="{{ m.link_google_drive }}" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center py-3 px-4 materi-row-hover">
-                                <div class="me-3 flex-shrink-0"><div class="mk-icon-square"><i class="fa fa-file-pdf-o"></i></div></div>
+                            <a href="{{ m.link_google_drive }}" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center py-4 px-4 materi-row-hover">
+                                <div class="me-4 flex-shrink-0"><div class="mk-icon-square-large"><i class="fa fa-file-pdf-o"></i></div></div>
                                 <div class="flex-grow-1 text-start overflow-hidden">
-                                    <h6 class="fw-bold text-dark mb-0 text-truncate" style="font-size: 0.85rem;">{{ m.mata_kuliah }}</h6>
-                                    <small class="text-muted text-truncate d-block" style="font-size: 0.7rem;">{{ m.judul }}</small>
+                                    <h5 class="fw-bold text-dark mb-1 text-truncate">{{ m.mata_kuliah }}</h5>
+                                    <p class="text-muted text-truncate mb-0">{{ m.judul }}</p>
                                 </div>
-                                <div class="flex-shrink-0 ms-2"><span class="btn-action-open">Buka <i class="fa fa-external-link ms-1"></i></span></div>
+                                <div class="flex-shrink-0 ms-3">
+                                    <span class="btn-capsule-outline-blue">Buka Materi <i class="fa fa-external-link ms-1"></i></span>
+                                </div>
                             </a>
                             {% empty %}
-                            <div class="p-5 text-center text-muted small">Materi tidak ditemukan.</div>
+                            <div class="p-5 text-center text-muted">Materi tidak ditemukan.</div>
                             {% endfor %}
                         </div>
                     </div>
@@ -96,44 +100,42 @@
             </div>
 
         {% elif filter_prodi %}
-            <div class="text-center mb-4 reveal-on-scroll">
-                <h5 class="fw-bold text-dark mb-1">Pilih Semester</h5>
-                <p class="text-muted small mb-2">Pilih tingkat semester untuk memfilter materi kuliah.</p>
-                <div class="divider-minimal mx-auto"></div>
+            <div class="text-center mb-5 reveal-on-scroll">
+                <h2 class="fw-900 text-dark mb-1">PILIH SEMESTER</h2>
+                <div class="divider-minimal mx-auto mt-2"></div>
             </div>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
-                {% for i in "12345" %} 
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-5 justify-content-center">
+                {% for i in "12345678" %} 
                 <div class="col reveal-on-scroll">
-                    <a href="?prodi={{ filter_prodi }}&semester={{ i }}" class="card-protrude-library text-decoration-none h-100">
-                        <div class="icon-circle-box mb-4 bg-soft-blue">
-                            <span class="fw-bold text-primary" style="font-size: 1.8rem; font-family: 'Montserrat';">{{ i }}</span>
+                    <a href="?prodi={{ filter_prodi }}&semester={{ i }}" class="card-protrude-library-large text-decoration-none h-100">
+                        <div class="icon-circle-box-large mb-4 bg-soft-blue">
+                            <span class="fw-900 text-primary">{{ i }}</span>
                         </div>
-                        <h6 class="fw-bold text-dark mb-2">SEMESTER {{ i }}</h6>
-                        <span class="btn-explore-link">BUKA MATERI <i class="fa fa-arrow-right ms-2" style="font-size: 0.7rem;"></i></span>
+                        <h4 class="fw-bold text-dark mb-2">SEMESTER {{ i }}</h4>
+                        <span class="btn-explore-link-bold">BUKA FOLDER <i class="fa fa-arrow-right ms-2"></i></span>
                     </a>
                 </div>
                 {% endfor %}
             </div>
 
         {% else %}
-            <div class="text-center mb-4 reveal-on-scroll">
-                <h5 class="fw-bold text-dark mb-1">Pilih Program Studi</h5>
-                <p class="text-muted small mb-2">Silakan pilih kategori prodi Anda untuk melanjutkan.</p>
-                <div class="divider-minimal mx-auto"></div>
+            <div class="text-center mb-5 reveal-on-scroll">
+                <h2 class="fw-900 text-dark mb-1">PILIH PROGRAM STUDI</h2>
+                <div class="divider-minimal mx-auto mt-2"></div>
             </div>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 justify-content-center">
+            <div class="row g-5 justify-content-center prodi-grid-v12">
                 {% for p_code, p_name, p_bg in prodi_data %}
-                <div class="col reveal-on-scroll">
-                    <a href="?prodi={{ p_code }}" class="card-protrude-library text-decoration-none h-100">
-                        <div class="icon-circle-box mb-4" style="background-color: {{ p_bg }};">
-                            {% if p_code == 'PTIK' %}<i class="fa fa-code icon-saturated" style="color: #3b82f6 !important;"></i>
-                            {% elif p_code == 'PTE' %}<i class="fa fa-bolt icon-saturated" style="color: #dc2626 !important;"></i>
-                            {% elif p_code == 'TE' %}<i class="fa fa-cogs icon-saturated" style="color: #7c3aed !important;"></i>
-                            {% elif p_code == 'TK' %}<i class="fa fa-microchip icon-saturated" style="color: #059669 !important;"></i>
-                            {% else %}<i class="fa fa-university icon-saturated" style="color: #d97706 !important;"></i>{% endif %}
+                <div class="{% if forloop.counter <= 3 %}col-12 col-md-4{% else %}col-12 col-md-5{% endif %} reveal-on-scroll">
+                    <a href="?prodi={{ p_code }}" class="prodi-card-v12 text-decoration-none d-block">
+                        <div class="icon-box-v12 mb-4 mx-auto" style="background-color: {{ p_bg }}20;">
+                            {% if p_code == 'PTIK' %}<i class="fa fa-code" style="color: #3b82f6;"></i>
+                            {% elif p_code == 'PTE' %}<i class="fa fa-bolt" style="color: #dc2626;"></i>
+                            {% elif p_code == 'TE' %}<i class="fa fa-cogs" style="color: #7c3aed;"></i>
+                            {% elif p_code == 'TK' %}<i class="fa fa-microchip" style="color: #059669;"></i>
+                            {% else %}<i class="fa fa-university" style="color: #d97706;"></i>{% endif %}
                         </div>
-                        <h6 class="fw-bold text-dark mb-2" style="font-size: 0.95rem;">{{ p_name }}</h6>
-                        <span class="btn-explore-link">BUKA FOLDER <i class="fa fa-arrow-right ms-2" style="font-size: 0.7rem;"></i></span>
+                        <h3 class="fw-900 text-dark mb-2">{{ p_name }}</h3>
+                        <span class="btn-explore-link-bold">BUKA FOLDER <i class="fa fa-folder-open ms-2"></i></span>
                     </a>
                 </div>
                 {% endfor %}
@@ -144,36 +146,72 @@
 </section>
 
 <style>
-    .hero-library-modern { background: linear-gradient(rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.96)), url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; padding: 180px 0 80px 0; margin-top: -85px; position: relative; }
-    .hero-brand-title { font-family: 'Montserrat', sans-serif; letter-spacing: 5px; font-size: 2.2rem; }
-    .glass-search-box { background: #ffffff; border-radius: 50px; max-width: 580px; padding: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important; border: 1px solid rgba(0,0,0,0.02); }
-    .overlap-up-library { margin-top: -32px; position: relative; z-index: 100; }
-    .card-protrude-library { display: flex; flex-direction: column; padding: 35px 20px; background: #ffffff !important; border-radius: 28px !important; text-align: center; box-shadow: 0 15px 45px rgba(0, 0, 0, 0.05) !important; transition: all 0.3s ease; border: none !important; }
-    .card-protrude-library:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1) !important; }
-    .icon-circle-box { width: 70px; height: 70px; margin: 0 auto; border-radius: 20px; display: flex; align-items: center; justify-content: center; }
-    .bg-soft-blue { background-color: #eff6ff; }
-    .icon-saturated { font-size: 1.5rem; }
-    .btn-explore-link { font-size: 0.75rem; font-weight: 800; color: #3b82f6; letter-spacing: 0.5px; margin-top: auto; text-decoration: none; }
-    .section-gray { background-color: #f8fafc; }
-    .divider-minimal { width: 30px; height: 3px; background: #3b82f6; border-radius: 5px; }
-    .gradient-blue { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; }
-    .custom-breadcrumb-pill { border-radius: 50px; display: inline-flex; list-style: none; }
-    .custom-breadcrumb-pill .breadcrumb-item + .breadcrumb-item::before { content: "\f105"; font-family: FontAwesome; padding: 0 8px; color: #cbd5e1; font-size: 0.8rem; }
-    .custom-breadcrumb-pill .breadcrumb-item, .custom-breadcrumb-pill .breadcrumb-item a { font-size: 0.8rem !important; font-weight: 700 !important; color: #3b82f6 !important; text-decoration: none; }
-    .mk-icon-square { width: 40px; height: 40px; background: #eff6ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #3b82f6; font-size: 1rem; }
-    .btn-action-open { font-size: 0.7rem; font-weight: 700; color: #3b82f6; padding: 6px 15px; background: #eff6ff; border-radius: 50px; transition: 0.3s; }
-    .materi-row-hover:hover .btn-action-open { background: #3b82f6; color: white; }
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
+
+    /* --- 1. NAVBAR MEPET UJUNG (HP MODE DESKTOP) --- */
+    @media (max-width: 1200px) {
+        .navbar { padding: 15px 5px !important; }
+        .container-fluid.nav-container { padding: 0 15px !important; width: 100% !important; max-width: 100% !important; }
+        .navbar-brand { font-size: 1.4rem !important; font-weight: 900 !important; margin-left: -5px !important; }
+        .navbar-nav { flex-direction: row !important; gap: 15px !important; margin-right: -5px !important; }
+        .nav-link { font-size: 0.95rem !important; font-weight: 800 !important; white-space: nowrap !important; }
+        .btn-pendataan { font-size: 0.95rem !important; padding: 8px 15px !important; }
+        .navbar-toggler { display: none !important; }
+    }
+
+    /* --- 5. HERO SLIDESHOW & HEIGHT --- */
+    .hero-library-modern { height: 60vh; min-height: 450px; position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; background: #000; }
+    .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+    .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: smoothSlideshow 15s infinite linear; }
+    @keyframes smoothSlideshow { 0%, 33.33% { opacity: 1; z-index: 3; } 38.33%, 100% { opacity: 0; z-index: 1; } }
+    .slide-1 { animation-delay: 0s; } .slide-2 { animation-delay: 5s; } .slide-3 { animation-delay: 10s; }
+    
+    /* --- 4. TITLE ENLARGEMENT --- */
+    .hero-brand-title-large { font-family: 'Montserrat', sans-serif; letter-spacing: 8px; font-size: 3.2rem; text-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .hero-overlay-refined { position: absolute; width: 100%; height: 100%; background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.85)); z-index: 4; }
+    .hero-content { position: relative; z-index: 5; padding-top: 100px; }
+
+    /* --- 3. CAPSULE BUTTONS --- */
+    .btn-capsule-outline-blue { border: 2.5px solid #3b82f6; color: #3b82f6; padding: 10px 25px; border-radius: 50px; font-weight: 800; font-size: 0.9rem; transition: 0.3s; display: inline-block; }
+    .btn-capsule-outline-blue:hover { background: #3b82f6; color: #fff; transform: scale(1.05); }
+
+    /* --- CARDS & GRID REVISIONS --- */
+    .overlap-up-library { margin-top: -50px; position: relative; z-index: 100; }
+    .glass-search-box { background: #ffffff; border-radius: 60px; max-width: 800px; padding: 10px; border: 1px solid rgba(0,0,0,0.05); }
+    
+    /* Prodi Card Large */
+    .prodi-card-v12 { padding: 60px 30px; background: #fff; border-radius: 45px; border: 1px solid #f1f5f9; transition: 0.5s; height: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.04); text-align: center; }
+    .prodi-card-v12:hover { transform: translateY(-15px); border-color: #3b82f6; box-shadow: 0 40px 80px rgba(59,130,246,0.15); }
+    .icon-box-v12 { width: 110px; height: 110px; border-radius: 35px; font-size: 3.5rem; display: flex; align-items: center; justify-content: center; transition: 0.4s; }
+    
+    /* Semester Card Large */
+    .card-protrude-library-large { display: flex; flex-direction: column; padding: 50px 25px; background: #fff; border-radius: 40px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.04); transition: 0.4s; }
+    .icon-circle-box-large { width: 100px; height: 100px; margin: 0 auto; border-radius: 30px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+    
+    .fw-900 { font-weight: 900 !important; }
+    .btn-explore-link-bold { font-size: 0.9rem; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 15px; display: block; }
+    .mk-icon-square-large { width: 55px; height: 55px; background: #eff6ff; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #3b82f6; font-size: 1.5rem; }
+
+    /* --- ANIMASI --- */
+    .reveal-on-scroll { opacity: 0; transform: translateY(60px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-    .reveal-on-scroll { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
-    .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
+
+    /* HP Desktop Mode Parity */
+    @media (max-width: 1024px) {
+        .hero-brand-title-large { font-size: 2.5rem; letter-spacing: 5px; }
+        .hero-description { font-size: 1.1rem; max-width: 90%; }
+        .container-fluid { padding-left: 10px !important; padding-right: 10px !important; }
+    }
 </style>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) entry.target.classList.add('active'); 
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
