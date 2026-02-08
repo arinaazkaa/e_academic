@@ -31,18 +31,18 @@
 
 <section id="info-section" class="pt-5 pb-5 section-gray">
     <div class="container-fluid px-1 px-md-5 overlap-up">
-        <div class="row gx-0 gy-5 g-lg-5 justify-content-center row-gap-mobile">
+        <div class="row gx-0 gy-5 g-lg-5 justify-content-center">
             <div class="col-12 col-lg-7 reveal-on-scroll">
                 <div class="card-modern-v11 h-100 shadow-lg border-0 bg-white d-flex flex-column">
                     <div class="card-header-clean p-4 pb-0 d-flex justify-content-center"> 
-                        <h3 class="fw-900 text-dark m-0 d-flex align-items-center">
+                        <h3 class="fw-900 text-dark m-0 d-flex align-items-center card-title-v11">
                             <i class="fa fa-bullhorn text-primary me-3"></i> Info Lomba Terbaru
                         </h3>
                     </div>
                     <div class="card-body p-4 pt-4 flex-grow-1">
                         {% for lomba in info_lomba_list %}
                         <div class="item-interactive-v11 d-flex align-items-center mb-4 pb-3 border-bottom border-light">
-                            <div class="date-minimalist text-center" style="margin-right: 2rem; min-width: 70px;">
+                            <div class="date-minimalist text-center date-box-v11">
                                 <span class="d-block fw-bold text-primary day-text-v11">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
                                 <span class="d-block text-muted month-text-v11">{{ lomba.tanggal_pelaksanaan|date:"M" }}</span>
                             </div>
@@ -75,7 +75,7 @@
             <div class="col-12 col-lg-5 reveal-on-scroll" style="transition-delay: 0.2s;">
                 <div class="card-modern-v11 h-100 shadow-lg border-0 bg-white">
                     <div class="card-header-clean d-flex justify-content-center align-items-center p-4 pb-0"> 
-                        <h3 class="fw-900 text-dark m-0">
+                        <h3 class="fw-900 text-dark m-0 card-title-v11">
                             <i class="fa fa-calendar-check-o text-primary me-3"></i> Agenda Akademik
                         </h3>
                     </div>
@@ -117,7 +117,7 @@
         </div>
         
         <div class="prodi-grid-v12">
-            <div class="row g-5 justify-content-center mb-5">
+            <div class="row g-4 g-lg-5 justify-content-center mb-lg-5">
                 {% for p_code, p_name, p_bg in prodi_data|slice:":3" %}
                 <div class="col-12 col-md-4 reveal-on-scroll"> 
                     <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v12 text-decoration-none d-block">
@@ -134,7 +134,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="row g-5 justify-content-center">
+            <div class="row g-4 g-lg-5 justify-content-center mt-3 mt-lg-0">
                 {% for p_code, p_name, p_bg in prodi_data|slice:"3:5" %}
                 <div class="col-12 col-md-4 reveal-on-scroll"> 
                     <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v12 text-decoration-none d-block">
@@ -159,62 +159,77 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; background-color: #fff; }
 
-    /* --- GLOBAL LAYOUT --- */
+    /* --- LOGIKA KHUSUS LAPTOP (Standard Desktop) --- */
+    @media (min-width: 1201px) {
+        .navbar { padding: 10px 80px !important; }
+        /* Note 1 & 2: Tambah tinggi hero & turunkan judul di laptop */
+        .hero-modern { height: 90vh !important; } 
+        .hero-content { padding-top: 300px !important; }
+        .hero-brand-title-v11 { font-size: 5.5rem; }
+        .hero-description-v11 { font-size: 1.1rem; max-width: 600px; }
+        .btn-cari-giant-dark { padding: 12px 35px; font-size: 1rem; }
+        /* Note 6: Kurangi overlap agar kartu tidak menabrak foto hero */
+        .overlap-up { margin-top: -30px !important; }
+        /* Note 4: Perkecil Electrical Library di Laptop */
+        .library-title-v11 { font-size: 2.2rem !important; }
+        /* Note 5: Perkecil Kartu Prodi di Laptop */
+        .prodi-card-v12 { padding: 40px 20px; border-radius: 30px; }
+        .icon-box-v12 { width: 80px; height: 80px; font-size: 2rem; }
+        .prodi-title-v11 { font-size: 1.5rem !important; }
+    }
+
+    /* --- LOGIKA KHUSUS HP MODE DESKTOP & MOBILE --- */
+    @media (max-width: 1200px) {
+        .navbar { padding: 15px 5px !important; } 
+        .container-fluid.nav-container { padding: 0 15px !important; width: 100% !important; }
+        /* Note 1 & 2: Tambah tinggi hero & turunkan judul di HP Desktop */
+        .hero-modern { height: 80vh !important; }
+        .hero-content { padding-top: 250px !important; }
+        
+        /* Note 3: Beri Jarak Antar Kartu di HP Mode Desktop saja */
+        #info-section .row.gy-5 { row-gap: 4rem !important; }
+
+        .navbar-brand { font-size: 1.4rem !important; font-weight: 900 !important; margin-left: -5px !important; }
+        .navbar-nav { flex-direction: row !important; gap: 15px !important; margin-right: -5px !important; }
+        .nav-link { font-size: 0.95rem !important; font-weight: 800 !important; white-space: nowrap !important; }
+        .btn-pendataan { font-size: 0.95rem !important; padding: 8px 15px !important; }
+        .navbar-toggler { display: none !important; }
+        
+        .hero-brand-title-v11 { font-size: 4.2rem; letter-spacing: 5px; }
+        .hero-description-v11 { font-size: 1.3rem; max-width: 95%; }
+        .btn-cari-giant-dark { padding: 20px 60px; font-size: 1.4rem; }
+        
+        /* Pertahankan ukuran besar di HP */
+        .card-modern-v11 { border-radius: 45px !important; }
+        .item-title-v11 { font-size: 1.6rem !important; }
+        .small-text-v11 { font-size: 1.1rem !important; }
+        .prodi-card-v12 { padding: 70px 40px; border-radius: 50px; }
+        .icon-box-v12 { width: 120px; height: 120px; font-size: 4rem; }
+        .fw-900 { font-size: 2.2rem !important; }
+    }
+
+    /* --- GLOBAL CSS --- */
     .hero-modern { position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #fff; }
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: smoothSlideshow 15s infinite linear; }
     @keyframes smoothSlideshow { 0%, 33.33% { opacity: 1; z-index: 3; } 38.33%, 100% { opacity: 0; z-index: 1; } }
     .slide-1 { animation-delay: 0s; } .slide-2 { animation-delay: 5s; } .slide-3 { animation-delay: 10s; }
     .hero-overlay-white-v2 { position: absolute; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.95) 100%); z-index: 4; pointer-events: none; }
-    .hero-content { position: relative; z-index: 5; }
 
-    /* --- 1 & 2 & 4. LAPTOP LOGIC (Standard Desktop) --- */
-    @media (min-width: 1201px) {
-        .navbar { padding: 10px 80px !important; }
-        /* Note 2: Laptop hero height sedikit ditambah */
-        .hero-modern { height: 85vh !important; }
-        /* Note 1: Judul Laptop diturunkan */
-        .hero-content { padding-top: 260px !important; }
-        .hero-brand-title-v11 { font-size: 5.5rem; }
-        .hero-description-v11 { font-size: 1.1rem; max-width: 600px; }
-        .btn-cari-giant-dark { padding: 12px 35px; font-size: 1rem; }
-        /* Note 4: Electrical Library Laptop diperkecil */
-        .library-title-v11 { font-size: 2.8rem !important; }
-    }
-
-    /* --- 1 & 2 & 3. HP MODE DESKTOP & MOBILE LOGIC --- */
-    @media (max-width: 1200px) {
-        .navbar { padding: 15px 5px !important; } 
-        .container-fluid.nav-container { padding: 0 15px !important; width: 100% !important; }
-        
-        /* Note 2: Hero HP Desktop ditinggikan signifikan */
-        .hero-modern { height: 95vh !important; }
-        /* Note 1: Judul HP Desktop diturunkan */
-        .hero-content { padding-top: 300px !important; }
-        
-        /* Note 3: Gap antar kartu di HP Desktop saja */
-        .row-gap-mobile { row-gap: 80px !important; }
-        
-        .hero-brand-title-v11 { font-size: 4.2rem; letter-spacing: 5px; }
-        .hero-description-v11 { font-size: 1.3rem; max-width: 95%; }
-        .btn-cari-giant-dark { padding: 20px 60px; font-size: 1.4rem; }
-        
-        .fw-900 { font-size: 2.2rem !important; }
-        /* Note 4: Electrical Library di HP tidak berubah (Tetap besar) */
-        .library-title-v11 { font-size: 4rem !important; }
-    }
-
-    /* --- REST OF STYLES (KEEP AS IS) --- */
     .btn-cari-giant-dark { background: #000 !important; color: #fff !important; transition: 0.4s ease; border: none; }
     .btn-cari-giant-dark:hover { transform: scale(1.05); }
-    .card-modern-v11 { border-radius: 45px !important; transition: 0.5s ease; border: 1px solid rgba(0,0,0,0.06) !important; overflow: hidden; }
+
+    .card-modern-v11 { transition: 0.5s ease; border: 1px solid rgba(0,0,0,0.06) !important; overflow: hidden; }
     .item-interactive-v11 { transition: 0.3s; padding: 15px; border-radius: 25px; }
     .item-interactive-v11:hover { background-color: #f8fafc; transform: translateX(12px); }
+
     .btn-pill-premium-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; color: #fff !important; border-radius: 100px !important; border: none; padding: 15px; }
     .btn-pill-premium-red { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; color: #fff !important; border-radius: 100px !important; border: none; padding: 15px; }
-    .prodi-card-v12 { background: #fff; border: 1px solid #f1f5f9; transition: 0.5s; height: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.03); text-align: center; border-radius: 50px; padding: 70px 40px; }
+
+    .prodi-card-v12 { background: #fff; border: 1px solid #f1f5f9; transition: 0.5s; height: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.03); text-align: center; }
     .prodi-card-v12:hover { transform: translateY(-15px); border-color: #3b82f6; }
-    .icon-box-v12 { border-radius: 40px; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; width: 120px; height: 120px; font-size: 4rem; }
+    .icon-box-v12 { border-radius: 40px; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; }
+
     .reveal-on-scroll { opacity: 0; transform: translateY(80px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
     .mt-n3 { margin-top: -30px !important; }
