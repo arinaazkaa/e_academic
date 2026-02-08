@@ -16,7 +16,7 @@
         <div class="row justify-content-center">
             <div class="col-12 px-3"> 
                 <h1 class="animate-reveal hero-brand-title-v13 text-nowrap text-dark fw-900">E-ACADEMIC</h1>
-                <p class="animate-reveal delay-1 mx-auto hero-description-v13 mt-4 text-dark fw-bold opacity-75">
+                <p class="animate-reveal delay-1 mx-auto hero-description-v13 mt-4 text-dark">
                     Wadah kolaborasi dan inovasi mahasiswa di Lingkungan Teknik Elektro. Akses materi kuliah jadi lebih mudah dan praktis
                 </p>
                 <div class="animate-reveal delay-2 mt-5">
@@ -65,7 +65,7 @@
                         {% endfor %}
                     </div>
                     <div class="card-footer bg-white border-0 p-4 pt-0">
-                        <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-pill-animate-blue btn-animate-hover w-100 text-center text-decoration-none d-block">
+                        <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-pill-animate-blue btn-animate-hover w-100 text-center text-decoration-none d-block text-white">
                             LIHAT SEMUA KOMPETISI
                         </a>
                     </div>
@@ -97,7 +97,7 @@
                             {% endfor %}
                         </div>
                         <div class="mt-4">
-                            <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-animate-red btn-animate-hover w-100">
+                            <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-animate-red btn-animate-hover w-100 text-white">
                                 <i class="fa fa-file-pdf-o me-2"></i> DOWNLOAD PDF KALENDER
                             </a>
                         </div>
@@ -161,78 +161,76 @@
 
     /* --- LOGIKA KHUSUS LAPTOP --- */
     @media (min-width: 1201px) {
-        /* Note 3: Tinggi hero laptop ditambah secara maksimal agar button cari terlihat utuh */
-        .hero-modern { height: 110vh !important; }
-        .hero-content { padding-top: 420px !important; }
+        /* Note 1: Judul diturunkan namun posisi relatif konten dinaikkan agar pas */
+        .hero-modern { height: 100vh !important; }
+        .hero-content { padding-top: 250px !important; } /* Dinaikkan dari revisi sebelumnya */
         
-        /* Note 5: Judul E-ACADEMIC di laptop diperkecil agar tidak mendominasi */
         .hero-brand-title-v13 { font-size: 4.8rem !important; } 
-        .hero-description-v13 { font-size: 1.25rem; max-width: 700px; }
+        /* Note 2 & 5: Font deskripsi dan library diperkecil */
+        .hero-description-v13 { font-size: 1.3rem !important; max-width: 750px; font-weight: 700 !important; }
+        .library-title-v12 { font-size: 2.1rem !important; }
         
-        /* Penyesuaian font kartu laptop */
-        .card-header-font-v12 { font-size: 1.35rem !important; }
-        .item-title-v12 { font-size: 1.1rem !important; }
-        .small-text-v12 { font-size: 0.8rem !important; }
+        /* Note 4: Ukuran kartu prodi laptop diperkecil */
+        .prodi-card-v13 { padding: 40px 20px; border-radius: 30px; }
+        .icon-box-v12 { width: 80px; height: 80px; font-size: 2rem; }
+        .prodi-title-v12 { font-size: 1.4rem !important; }
         
-        /* Note 3: Mengurangi overlap agar tidak menutupi tombol cari */
-        .overlap-up-v13 { margin-top: -15px !important; }
-        
-        .prodi-card-v13 { padding: 45px 25px; border-radius: 30px; }
-        .icon-box-v12 { width: 85px; height: 85px; font-size: 2.1rem; }
+        .overlap-up-v13 { margin-top: -30px !important; }
     }
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP --- */
     @media (max-width: 1200px) {
         .navbar { padding: 15px 5px !important; } 
-        /* Note 2: Tinggi hero HP mode desktop dikurangi agar lebih proporsional */
         .hero-modern { height: 50vh !important; min-height: 450px !important; }
         .hero-content { padding-top: 180px !important; }
         
-        /* Judul di HP tetap besar sesuai request sebelumnya */
-        .hero-brand-title-v13 { font-size: 5.5rem; letter-spacing: 6px; }
-        .hero-description-v13 { font-size: 1.4rem; max-width: 90%; }
+        /* Note 3: Jarak antar kartu ditambah */
+        .info-card-wrapper { row-gap: 4.5rem !important; }
         
-        /* Kartu prodi di HP tetap megah */
+        .hero-brand-title-v13 { font-size: 5.5rem; letter-spacing: 6px; }
+        /* Note 2: Font deskripsi HP diperbesar */
+        .hero-description-v13 { font-size: 1.6rem !important; max-width: 90%; font-weight: 700 !important; }
+        
         .prodi-card-v13 { padding: 75px 40px; border-radius: 60px; }
         .icon-box-v12 { width: 140px; height: 140px; font-size: 4.8rem; }
+        .library-title-v12 { font-size: 3.8rem !important; }
     }
 
-    /* --- GLOBAL CSS --- */
+    /* --- GLOBAL CSS & ANIMASI SLIDESHOW --- */
     .hero-modern { position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #fff; }
+    
+    /* Note 2: Perbaikan Transparansi dan Transisi Foto agar bergantian lancar */
     .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: smoothSlideshow 15s infinite linear; }
-    @keyframes smoothSlideshow { 0%, 33.33% { opacity: 1; z-index: 3; } 38.33%, 100% { opacity: 0; z-index: 1; } }
-    .slide-1 { animation-delay: 0s; } .slide-2 { animation-delay: 5s; } .slide-3 { animation-delay: 10s; }
+    @keyframes smoothSlideshow { 
+        0% { opacity: 0; } 5% { opacity: 1; } 33% { opacity: 1; } 38% { opacity: 0; } 100% { opacity: 0; } 
+    }
+    .slide-1 { animation-delay: 0s; z-index: 3; } .slide-2 { animation-delay: 5s; z-index: 2; } .slide-3 { animation-delay: 10s; z-index: 1; }
 
-    /* Note 1: Transparansi overlay ditambah (Opacity lebih kuat) agar konten hero sangat jelas */
     .hero-overlay-premium { 
         position: absolute; width: 100%; height: 100%; 
         background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.75) 40%, #f8fafc 100%); 
         z-index: 4; pointer-events: none; 
     }
-    .hero-content { position: relative; z-index: 10; }
 
-    /* Note 6: Animasi Hover pada seluruh Button */
+    /* Note 6: Button Cari Materi Biru dengan Border Capsul */
+    .btn-cari-v13 { 
+        background: linear-gradient(45deg, #3b82f6, #2563eb) !important; 
+        color: #fff !important; padding: 18px 55px; font-size: 1.2rem; border: 2px solid #fff; 
+    }
+
     .btn-animate-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
     .btn-animate-hover:hover { transform: scale(1.06) translateY(-5px) !important; box-shadow: 0 15px 35px rgba(0,0,0,0.12) !important; }
 
-    .btn-cari-v13 { background: #000 !important; color: #fff !important; padding: 18px 55px; font-size: 1.2rem; border: none; }
-    .btn-pill-animate-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; color: #fff !important; font-weight: 800; border: none; padding: 18px; }
-    .btn-pill-animate-red { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; color: #fff !important; font-weight: 800; border: none; padding: 18px; }
+    .btn-pill-animate-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; }
+    .btn-pill-animate-red { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; }
+    .text-white { color: #fff !important; }
 
-    /* Note 2: Kartu prodi diberi border kotak (biru transparan halus) */
     .prodi-card-v13 { 
         background: #fff; text-align: center; transition: 0.5s ease;
-        border: 2px solid rgba(59, 130, 246, 0.15) !important; /* Border Biru Muda */
-        box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        border: 2px solid rgba(59, 130, 246, 0.15) !important;
     }
-    .prodi-card-v13:hover { transform: translateY(-15px); border-color: #3b82f6 !important; box-shadow: 0 20px 45px rgba(59, 130, 246, 0.1); }
     .icon-box-v12 { border-radius: 40px; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; }
-
-    /* Global Card Styles */
-    .card-modern-v11 { transition: 0.5s ease; border: 1px solid rgba(0,0,0,0.06) !important; overflow: hidden; border-radius: 50px !important; }
-    .item-interactive-v11 { transition: 0.3s; padding: 15px; border-radius: 25px; }
-    .item-interactive-v11:hover { background-color: #f8fafc; transform: translateX(10px); }
 
     .reveal-on-scroll { opacity: 0; transform: translateY(80px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
