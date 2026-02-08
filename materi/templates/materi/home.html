@@ -11,16 +11,16 @@
         <div class="slide slide-2" style="background-image: url('{% static 'img/img2.jpg' %}');"></div>
         <div class="slide slide-3" style="background-image: url('{% static 'img/img3.jpg' %}');"></div>
     </div>
-    <div class="hero-overlay-premium"></div>
+    <div class="hero-overlay-white-v4"></div>
     <div class="container-fluid hero-content text-center">
         <div class="row justify-content-center">
             <div class="col-12 px-3"> 
-                <h1 class="animate-reveal hero-brand-title-v13 text-nowrap text-dark fw-900">E-ACADEMIC</h1>
-                <p class="animate-reveal delay-1 mx-auto hero-description-v13 mt-4 text-dark">
+                <h1 class="animate-reveal hero-brand-title-v14 text-nowrap text-dark fw-900">E-ACADEMIC</h1>
+                <p class="animate-reveal delay-1 mx-auto hero-description-v12 mt-4 text-dark fw-bold opacity-75">
                     Wadah kolaborasi dan inovasi mahasiswa di Lingkungan Teknik Elektro. Akses materi kuliah jadi lebih mudah dan praktis
                 </p>
-                <div class="animate-reveal delay-2 mt-5">
-                    <a href="{% url 'list_materi' %}" class="btn rounded-pill fw-bold btn-cari-v13 btn-animate-hover">
+                <div class="animate-reveal delay-2 mt-4">
+                    <a href="{% url 'list_materi' %}" class="btn rounded-pill fw-bold btn-cari-v12 btn-animate-hover">
                         <i class="fa fa-search me-2"></i> Cari Materi
                     </a>
                 </div>
@@ -30,7 +30,7 @@
 </section>
 
 <section id="info-section" class="pt-5 pb-5 section-gray">
-    <div class="container-fluid px-1 px-md-5 overlap-up-v13">
+    <div class="container-fluid px-1 px-md-5 overlap-up-v12">
         <div class="row gx-0 info-card-wrapper justify-content-center">
             <div class="col-12 col-lg-7 reveal-on-scroll">
                 <div class="card-modern-v11 h-100 shadow-lg border-0 bg-white d-flex flex-column">
@@ -42,7 +42,7 @@
                     <div class="card-body p-4 pt-4 flex-grow-1">
                         {% for lomba in info_lomba_list %}
                         <div class="item-interactive-v11 d-flex align-items-center mb-4 pb-3 border-bottom border-light">
-                            <div class="date-minimalist text-center date-box-v13 me-5">
+                            <div class="date-minimalist text-center date-box-v12" style="margin-right: 1.8rem;">
                                 <span class="d-block fw-bold text-primary day-text-v12">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
                                 <span class="d-block text-muted month-text-v12">{{ lomba.tanggal_pelaksanaan|date:"M" }}</span>
                             </div>
@@ -120,7 +120,7 @@
             <div class="row g-4 g-lg-5 justify-content-center mb-lg-5">
                 {% for p_code, p_name, p_bg in prodi_data|slice:":3" %}
                 <div class="col-12 col-md-4 reveal-on-scroll"> 
-                    <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v13 text-decoration-none d-block">
+                    <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v13 text-decoration-none d-block border-blue-prodi">
                         <div class="icon-box-v12 mb-4 mx-auto">
                             {% if p_code == 'PTIK' %}<i class="fa fa-code"></i>
                             {% elif p_code == 'PTE' %}<i class="fa fa-bolt"></i>
@@ -137,7 +137,7 @@
             <div class="row g-4 g-lg-5 justify-content-center mt-3 mt-lg-0">
                 {% for p_code, p_name, p_bg in prodi_data|slice:"3:5" %}
                 <div class="col-12 col-md-4 reveal-on-scroll"> 
-                    <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v13 text-decoration-none d-block">
+                    <a href="{% url 'list_materi' %}?prodi={{ p_code }}" class="prodi-card-v13 text-decoration-none d-block border-blue-prodi">
                         <div class="icon-box-v12 mb-4 mx-auto">
                             {% if p_code == 'PTIK' %}<i class="fa fa-code"></i>
                             {% elif p_code == 'PTE' %}<i class="fa fa-bolt"></i>
@@ -161,21 +161,25 @@
 
     /* --- LOGIKA KHUSUS LAPTOP --- */
     @media (min-width: 1201px) {
-        /* Note 1: Judul diturunkan namun posisi relatif konten dinaikkan agar pas */
         .hero-modern { height: 100vh !important; }
-        .hero-content { padding-top: 250px !important; } /* Dinaikkan dari revisi sebelumnya */
+        /* Note 1: Judul dan konten dinaikkan lagi (padding-top dikurangi) */
+        .hero-content { padding-top: 220px !important; } 
         
-        .hero-brand-title-v13 { font-size: 4.8rem !important; } 
-        /* Note 2 & 5: Font deskripsi dan library diperkecil */
-        .hero-description-v13 { font-size: 1.3rem !important; max-width: 750px; font-weight: 700 !important; }
+        /* Note 1: Font judul diperkecil (dari 4.8rem ke 4rem) */
+        .hero-brand-title-v14 { font-size: 4rem !important; } 
+        
+        .hero-description-v12 { font-size: 1.25rem; max-width: 700px; }
         .library-title-v12 { font-size: 2.1rem !important; }
-        
-        /* Note 4: Ukuran kartu prodi laptop diperkecil */
         .prodi-card-v13 { padding: 40px 20px; border-radius: 30px; }
         .icon-box-v12 { width: 80px; height: 80px; font-size: 2rem; }
         .prodi-title-v12 { font-size: 1.4rem !important; }
         
-        .overlap-up-v13 { margin-top: -30px !important; }
+        /* Font kartu laptop */
+        .card-header-font-v12 { font-size: 1.35rem !important; }
+        .item-title-v12 { font-size: 1.1rem !important; }
+        .small-text-v12 { font-size: 0.8rem !important; }
+        
+        .overlap-up-v12 { margin-top: -30px !important; }
     }
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP --- */
@@ -184,53 +188,61 @@
         .hero-modern { height: 50vh !important; min-height: 450px !important; }
         .hero-content { padding-top: 180px !important; }
         
-        /* Note 3: Jarak antar kartu ditambah */
         .info-card-wrapper { row-gap: 4.5rem !important; }
         
-        .hero-brand-title-v13 { font-size: 5.5rem; letter-spacing: 6px; }
-        /* Note 2: Font deskripsi HP diperbesar */
-        .hero-description-v13 { font-size: 1.6rem !important; max-width: 90%; font-weight: 700 !important; }
+        /* Di HP tetap besar */
+        .hero-brand-title-v14 { font-size: 5.5rem; letter-spacing: 6px; }
+        .hero-description-v12 { font-size: 1.6rem !important; max-width: 90%; font-weight: 700 !important; }
         
         .prodi-card-v13 { padding: 75px 40px; border-radius: 60px; }
         .icon-box-v12 { width: 140px; height: 140px; font-size: 4.8rem; }
         .library-title-v12 { font-size: 3.8rem !important; }
     }
 
-    /* --- GLOBAL CSS & ANIMASI SLIDESHOW --- */
+    /* --- GLOBAL CSS --- */
     .hero-modern { position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #fff; }
     
-    /* Note 2: Perbaikan Transparansi dan Transisi Foto agar bergantian lancar */
-    .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: smoothSlideshow 15s infinite linear; }
-    @keyframes smoothSlideshow { 
-        0% { opacity: 0; } 5% { opacity: 1; } 33% { opacity: 1; } 38% { opacity: 0; } 100% { opacity: 0; } 
+    /* Note 2: Animasi Slideshow Diperbaiki (Pastikan nama keyframe unik) */
+    .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: sliderAnimation 15s infinite linear; }
+    
+    @keyframes sliderAnimation { 
+        0% { opacity: 0; } 
+        5% { opacity: 1; } 
+        33.33% { opacity: 1; } 
+        38.33% { opacity: 0; } 
+        100% { opacity: 0; } 
     }
-    .slide-1 { animation-delay: 0s; z-index: 3; } .slide-2 { animation-delay: 5s; z-index: 2; } .slide-3 { animation-delay: 10s; z-index: 1; }
+    
+    .slide-1 { animation-delay: 0s; z-index: 3; } 
+    .slide-2 { animation-delay: 5s; z-index: 2; } 
+    .slide-3 { animation-delay: 10s; z-index: 1; }
 
-    .hero-overlay-premium { 
+    .hero-overlay-white-v4 { 
         position: absolute; width: 100%; height: 100%; 
-        background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.75) 40%, #f8fafc 100%); 
+        background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.4) 40%, #f8fafc 100%); 
         z-index: 4; pointer-events: none; 
     }
+    .hero-content { position: relative; z-index: 10; }
 
-    /* Note 6: Button Cari Materi Biru dengan Border Capsul */
-    .btn-cari-v13 { 
-        background: linear-gradient(45deg, #3b82f6, #2563eb) !important; 
-        color: #fff !important; padding: 18px 55px; font-size: 1.2rem; border: 2px solid #fff; 
-    }
-
+    .btn-cari-v12 { background: #000 !important; color: #fff !important; padding: 18px 55px; font-size: 1.2rem; border: 2px solid #fff; }
+    
     .btn-animate-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
     .btn-animate-hover:hover { transform: scale(1.06) translateY(-5px) !important; box-shadow: 0 15px 35px rgba(0,0,0,0.12) !important; }
 
     .btn-pill-animate-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; }
     .btn-pill-animate-red { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; }
+    /* Note 3: Class text-white ditambahkan langsung di HTML button */
     .text-white { color: #fff !important; }
 
-    .prodi-card-v13 { 
-        background: #fff; text-align: center; transition: 0.5s ease;
-        border: 2px solid rgba(59, 130, 246, 0.15) !important;
-    }
+    .border-blue-prodi { border: 2px solid #3b82f6 !important; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.05) !important; }
+    .prodi-card-v13 { background: #fff; transition: 0.5s; text-align: center; }
+    .prodi-card-v13:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15) !important; }
     .icon-box-v12 { border-radius: 40px; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; }
+
+    .card-modern-v11 { transition: 0.5s ease; border: 1px solid rgba(0,0,0,0.06) !important; overflow: hidden; border-radius: 50px !important; }
+    .item-interactive-v11 { transition: 0.3s; padding: 15px; border-radius: 25px; }
+    .item-interactive-v11:hover { background-color: #f8fafc; transform: translateX(10px); }
 
     .reveal-on-scroll { opacity: 0; transform: translateY(80px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
