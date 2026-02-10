@@ -50,8 +50,8 @@
 
 <section class="py-5 section-gray" style="min-height: 50vh;">
     <div class="container pb-5">
-        <div class="row g-4 d-flex align-items-stretch"> {% for lomba in info_lomba_list %}
-            <div class="col-lg-4 col-md-6 reveal-on-scroll">
+        <div class="row g-3 d-flex align-items-stretch"> {% for lomba in info_lomba_list %}
+            <div class="col-laptop-5 col-md-4 col-6 reveal-on-scroll">
                 <div class="card-lomba-v2 h-100 bg-white d-flex flex-column shadow-sm border-0">
                     <a href="{% url 'detail_lomba' lomba.id %}" class="text-decoration-none text-dark d-flex flex-column h-100">
                         
@@ -140,6 +140,17 @@
 <style>
     /* Hero & Layout Styles */
     .hero-library-modern { background: linear-gradient(rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.96)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; padding: 180px 0 60px 0; margin-top: -85px; position: relative; }
+    
+    /* Note 2: Menambah tinggi hero sedikit di HP mode desktop */
+    @media (max-width: 1200px) {
+        .hero-library-modern { padding: 210px 0 90px 0 !important; }
+    }
+
+    /* Note 1: Ukuran khusus untuk 5 kartu di laptop */
+    @media (min-width: 1201px) {
+        .col-laptop-5 { flex: 0 0 auto; width: 20%; }
+    }
+
     .hero-brand-title { font-family: 'Montserrat', sans-serif; letter-spacing: 4px; font-size: 1.8rem; }
     .glass-search-box { background: #ffffff; border-radius: 50px; max-width: 550px; padding: 4px; box-shadow: 0 8px 25px rgba(0,0,0,0.05) !important; border: 1px solid rgba(0,0,0,0.03); }
     .overlap-up-library { margin-top: -32px; position: relative; z-index: 100; }
@@ -162,13 +173,12 @@
     .poster-img { object-fit: cover; width: 100%; height: 100%; transition: transform 0.6s ease; }
     .card-lomba-v2:hover .poster-img { transform: scale(1.03); }
 
-    /* KUNCI UTAMA ALIGNMENT: Judul & Penyelenggara */
     .card-title-aligned {
         font-weight: 700;
-        font-size: 1rem;
+        font-size: 0.9rem; /* sedikit diperkecil agar pas 5 kolom */
         line-height: 1.4;
         color: #1e293b;
-        min-height: 2.8rem; /* Ruang tetap untuk 2 baris teks agar judul sejajar horizontal */
+        min-height: 2.6rem;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -176,22 +186,22 @@
     }
 
     .organizer-aligned {
-        min-height: 1.4rem; /* Ruang tetap agar info penyelenggara sejajar horizontal */
+        min-height: 1.4rem;
         display: flex;
         align-items: center;
     }
 
-    .badge-kategori { background-color: #eff6ff; color: #3b82f6; font-size: 0.6rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.5px; }
-    .status-dot-text { font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; }
+    .badge-kategori { background-color: #eff6ff; color: #3b82f6; font-size: 0.55rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; letter-spacing: 0.5px; }
+    .status-dot-text { font-size: 0.6rem; font-weight: 700; display: flex; align-items: center; }
     .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; }
     
-    .organizer-info small { font-size: 0.75rem; }
+    .organizer-info small { font-size: 0.7rem; }
     .shrink-0 { flex-shrink: 0; }
 
-    .icon-link-badge { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.75rem; }
+    .icon-link-badge { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-size: 0.7rem; }
     .bg-soft-danger { background: #fef2f2; } .bg-soft-info { background: #ecfeff; }
     
-    .btn-detail-arrow { font-size: 0.75rem; font-weight: 700; color: #2563eb; display: flex; align-items: center; padding: 4px 8px; border-radius: 6px; background: #eff6ff; transition: 0.2s; }
+    .btn-detail-arrow { font-size: 0.7rem; font-weight: 700; color: #2563eb; display: flex; align-items: center; padding: 3px 6px; border-radius: 6px; background: #eff6ff; transition: 0.2s; }
     .card-lomba-v2:hover .btn-detail-arrow { background: #2563eb; color: white; }
 
     .empty-state-box { max-width: 300px; padding: 30px; background: white; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }

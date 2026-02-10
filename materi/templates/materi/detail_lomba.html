@@ -24,7 +24,7 @@
     <div class="container overlap-up-detail">
         <div class="row g-4">
             
-            <div class="col-md-4 col-lg-4 animate-up delay-1">
+            <div class="col-lg-4 animate-up delay-1">
                 <div class="sticky-sidebar">
                     
                     <div class="card-modern shadow-sm border-0 mb-4 p-2">
@@ -86,7 +86,7 @@
                 </div>
             </div>
 
-            <div class="col-md-8 col-lg-8 animate-up delay-2">
+            <div class="col-lg-8 animate-up delay-2">
                 <div class="card-modern shadow-sm border-0 p-4 p-md-5">
                     <div class="row mb-4 pb-3 border-bottom g-3 align-items-center">
                         <div class="col-auto">
@@ -138,15 +138,6 @@
         background-size: cover; background-position: center; background-attachment: fixed;
         padding: 180px 0 100px 0; margin-top: -85px; position: relative;
     }
-
-    /* Note 2: Sedikit memperbesar ukuran hero di HP Mode Desktop */
-    @media (max-width: 1200px) {
-        .hero-lomba-detail {
-            padding: 210px 0 130px 0 !important;
-        }
-        .hero-title-detail { font-size: 2.2rem; }
-    }
-
     .hero-title-detail { font-size: 2.8rem; font-weight: 800; text-shadow: 0 4px 15px rgba(0,0,0,0.3); }
     .bg-soft-primary { background-color: #eff6ff; color: #3b82f6; }
     .section-gray { background-color: #fcfdfe; min-height: 60vh; }
@@ -199,16 +190,5 @@
     .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 </style>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { 
-                if (entry.isIntersecting) entry.target.classList.add('active'); 
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
-    });
-</script>
 
 {% endblock %}
