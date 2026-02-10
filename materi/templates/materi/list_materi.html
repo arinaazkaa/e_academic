@@ -106,18 +106,49 @@
                 <div class="divider-minimal mx-auto mt-2"></div>
             </div>
             
-            <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4 g-lg-5 justify-content-center">
-                {% for i in "12345" %} 
-                <div class="col reveal-on-scroll">
-                    <a href="?prodi={{ filter_prodi }}&semester={{ i }}" class="card-protrude-library-large text-decoration-none h-100">
-                        <div class="icon-circle-box-large mb-4 bg-soft-blue">
-                            <span class="fw-900 text-primary">{{ i }}</span>
-                        </div>
-                        <h4 class="fw-bold text-dark mb-2">SEMESTER {{ i }}</h4>
-                        <span class="btn-explore-link-bold">BUKA FOLDER <i class="fa fa-arrow-right ms-2"></i></span>
-                    </a>
+            <div class="layout-laptop">
+                <div class="row row-cols-lg-5 g-5 justify-content-center">
+                    {% for i in "12345" %} 
+                    <div class="col reveal-on-scroll">
+                        <a href="?prodi={{ filter_prodi }}&semester={{ i }}" class="card-protrude-library-large text-decoration-none h-100">
+                            <div class="icon-circle-box-large mb-4 bg-soft-blue">
+                                <span class="fw-900 text-primary">{{ i }}</span>
+                            </div>
+                            <h4 class="fw-bold text-dark mb-2">SEMESTER {{ i }}</h4>
+                            <span class="btn-explore-link-bold">BUKA FOLDER <i class="fa fa-arrow-right ms-2"></i></span>
+                        </a>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+            </div>
+
+            <div class="layout-hp">
+                <div class="row g-4 justify-content-center mb-4">
+                    {% for i in "123" %} 
+                    <div class="col-4 reveal-on-scroll">
+                        <a href="?prodi={{ filter_prodi }}&semester={{ i }}" class="card-protrude-library-large text-decoration-none h-100 d-block">
+                            <div class="icon-circle-box-large mb-4 bg-soft-blue">
+                                <span class="fw-900 text-primary">{{ i }}</span>
+                            </div>
+                            <h4 class="fw-bold text-dark mb-2">SEMESTER {{ i }}</h4>
+                            <span class="btn-explore-link-bold">BUKA FOLDER</span>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="row g-4 justify-content-center">
+                    {% for i in "45" %} 
+                    <div class="col-4 reveal-on-scroll">
+                        <a href="?prodi={{ filter_prodi }}&semester={{ i }}" class="card-protrude-library-large text-decoration-none h-100 d-block">
+                            <div class="icon-circle-box-large mb-4 bg-soft-blue">
+                                <span class="fw-900 text-primary">{{ i }}</span>
+                            </div>
+                            <h4 class="fw-bold text-dark mb-2">SEMESTER {{ i }}</h4>
+                            <span class="btn-explore-link-bold">BUKA FOLDER</span>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
 
         {% else %}
@@ -245,35 +276,12 @@
         .icon-box-v12 { width: 90px !important; height: 90px !important; font-size: 2.2rem !important; }
         .prodi-title-v12 { font-size: 1.5rem !important; }
         
-        /* Note 4: Animasi & Style Semester Card Laptop */
-        .card-protrude-library-large { 
-            padding: 40px 20px !important; 
-            border-radius: 30px !important; 
-            text-align: center; 
-            background: #fff; 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.05); 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Efek membal saat hover */
-            border: 1px solid transparent;
-        }
-        .card-protrude-library-large:hover {
-            transform: translateY(-15px) scale(1.03); /* Naik dan membesar sedikit */
-            box-shadow: 0 30px 60px rgba(59, 130, 246, 0.15) !important; /* Bayangan lebih dalam */
-            border-color: #3b82f6;
-        }
-        .card-protrude-library-large:hover .icon-circle-box-large {
-            background-color: #3b82f6 !important; /* Ubah warna ikon saat hover */
-            color: #fff !important;
-            transform: rotateY(180deg); /* Ikon berputar */
-        }
-        .card-protrude-library-large:hover .fw-900.text-primary {
-            color: #fff !important;
-        }
-
-        .icon-circle-box-large { 
-            width: 80px !important; height: 80px !important; font-size: 2rem !important; 
-            border-radius: 25px !important; display: flex; align-items: center; justify-content: center; margin: 0 auto; 
-            transition: all 0.5s ease;
-        }
+        .card-protrude-library-large { padding: 40px 20px !important; border-radius: 30px !important; text-align: center; background: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.05); transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .icon-circle-box-large { width: 80px !important; height: 80px !important; font-size: 2rem !important; border-radius: 25px !important; display: flex; align-items: center; justify-content: center; margin: 0 auto; transition: 0.2s; }
+        
+        /* Note 4: Animasi Tekan Laptop */
+        .card-protrude-library-large:active { transform: scale(0.95); background-color: #eff6ff; }
+        .card-protrude-library-large:active .icon-circle-box-large { background-color: #dbeafe !important; }
     }
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP & MOBILE --- */
@@ -287,11 +295,7 @@
         .layout-laptop { display: none; }
         .layout-hp { display: block; }
 
-        .hero-brand-title-large { 
-            font-size: 2rem !important; 
-            letter-spacing: 2px !important; 
-            white-space: nowrap !important; 
-        }
+        .hero-brand-title-large { font-size: 2rem !important; letter-spacing: 2px !important; white-space: nowrap !important; }
         .hero-description { font-size: 1.3rem !important; font-weight: 600 !important; max-width: 95% !important; }
         
         .hero-content { padding-top: 110px !important; }
@@ -303,9 +307,12 @@
         .hp-row-gap { margin-bottom: 5rem !important; } 
         .g-5 { --bs-gutter-y: 2rem !important; }
 
-        /* Semester Card HP */
-        .card-protrude-library-large { padding: 60px 20px !important; border-radius: 45px !important; text-align: center; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.06); transition: 0.3s; display: block; }
-        .icon-circle-box-large { width: 110px !important; height: 110px !important; font-size: 3rem !important; border-radius: 35px !important; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+        .card-protrude-library-large { padding: 60px 20px !important; border-radius: 45px !important; text-align: center; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.06); transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: block; }
+        .icon-circle-box-large { width: 110px !important; height: 110px !important; font-size: 3rem !important; border-radius: 35px !important; display: flex; align-items: center; justify-content: center; margin: 0 auto; transition: 0.2s; }
+        
+        /* Note 4: Animasi Tekan HP */
+        .card-protrude-library-large:active { transform: scale(0.92); background-color: #eff6ff; }
+        .card-protrude-library-large:active .icon-circle-box-large { background-color: #dbeafe !important; }
     }
 
     /* --- GLOBAL CSS --- */
