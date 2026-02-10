@@ -206,12 +206,16 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
 
+    /* Note 1: Navbar Konsisten dengan Home */
+    .navbar .container-fluid { justify-content: space-between !important; padding: 0 15px !important; }
+    .navbar-brand { margin-right: auto !important; }
+    #navbarNav { margin-left: auto !important; }
+
     /* --- LOGIKA KHUSUS LAPTOP (Standard Desktop) --- */
     @media (min-width: 1201px) {
-        /* Note 1: Navbar disamakan dengan Beranda */
+        /* Reset Navbar Laptop agar normal */
         .navbar .container-fluid { padding: 0 15px !important; }
-        .navbar-brand { margin-right: auto !important; }
-
+        
         .hero-library-modern { height: 60vh !important; min-height: 500px !important; }
         .hero-content { padding-top: 150px !important; }
         .hero-brand-title-large { font-size: 2.5rem !important; }
@@ -233,26 +237,11 @@
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP & MOBILE --- */
     @media (max-width: 1200px) {
-        /* Note 1: Navbar disamakan dengan Beranda (Mepet Kiri Kanan) */
-        .navbar .container-fluid { 
-            padding-left: 0 !important; 
-            padding-right: 0 !important; 
-            justify-content: space-between !important;
-        }
-        .navbar-brand { 
-            margin-left: 0 !important; 
-            padding-left: 5px !important;
-        }
-        .navbar-nav { 
-            margin-right: 0 !important; 
-            padding-right: 5px !important;
-            flex-direction: row !important;
-            gap: 15px !important;
-        }
+        /* Note 1: Navbar HP Mepet Kiri-Kanan (Persis Home) */
+        .navbar .container-fluid { padding-left: 0 !important; padding-right: 0 !important; }
+        .navbar-brand { margin-left: 0 !important; padding-left: 5px !important; }
+        .navbar-nav { margin-right: 0 !important; padding-right: 5px !important; flex-direction: row !important; gap: 15px !important; }
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
-        
-        .nav-link { font-size: 0.95rem !important; font-weight: 800 !important; white-space: nowrap !important; }
-        .btn-pendataan { font-size: 0.95rem !important; padding: 8px 15px !important; }
         .navbar-toggler { display: none !important; }
         
         /* Layout Toggle */
@@ -262,16 +251,14 @@
         .hero-brand-title-large { font-size: 3.8rem !important; letter-spacing: 10px !important; }
         .hero-description { font-size: 1.3rem !important; font-weight: 600 !important; max-width: 95% !important; }
         
-        /* Note 2: Tinggi BG Foto di HP sedikit dikurangi (35vh -> 30vh) */
-        .hero-library-modern { height: 30vh !important; min-height: 250px !important; }
+        /* Note 2: Tinggi Hero HP dikurangi jadi 25vh */
+        .hero-library-modern { height: 25vh !important; min-height: 280px !important; }
         .hero-content { padding-top: 60px !important; }
         
-        /* Prodi HP */
+        /* Prodi HP (Tetap sesuai request) */
         .prodi-card-giant-v13 { padding: 80px 40px !important; border-radius: 55px !important; }
         .icon-box-giant-v13 { width: 140px !important; height: 140px !important; font-size: 4.5rem !important; }
-        .prodi-title-responsive { font-size: 2.2rem !important; }
-
-        /* Jarak vertikal antar kartu (atas-bawah) di HP Desktop */
+        
         .hp-row-gap { margin-bottom: 5rem !important; } 
         .g-5 { --bs-gutter-y: 4rem !important; }
 
