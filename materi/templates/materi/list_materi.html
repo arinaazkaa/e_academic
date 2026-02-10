@@ -45,10 +45,10 @@
         <div class="d-flex justify-content-center animate-up delay-2">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb custom-breadcrumb-pill px-3 py-1 shadow-sm bg-white m-0">
-                    <li class="breadcrumb-item"><a href="{% url 'list_materi' %}" class="breadcrumb-link-anim">Library</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'list_materi' %}">Library</a></li>
                     {% if filter_prodi %}
                         <li class="breadcrumb-item {% if not filter_semester %}active{% endif %}">
-                            <a href="?prodi={{ filter_prodi }}" class="breadcrumb-link-anim">{{ filter_prodi }}</a>
+                            <a href="?prodi={{ filter_prodi }}">{{ filter_prodi }}</a>
                         </li>
                     {% endif %}
                     {% if filter_semester %}
@@ -107,7 +107,7 @@
             </div>
             
             <div class="semester-grid-wrapper">
-                <div class="row g-4 justify-content-center">
+                <div class="row g-4 gy-5 justify-content-center">
                     {% for i in "12345" %} 
                     <div class="col-4 col-lg-custom-5 reveal-on-scroll">
                         <a href="?prodi={{ filter_prodi }}&semester={{ i }}" class="card-protrude-library-large text-decoration-none h-100">
@@ -231,19 +231,19 @@
     .navbar-brand { margin-right: auto !important; }
     #navbarNav { margin-left: auto !important; }
 
-    /* Note 3: Animasi Breadcrumb Link */
-    .breadcrumb-link-anim {
+    /* Note 3: Animasi Breadcrumb (Tekan & Tidak Hilang) */
+    .breadcrumb-item a {
         text-decoration: none;
-        color: #6c757d; /* Warna default */
-        transition: all 0.2s ease-in-out;
+        color: #3b82f6; /* Warna default biru */
         display: inline-block;
+        transition: transform 0.1s ease, color 0.1s ease;
     }
-    .breadcrumb-link-anim:hover {
-        color: #3b82f6; /* Warna hover */
+    .breadcrumb-item a:active {
+        transform: scale(0.95); /* Efek tekan */
+        color: #2563eb; /* Warna sedikit lebih gelap saat ditekan */
     }
-    .breadcrumb-link-anim:active {
-        transform: scale(0.95); /* Efek tekan (mengecil sedikit) */
-        color: #1d4ed8; /* Warna saat ditekan */
+    .breadcrumb-item.active {
+        color: #6c757d; /* Warna untuk item aktif (tidak bisa diklik) */
     }
 
     /* --- LOGIKA KHUSUS LAPTOP --- */
@@ -258,19 +258,21 @@
         .layout-laptop { display: block; }
         .layout-hp { display: none; }
 
-        /* Note 1: Bentuk kartu di laptop dibuat lebih kotak (mirip HP) */
-        /* Menggunakan border-radius yg lebih kecil dari sebelumnya (tadi 30px, skrg 20px atau disesuaikan) */
-        .prodi-card-v12 { 
-            padding: 40px 20px !important; 
-            border-radius: 25px !important; /* Dibuat sedikit lebih kotak */
-            height: 100%;
-        }
+        .prodi-card-v12 { padding: 40px 20px !important; border-radius: 30px !important; }
         .icon-box-v12 { width: 90px !important; height: 90px !important; font-size: 2.2rem !important; }
         .prodi-title-v12 { font-size: 1.5rem !important; }
         
         .col-lg-custom-5 { flex: 0 0 auto; width: 20%; } 
         
-        .card-protrude-library-large { padding: 40px 20px !important; border-radius: 30px !important; text-align: center; background: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.05); transition: 0.3s; }
+        /* Note 1: Bentuk Kartu Semester Laptop dibuat kotak (Padding ditambah) */
+        .card-protrude-library-large { 
+            padding: 60px 20px !important; /* Padding diperbesar agar kotak */
+            border-radius: 40px !important; 
+            text-align: center; 
+            background: #fff; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05); 
+            transition: 0.3s; 
+        }
         .icon-circle-box-large { width: 80px !important; height: 80px !important; font-size: 2rem !important; border-radius: 25px !important; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
     }
 
@@ -336,9 +338,19 @@
 
     .icon-box-giant-v13, .icon-box-v12, .icon-circle-box-large { display: flex; align-items: center; justify-content: center; transition: 0.4s; }
     
-    .materi-row-hover { transition: all 0.3s ease; border-left: 4px solid transparent; }
-    .materi-row-hover:hover { background-color: #f8fafc; border-left-color: #3b82f6; transform: translateX(5px); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-    .materi-row-hover:active { background-color: #eff6ff; }
+    .materi-row-hover {
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
+    .materi-row-hover:hover {
+        background-color: #f8fafc; 
+        border-left-color: #3b82f6; 
+        transform: translateX(5px); 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .materi-row-hover:active {
+        background-color: #eff6ff;
+    }
 
     .overlap-up-library { margin-top: -50px; position: relative; z-index: 100; }
     .glass-search-box { background: #ffffff; border-radius: 60px; max-width: 800px; padding: 10px; border: 1px solid rgba(0,0,0,0.05); }
