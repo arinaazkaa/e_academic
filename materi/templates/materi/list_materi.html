@@ -182,24 +182,6 @@
                         {% endfor %}
                     </div>
 
-                    <div class="row g-5 justify-content-center mb-5 hp-row-gap">
-                        {% for p_code, p_name, p_bg in prodi_data|slice:"2:4" %}
-                        <div class="col-12 col-md-6 reveal-on-scroll">
-                            <a href="?prodi={{ p_code }}" class="prodi-card-giant-v13 text-decoration-none d-block">
-                                <div class="icon-box-giant-v13 mb-4 mx-auto" style="background-color: {{ p_bg }}20;">
-                                    {% if p_code == 'PTIK' %}<i class="fa fa-code" style="color: #3b82f6;"></i>
-                                    {% elif p_code == 'PTE' %}<i class="fa fa-bolt" style="color: #dc2626;"></i>
-                                    {% elif p_code == 'TE' %}<i class="fa fa-cogs" style="color: #7c3aed;"></i>
-                                    {% elif p_code == 'TK' %}<i class="fa fa-microchip" style="color: #059669;"></i>
-                                    {% else %}<i class="fa fa-university" style="color: #d97706;"></i>{% endif %}
-                                </div>
-                                <h2 class="fw-900 text-dark mb-2">{{ p_name }}</h2>
-                                <span class="btn-explore-link-bold">BUKA FOLDER <i class="fa fa-folder-open ms-2"></i></span>
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>
-
                     <div class="row g-5 justify-content-center hp-row-gap">
                         {% for p_code, p_name, p_bg in prodi_data|slice:"4:5" %}
                         <div class="col-12 col-md-8 reveal-on-scroll">
@@ -226,7 +208,10 @@
 
     /* --- LOGIKA KHUSUS LAPTOP (Standard Desktop) --- */
     @media (min-width: 1201px) {
-        .navbar { padding: 10px 80px !important; }
+        /* Note 1: Navbar disamakan dengan Beranda */
+        .navbar .container-fluid { padding: 0 15px !important; }
+        .navbar-brand { margin-right: auto !important; }
+
         .hero-library-modern { height: 60vh !important; min-height: 500px !important; }
         .hero-content { padding-top: 150px !important; }
         .hero-brand-title-large { font-size: 2.5rem !important; }
@@ -248,10 +233,24 @@
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP & MOBILE --- */
     @media (max-width: 1200px) {
-        .navbar { padding: 15px 5px !important; }
-        .container-fluid.nav-container { padding: 0 15px !important; width: 100% !important; max-width: 100% !important; }
-        .navbar-brand { font-size: 1.4rem !important; font-weight: 900 !important; margin-left: -5px !important; }
-        .navbar-nav { flex-direction: row !important; gap: 15px !important; margin-right: -5px !important; }
+        /* Note 1: Navbar disamakan dengan Beranda (Mepet Kiri Kanan) */
+        .navbar .container-fluid { 
+            padding-left: 0 !important; 
+            padding-right: 0 !important; 
+            justify-content: space-between !important;
+        }
+        .navbar-brand { 
+            margin-left: 0 !important; 
+            padding-left: 5px !important;
+        }
+        .navbar-nav { 
+            margin-right: 0 !important; 
+            padding-right: 5px !important;
+            flex-direction: row !important;
+            gap: 15px !important;
+        }
+        #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
+        
         .nav-link { font-size: 0.95rem !important; font-weight: 800 !important; white-space: nowrap !important; }
         .btn-pendataan { font-size: 0.95rem !important; padding: 8px 15px !important; }
         .navbar-toggler { display: none !important; }
@@ -262,7 +261,9 @@
 
         .hero-brand-title-large { font-size: 3.8rem !important; letter-spacing: 10px !important; }
         .hero-description { font-size: 1.3rem !important; font-weight: 600 !important; max-width: 95% !important; }
-        .hero-library-modern { height: 35vh !important; min-height: 300px !important; }
+        
+        /* Note 2: Tinggi BG Foto di HP sedikit dikurangi (35vh -> 30vh) */
+        .hero-library-modern { height: 30vh !important; min-height: 250px !important; }
         .hero-content { padding-top: 60px !important; }
         
         /* Prodi HP */
@@ -270,10 +271,8 @@
         .icon-box-giant-v13 { width: 140px !important; height: 140px !important; font-size: 4.5rem !important; }
         .prodi-title-responsive { font-size: 2.2rem !important; }
 
-        /* UPDATE: Tambah jarak vertikal antar kartu (atas-bawah) di HP Desktop */
-        /* Memaksa margin bottom lebih besar antar baris */
+        /* Jarak vertikal antar kartu (atas-bawah) di HP Desktop */
         .hp-row-gap { margin-bottom: 5rem !important; } 
-        /* Memaksa jarak gutter Bootstrap lebih lebar */
         .g-5 { --bs-gutter-y: 4rem !important; }
 
         /* Semester Card HP */
@@ -312,14 +311,14 @@
 </style>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { 
-                if (entry.isIntersecting) entry.target.classList.add('active'); 
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
-    });
+    document.addEventListener("DOMContentLoaded", function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) entry.target.classList.add('active'); 
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
+    });
 </script>
 
 {% endblock %}
