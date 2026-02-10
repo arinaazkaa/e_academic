@@ -107,7 +107,7 @@
             </div>
             
             <div class="semester-grid-wrapper">
-                <div class="row g-4 g-lg-5 justify-content-center">
+                <div class="row g-4 g-lg-5 justify-content-center semester-gap-responsive">
                     {% for i in "12345" %} 
                     <div class="col-4 col-lg-custom-5 reveal-on-scroll">
                         <a href="?prodi={{ filter_prodi }}&semester={{ i }}" class="card-protrude-library-large text-decoration-none h-100">
@@ -315,11 +315,12 @@
         .icon-box-giant-v13 { width: 100px !important; height: 100px !important; font-size: 3.5rem !important; }
         
         .hp-row-gap { margin-bottom: 5rem !important; } 
+        
+        /* Note 1: Jarak Antar Baris Semester HP */
+        /* Menggunakan class khusus semester-gap-responsive untuk menambah gutter vertical */
+        .semester-gap-responsive { --bs-gutter-y: 3.5rem !important; } 
+        
         .g-5 { --bs-gutter-y: 2rem !important; }
-
-        /* Note 3: Perbaikan jarak antar baris semester di HP */
-        /* Meningkatkan gutter-y untuk row semester (g-4) agar baris 1 & 2 tidak mepet */
-        .g-4 { --bs-gutter-y: 3rem !important; } 
 
         .card-protrude-library-large { padding: 60px 20px !important; border-radius: 45px !important; text-align: center; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.06); transition: 0.3s; display: block; }
         .icon-circle-box-large { width: 110px !important; height: 110px !important; font-size: 3rem !important; border-radius: 35px !important; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
