@@ -182,6 +182,24 @@
                         {% endfor %}
                     </div>
 
+                    <div class="row g-5 justify-content-center mb-5 hp-row-gap">
+                        {% for p_code, p_name, p_bg in prodi_data|slice:"2:4" %}
+                        <div class="col-12 col-md-6 reveal-on-scroll">
+                            <a href="?prodi={{ p_code }}" class="prodi-card-giant-v13 text-decoration-none d-block">
+                                <div class="icon-box-giant-v13 mb-4 mx-auto" style="background-color: {{ p_bg }}20;">
+                                    {% if p_code == 'PTIK' %}<i class="fa fa-code" style="color: #3b82f6;"></i>
+                                    {% elif p_code == 'PTE' %}<i class="fa fa-bolt" style="color: #dc2626;"></i>
+                                    {% elif p_code == 'TE' %}<i class="fa fa-cogs" style="color: #7c3aed;"></i>
+                                    {% elif p_code == 'TK' %}<i class="fa fa-microchip" style="color: #059669;"></i>
+                                    {% else %}<i class="fa fa-university" style="color: #d97706;"></i>{% endif %}
+                                </div>
+                                <h2 class="fw-900 text-dark mb-2">{{ p_name }}</h2>
+                                <span class="btn-explore-link-bold">BUKA FOLDER <i class="fa fa-folder-open ms-2"></i></span>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+
                     <div class="row g-5 justify-content-center hp-row-gap">
                         {% for p_code, p_name, p_bg in prodi_data|slice:"4:5" %}
                         <div class="col-12 col-md-8 reveal-on-scroll">
@@ -248,7 +266,8 @@
         .layout-laptop { display: none; }
         .layout-hp { display: block; }
 
-        .hero-brand-title-large { font-size: 3.8rem !important; letter-spacing: 10px !important; }
+        /* Note 1: Font judul library diperkecil jadi 3rem */
+        .hero-brand-title-large { font-size: 3rem !important; letter-spacing: 10px !important; }
         .hero-description { font-size: 1.3rem !important; font-weight: 600 !important; max-width: 95% !important; }
         
         /* Note 2: Tinggi Hero HP dikurangi jadi 25vh */
