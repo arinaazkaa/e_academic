@@ -114,7 +114,7 @@
                             <div class="icon-circle-box-large mb-4 bg-soft-blue">
                                 <span class="fw-900 text-primary">{{ i }}</span>
                             </div>
-                            <h4 class="fw-bold text-dark mb-2">SEMESTER {{ i }}</h4>
+                            <h4 class="fw-bold text-dark mb-2 semester-title">SEMESTER {{ i }}</h4>
                             <span class="btn-explore-link-bold">BUKA FOLDER <i class="fa fa-arrow-right ms-2"></i></span>
                         </a>
                     </div>
@@ -231,7 +231,6 @@
     .navbar-brand { margin-right: auto !important; }
     #navbarNav { margin-left: auto !important; }
 
-    /* Note 3: Animasi Breadcrumb (Tekan & Hover) */
     .breadcrumb-item a {
         text-decoration: none;
         color: #6c757d;
@@ -244,12 +243,17 @@
         transform: translateY(-1px);
     }
     .breadcrumb-item a:active {
-        transform: scale(0.95); /* Efek tekan */
-        color: #1d4ed8; /* Biru lebih gelap saat ditekan agar tidak hilang */
+        transform: scale(0.95); 
+        color: #1d4ed8; 
     }
     .breadcrumb-item.active {
         font-weight: 900;
         color: #3b82f6;
+    }
+
+    /* Note 1: Global style untuk center alignment kartu prodi */
+    .prodi-card-v12, .prodi-card-giant-v13 {
+        text-align: center !important; /* Pastikan center */
     }
 
     /* --- LOGIKA KHUSUS LAPTOP --- */
@@ -268,10 +272,11 @@
         .icon-box-v12 { width: 90px !important; height: 90px !important; font-size: 2.2rem !important; }
         .prodi-title-v12 { font-size: 1.5rem !important; }
         
-        /* Note 1: Layout Laptop (5 Kartu sebaris) */
         .col-lg-custom-5 { flex: 0 0 auto; width: 20%; } 
         
-        /* Note 1: Bentuk Kotak di Laptop */
+        /* Note 2: Font "Semester" diperkecil di Laptop */
+        .semester-title { font-size: 1.2rem !important; }
+
         .card-protrude-library-large { 
             padding: 40px 20px !important; 
             border-radius: 30px !important; 
@@ -279,7 +284,7 @@
             background: #fff; 
             box-shadow: 0 15px 30px rgba(0,0,0,0.05); 
             transition: 0.3s;
-            height: 100%; /* Pastikan tinggi rata */
+            height: 100%; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -329,21 +334,18 @@
     .hero-overlay-refined { position: absolute; width: 100%; height: 100%; background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.85)); z-index: 4; }
     .hero-content { position: relative; z-index: 5; padding-top: 80px; }
 
-    /* Note 4: Animasi Kartu Prodi & Semester (Hover & Active) */
     .prodi-card-giant-v13, .prodi-card-v12, .card-protrude-library-large { 
         background: #fff; 
         border: 2px solid transparent; 
         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
     }
     
-    /* Efek Hover */
     .prodi-card-giant-v13:hover, .prodi-card-v12:hover, .card-protrude-library-large:hover { 
         transform: translateY(-8px); 
         border-color: #3b82f6; 
         box-shadow: 0 20px 40px rgba(59,130,246,0.15); 
     }
     
-    /* Efek Active (Klik): Warna Biru Muda */
     .prodi-card-giant-v13:active, .prodi-card-v12:active, .card-protrude-library-large:active {
         transform: scale(0.98);
         background-color: #eff6ff; 
@@ -352,7 +354,6 @@
 
     .icon-box-giant-v13, .icon-box-v12, .icon-circle-box-large { display: flex; align-items: center; justify-content: center; transition: 0.4s; }
     
-    /* Note 5: Animasi List Materi */
     .materi-row-hover {
         transition: all 0.3s ease;
         border-left: 4px solid transparent;
