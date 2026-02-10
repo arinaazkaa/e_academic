@@ -37,14 +37,14 @@
             
             <div class="col-12 col-lg-7 reveal-on-scroll">
                 <div class="card-modern-v11 h-100 shadow-lg border-0 bg-white d-flex flex-column">
-                    <div class="card-header-clean p-4 pb-0 d-flex justify-content-center"> 
+                    <div class="card-header-clean p-3 pb-0 d-flex justify-content-center"> 
                         <h3 class="fw-900 text-dark m-0 d-flex align-items-center card-header-font-v12">
                             <i class="fa fa-bullhorn text-primary me-3"></i> Info Lomba Terbaru
                         </h3>
                     </div>
-                    <div class="card-body p-4 pt-4 flex-grow-1">
+                    <div class="card-body px-3 py-2 flex-grow-1">
                         {% for lomba in info_lomba_list|slice:":3" %}
-                        <div class="item-interactive-v11 d-flex align-items-center mb-4 pb-3 border-bottom border-light">
+                        <div class="item-interactive-v11 d-flex align-items-center mb-3 pb-2 border-bottom border-light">
                             <div class="date-minimalist text-center date-box-v12" style="margin-right: 1.8rem;">
                                 <span class="d-block fw-bold text-primary day-text-v12">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
                                 <span class="d-block text-muted month-text-v12">{{ lomba.tanggal_pelaksanaan|date:"M" }}</span>
@@ -67,7 +67,7 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <div class="card-footer bg-white border-0 p-4 pt-0">
+                    <div class="card-footer bg-white border-0 p-3 pt-0">
                         <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-pill-animate-blue btn-animate-hover w-100 text-center text-decoration-none d-block text-white">
                             LIHAT SEMUA KOMPETISI
                         </a>
@@ -77,16 +77,16 @@
 
             <div class="col-12 col-lg-5 reveal-on-scroll" style="transition-delay: 0.2s;">
                 <div class="card-modern-v11 h-100 shadow-lg border-0 bg-white d-flex flex-column">
-                    <div class="card-header-clean d-flex justify-content-center align-items-center p-4 pb-0"> 
+                    <div class="card-header-clean d-flex justify-content-center align-items-center p-3 pb-0"> 
                         <h3 class="fw-900 text-dark m-0 card-header-font-v12">
                             <i class="fa fa-calendar-check-o text-primary me-3"></i> Agenda Akademik
                         </h3>
                     </div>
-                    <div class="card-body p-4 pt-0 flex-grow-1"> 
+                    <div class="card-body px-3 py-2 flex-grow-1"> 
                         <div class="text-center mb-2">
                             <a href="{% url 'kalender' %}" class="link-detail-v11 text-decoration-none">Detail</a>
                         </div>
-                        <div class="agenda-list-minimal mt-n3"> 
+                        <div class="agenda-list-minimal mt-n2"> 
                             {% for agenda in agenda_list|slice:":4" %}
                             <div class="item-interactive-v11 d-flex justify-content-between align-items-center py-3 border-bottom border-light last-no-border">
                                 <div class="d-flex align-items-center me-3">
@@ -100,7 +100,7 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="card-footer bg-white border-0 p-4 pt-0">
+                    <div class="card-footer bg-white border-0 p-3 pt-0">
                         <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-animate-red btn-animate-hover w-100 text-white">
                             <i class="fa fa-file-pdf-o me-2"></i> DOWNLOAD PDF KALENDER
                         </a>
@@ -164,7 +164,6 @@
 
     /* --- LOGIKA KHUSUS LAPTOP --- */
     @media (min-width: 1201px) {
-        /* Note 1 & 2: Di laptop tidak diubah (sesuai permintaan) */
         .navbar .container-fluid { padding: 0 15px !important; }
         .navbar-brand { margin-right: auto !important; }
         
@@ -175,8 +174,8 @@
         .overlap-up-v12 { margin-top: -100px !important; position: relative; z-index: 20; }
         .btn-cari-v12 { padding: 12px 35px !important; font-size: 1rem !important; }
         
-        /* Note 4: Ukuran kartu disamakan tingginya di laptop */
-        .card-modern-v11 { min-height: 520px !important; } 
+        /* Note 2 & 3: Tinggi dikurangi menjadi 460px agar pas dengan 3 list dan button naik */
+        .card-modern-v11 { min-height: 460px !important; } 
         
         .library-title-v12 { font-size: 2.1rem !important; }
         .prodi-card-v13 { padding: 40px 20px; border-radius: 30px; }
@@ -189,22 +188,18 @@
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP --- */
     @media (max-width: 1200px) {
-        /* Note 1 & 2: Navbar HP Mode Desktop */
-        /* Memaksa kontainer navbar mepet kiri kanan tanpa padding */
         .navbar .container-fluid { 
             padding-left: 0 !important; 
             padding-right: 0 !important; 
             justify-content: space-between !important;
         }
-        /* E-ACADEMIC Mepet Kiri */
         .navbar-brand { 
             margin-left: 0 !important; 
-            padding-left: 5px !important; /* Jarak aman sedikit */
+            padding-left: 5px !important;
         }
-        /* Menu Mepet Kanan */
         .navbar-nav { 
             margin-right: 0 !important; 
-            padding-right: 5px !important; /* Jarak aman sedikit */
+            padding-right: 5px !important;
             flex-direction: row !important;
             gap: 15px !important;
         }
@@ -212,13 +207,17 @@
 
         .hero-modern { height: 50vh !important; min-height: 450px !important; }
         .hero-content { padding-top: 130px !important; }
-        .overlap-up-v12 { margin-top: -60px !important; position: relative; z-index: 20; }
         
-        /* Note 3: Tulisan Electrical Academic diperkecil agar tidak mepet */
+        /* Note 4: Overlap ditambah (kartu naik lebih tinggi) jadi -90px */
+        .overlap-up-v12 { margin-top: -90px !important; position: relative; z-index: 20; }
+        
+        /* Note 5: Memberi jarak kosong sedikit antara kartu Lomba dan Agenda */
+        .info-card-wrapper { row-gap: 2rem !important; }
+        
         .hero-brand-title-v14 { 
-            font-size: 3.5rem !important; /* Dikecilkan sedikit */
+            font-size: 3.5rem !important;
             letter-spacing: 3px !important; 
-            max-width: 95% !important; /* Mencegah mepet kanan kiri */
+            max-width: 95% !important;
             margin-left: auto !important;
             margin-right: auto !important;
         }
@@ -226,7 +225,6 @@
         
         .btn-cari-v12 { padding: 18px 55px; font-size: 1.2rem; }
         
-        /* Note 5: Library tetap */
         .prodi-card-v13 { padding: 75px 40px; border-radius: 60px; }
         .icon-box-v12 { width: 140px; height: 140px; font-size: 4.8rem; }
         .library-title-v12 { font-size: 3.8rem !important; }
@@ -244,7 +242,7 @@
 
     .btn-cari-v12 { background: transparent !important; color: #fff !important; border: 2px solid #fff; }
     .btn-animate-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
-    .btn-animate-hover:hover { transform: scale(1.06) translateY(-5px) !important; box-shadow: 0 15px 35px rgba(255,255,255,0.2) !important; background: rgba(255,255,255,0.1) !important; }
+    .btn-animate-hover:hover { transform: scale(1.06) translateY(-5px) !important; box-shadow: 0 15px 35px rgba(255,255,255,0.12) !important; background: rgba(255,255,255,0.1) !important; }
 
     .btn-pill-animate-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; }
     .btn-pill-animate-red { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; }
@@ -263,7 +261,7 @@
     .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
     .section-gray { background-color: #f8fafc; }
     .fw-900 { font-weight: 900 !important; }
-    .mt-n3 { margin-top: -30px !important; }
+    .mt-n2 { margin-top: -10px !important; }
 </style>
 
 <script>
