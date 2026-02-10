@@ -34,6 +34,7 @@
 <section id="info-section" class="pt-5 pb-5 section-gray">
     <div class="container-fluid px-1 px-md-5 overlap-up-v12">
         <div class="row gx-0 info-card-wrapper justify-content-center">
+            
             <div class="col-12 col-lg-7 reveal-on-scroll">
                 <div class="card-modern-v11 h-100 shadow-lg border-0 bg-white d-flex flex-column">
                     <div class="card-header-clean p-4 pb-0 d-flex justify-content-center"> 
@@ -42,7 +43,7 @@
                         </h3>
                     </div>
                     <div class="card-body p-4 pt-4 flex-grow-1">
-                        {% for lomba in info_lomba_list %}
+                        {% for lomba in info_lomba_list|slice:":3" %}
                         <div class="item-interactive-v11 d-flex align-items-center mb-4 pb-3 border-bottom border-light">
                             <div class="date-minimalist text-center date-box-v12" style="margin-right: 1.8rem;">
                                 <span class="d-block fw-bold text-primary day-text-v12">{{ lomba.tanggal_pelaksanaan|date:"d" }}</span>
@@ -75,18 +76,18 @@
             </div>
 
             <div class="col-12 col-lg-5 reveal-on-scroll" style="transition-delay: 0.2s;">
-                <div class="card-modern-v11 h-100 shadow-lg border-0 bg-white">
+                <div class="card-modern-v11 h-100 shadow-lg border-0 bg-white d-flex flex-column">
                     <div class="card-header-clean d-flex justify-content-center align-items-center p-4 pb-0"> 
                         <h3 class="fw-900 text-dark m-0 card-header-font-v12">
                             <i class="fa fa-calendar-check-o text-primary me-3"></i> Agenda Akademik
                         </h3>
                     </div>
-                    <div class="card-body p-4 pt-0"> 
+                    <div class="card-body p-4 pt-0 flex-grow-1"> 
                         <div class="text-center mb-2">
                             <a href="{% url 'kalender' %}" class="link-detail-v11 text-decoration-none">Detail</a>
                         </div>
                         <div class="agenda-list-minimal mt-n3"> 
-                            {% for agenda in agenda_list %}
+                            {% for agenda in agenda_list|slice:":4" %}
                             <div class="item-interactive-v11 d-flex justify-content-between align-items-center py-3 border-bottom border-light last-no-border">
                                 <div class="d-flex align-items-center me-3">
                                     <div class="status-dot-modern dot-{{ agenda.warna }} me-3"></div>
@@ -98,14 +99,15 @@
                             </div>
                             {% endfor %}
                         </div>
-                        <div class="mt-4">
-                            <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-animate-red btn-animate-hover w-100 text-white">
-                                <i class="fa fa-file-pdf-o me-2"></i> DOWNLOAD PDF KALENDER
-                            </a>
-                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-0 p-4 pt-0">
+                        <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-animate-red btn-animate-hover w-100 text-white">
+                            <i class="fa fa-file-pdf-o me-2"></i> DOWNLOAD PDF KALENDER
+                        </a>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </section>
@@ -161,78 +163,52 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; background-color: #fff; }
 
+    /* --- Note 1 & 2: Navbar Layout Fix --- */
+    .navbar .container-fluid { justify-content: space-between !important; padding: 0 15px !important; }
+    .navbar-brand { margin-right: auto !important; padding-left: 0 !important; }
+    #navbarNav { margin-left: auto !important; display: flex; justify-content: flex-end; }
+    .navbar-nav { margin-left: auto !important; gap: 10px; }
+
     /* --- LOGIKA KHUSUS LAPTOP --- */
     @media (min-width: 1201px) {
         .hero-modern { height: 100vh !important; }
-        /* UPDATE: Menaikkan posisi judul (padding-top dikurangi) */
         .hero-content { padding-top: 160px !important; } 
-        
         .hero-brand-title-v14 { font-size: 4rem !important; } 
         .hero-description-v12 { font-size: 1.25rem; max-width: 700px; }
-        .library-title-v12 { font-size: 2.1rem !important; }
-        .prodi-card-v13 { padding: 40px 20px; border-radius: 30px; }
-        .icon-box-v12 { width: 80px; height: 80px; font-size: 2rem; }
-        .prodi-title-v12 { font-size: 1.4rem !important; }
-        
-        /* Font kartu laptop */
-        .card-header-font-v12 { font-size: 1.35rem !important; }
-        .item-title-v12 { font-size: 1.1rem !important; }
-        .small-text-v12 { font-size: 0.8rem !important; }
-        
-        /* UPDATE: Menumpang di atas header foto */
         .overlap-up-v12 { margin-top: -100px !important; position: relative; z-index: 20; }
-        
         .btn-cari-v12 { padding: 12px 35px !important; font-size: 1rem !important; }
+        
+        /* Note 3: Menyamakan tinggi kartu */
+        .card-modern-v11 { min-height: 520px; } 
     }
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP --- */
     @media (max-width: 1200px) {
         .navbar { padding: 15px 5px !important; } 
         .hero-modern { height: 50vh !important; min-height: 450px !important; }
-        /* UPDATE: Menaikkan posisi judul di HP */
         .hero-content { padding-top: 130px !important; }
+        .overlap-up-v12 { margin-top: -60px !important; position: relative; z-index: 20; }
         
-        .info-card-wrapper { row-gap: 4.5rem !important; }
-        
-        .hero-brand-title-v14 { font-size: 5.5rem; letter-spacing: 6px; }
-        .hero-description-v12 { font-size: 1.6rem !important; max-width: 90%; font-weight: 700 !important; }
-        
-        .prodi-card-v13 { padding: 75px 40px; border-radius: 60px; }
-        .icon-box-v12 { width: 140px; height: 140px; font-size: 4.8rem; }
-        .library-title-v12 { font-size: 3.8rem !important; }
+        /* Note 5: ELECTRICAL ACADEMIC diperkecil di HP agar muat & tidak mepet ujung */
+        .hero-brand-title-v14 { font-size: 3.2rem !important; letter-spacing: 2px !important; padding: 0 15px; }
+        .hero-description-v12 { font-size: 1.3rem !important; max-width: 85%; }
         
         .btn-cari-v12 { padding: 18px 55px; font-size: 1.2rem; }
-
-        /* UPDATE: Menumpang di atas header foto di HP */
-        .overlap-up-v12 { margin-top: -60px !important; position: relative; z-index: 20; }
     }
 
     /* --- GLOBAL CSS --- */
     .hero-modern { position: relative; display: flex; align-items: center; justify-content: center; margin-top: -85px; overflow: hidden; }
-    
     .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: #000; }
-    .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: sliderAnimation 15s infinite linear; }
-    
-    @keyframes sliderAnimation { 
-        0% { opacity: 0; } 5% { opacity: 1; } 33.33% { opacity: 1; } 38.33% { opacity: 0; } 100% { opacity: 0; } 
-    }
-    
-    .slide-1 { animation-delay: 0s; z-index: 1; } 
-    .slide-2 { animation-delay: 5s; z-index: 1; } 
-    .slide-3 { animation-delay: 10s; z-index: 1; }
+    .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: smoothSlideshow 15s infinite linear; }
+    @keyframes smoothSlideshow { 0% { opacity: 0; } 5% { opacity: 1; } 33.33% { opacity: 1; } 38.33% { opacity: 0; } 100% { opacity: 0; } }
+    .slide-1 { animation-delay: 0s; z-index: 3; } .slide-2 { animation-delay: 5s; z-index: 2; } .slide-3 { animation-delay: 10s; z-index: 1; }
 
-    /* Note: Overlay Hitam Transparan */
-    .hero-overlay-black { 
-        position: absolute; width: 100%; height: 100%; 
-        background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.9) 100%); 
-        z-index: 2; pointer-events: none; 
-    }
-    .hero-content { position: relative; z-index: 3; }
+    .hero-overlay-black { position: absolute; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.9) 100%); z-index: 4; pointer-events: none; }
+    .hero-content { position: relative; z-index: 10; }
 
     .btn-cari-v12 { background: transparent !important; color: #fff !important; border: 2px solid #fff; }
-    
     .btn-animate-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
-    .btn-animate-hover:hover { transform: scale(1.06) translateY(-5px) !important; box-shadow: 0 15px 35px rgba(255,255,255,0.2) !important; background: rgba(255,255,255,0.1) !important; }
+    .btn-animate-hover:hover { transform: scale(1.06) translateY(-5px) !important; box-shadow: 0 15px 35px rgba(255,255,255,0.12) !important; background: rgba(255,255,255,0.1) !important; }
 
     .btn-pill-animate-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; }
     .btn-pill-animate-red { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; }
@@ -240,7 +216,6 @@
 
     .border-gray-prodi { border: 2px solid #e2e8f0 !important; box-shadow: 0 10px 25px rgba(0,0,0,0.03) !important; }
     .prodi-card-v13 { background: #fff; transition: 0.5s; text-align: center; }
-    .prodi-card-v13:hover { transform: translateY(-12px); border-color: #3b82f6 !important; box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15) !important; }
     .icon-box-v12 { border-radius: 40px; background-color: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; }
 
     .card-modern-v11 { transition: 0.5s ease; border: 1px solid rgba(0,0,0,0.06) !important; overflow: hidden; border-radius: 50px !important; }
