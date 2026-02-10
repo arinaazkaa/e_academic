@@ -6,7 +6,7 @@ PRODI_CHOICES = [
     ('PTIK', 'PTIK'),
     ('PTE', 'PTE'),
     ('TE', 'TE'),
-    ('TK', 'TEKKOM'),
+    ('TEKKOM', 'TEKKOM'),
     ('MKU', 'MKU'),
 ]
 

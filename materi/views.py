@@ -11,7 +11,7 @@ PRODI_DATA = [
     ('PTIK', 'PTIK', '#eff6ff'),   # Soft Blue
     ('PTE', 'PTE', '#fef2f2'),     # Soft Red
     ('TE', 'TE', '#f5f3ff'),       # Soft Purple
-    ('TK', 'TEKKOM', '#f0fdf4'),   # Soft Green
+    ('TEKKOM', 'TEKKOM', '#f0fdf4'),   # Soft Green
     ('MKU', 'MKU', '#fffbeb'),     # Soft Amber
 ]
 
