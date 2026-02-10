@@ -171,11 +171,14 @@
         .hero-content { padding-top: 160px !important; } 
         .hero-brand-title-v14 { font-size: 4rem !important; } 
         .hero-description-v12 { font-size: 1.25rem; max-width: 700px; }
-        .overlap-up-v12 { margin-top: -100px !important; position: relative; z-index: 20; }
+        
+        /* Note 1: Overlap dikurangi di Laptop (lebih sedikit menutup foto) */
+        .overlap-up-v12 { margin-top: -60px !important; position: relative; z-index: 20; }
+        
         .btn-cari-v12 { padding: 12px 35px !important; font-size: 1rem !important; }
         
-        /* Note 2 & 3: Tinggi dikurangi menjadi 460px agar pas dengan 3 list dan button naik */
-        .card-modern-v11 { min-height: 460px !important; } 
+        /* Note 2: Tinggi kartu diperkecil lagi agar button mepet list */
+        .card-modern-v11 { min-height: 400px !important; } 
         
         .library-title-v12 { font-size: 2.1rem !important; }
         .prodi-card-v13 { padding: 40px 20px; border-radius: 30px; }
@@ -208,10 +211,9 @@
         .hero-modern { height: 50vh !important; min-height: 450px !important; }
         .hero-content { padding-top: 130px !important; }
         
-        /* Note 4: Overlap ditambah (kartu naik lebih tinggi) jadi -90px */
+        /* HP tetap overlap tinggi */
         .overlap-up-v12 { margin-top: -90px !important; position: relative; z-index: 20; }
         
-        /* Note 5: Memberi jarak kosong sedikit antara kartu Lomba dan Agenda */
         .info-card-wrapper { row-gap: 2rem !important; }
         
         .hero-brand-title-v14 { 
