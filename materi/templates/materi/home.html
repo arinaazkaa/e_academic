@@ -171,13 +171,9 @@
         .hero-content { padding-top: 160px !important; } 
         .hero-brand-title-v14 { font-size: 4rem !important; } 
         .hero-description-v12 { font-size: 1.25rem; max-width: 700px; }
-        
-        /* Note 1: Overlap dikurangi di Laptop (lebih sedikit menutup foto) */
-        .overlap-up-v12 { margin-top: -60px !important; position: relative; z-index: 20; }
-        
+        .overlap-up-v12 { margin-top: -100px !important; position: relative; z-index: 20; }
         .btn-cari-v12 { padding: 12px 35px !important; font-size: 1rem !important; }
         
-        /* Note 2: Tinggi kartu diperkecil lagi agar button mepet list */
         .card-modern-v11 { min-height: 400px !important; } 
         
         .library-title-v12 { font-size: 2.1rem !important; }
@@ -191,6 +187,7 @@
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP --- */
     @media (max-width: 1200px) {
+        /* Note 1: Navbar Disamakan dengan list_lomba.html */
         .navbar .container-fluid { 
             padding-left: 0 !important; 
             padding-right: 0 !important; 
@@ -207,11 +204,11 @@
             gap: 15px !important;
         }
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
+        .navbar-toggler { display: none !important; }
 
         .hero-modern { height: 50vh !important; min-height: 450px !important; }
         .hero-content { padding-top: 130px !important; }
         
-        /* HP tetap overlap tinggi */
         .overlap-up-v12 { margin-top: -90px !important; position: relative; z-index: 20; }
         
         .info-card-wrapper { row-gap: 2rem !important; }
