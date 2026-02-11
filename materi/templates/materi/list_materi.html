@@ -138,7 +138,7 @@
                                     {% if p_code == 'PTIK' %}<i class="fa fa-code" style="color: #3b82f6;"></i>
                                     {% elif p_code == 'PTE' %}<i class="fa fa-bolt" style="color: #dc2626;"></i>
                                     {% elif p_code == 'TE' %}<i class="fa fa-cogs" style="color: #7c3aed;"></i>
-                                    {% elif p_code == 'TEKKOM' %}<i class="fa fa-microchip" style="color: #059669;"></i>
+                                    {% elif p_code == 'TK' %}<i class="fa fa-microchip" style="color: #059669;"></i>
                                     {% else %}<i class="fa fa-university" style="color: #d97706;"></i>{% endif %}
                                 </div>
                                 <h2 class="fw-900 text-dark mb-2 prodi-title-v12">{{ p_name }}</h2>
@@ -155,7 +155,7 @@
                                     {% if p_code == 'PTIK' %}<i class="fa fa-code" style="color: #3b82f6;"></i>
                                     {% elif p_code == 'PTE' %}<i class="fa fa-bolt" style="color: #dc2626;"></i>
                                     {% elif p_code == 'TE' %}<i class="fa fa-cogs" style="color: #7c3aed;"></i>
-                                    {% elif p_code == 'TEKKOM' %}<i class="fa fa-microchip" style="color: #059669;"></i>
+                                    {% elif p_code == 'TK' %}<i class="fa fa-microchip" style="color: #059669;"></i>
                                     {% else %}<i class="fa fa-university" style="color: #d97706;"></i>{% endif %}
                                 </div>
                                 <h2 class="fw-900 text-dark mb-2 prodi-title-v12">{{ p_name }}</h2>
@@ -175,7 +175,7 @@
                                     {% if p_code == 'PTIK' %}<i class="fa fa-code" style="color: #3b82f6;"></i>
                                     {% elif p_code == 'PTE' %}<i class="fa fa-bolt" style="color: #dc2626;"></i>
                                     {% elif p_code == 'TE' %}<i class="fa fa-cogs" style="color: #7c3aed;"></i>
-                                    {% elif p_code == 'TEKKOM' %}<i class="fa fa-microchip" style="color: #059669;"></i>
+                                    {% elif p_code == 'TK' %}<i class="fa fa-microchip" style="color: #059669;"></i>
                                     {% else %}<i class="fa fa-university" style="color: #d97706;"></i>{% endif %}
                                 </div>
                                 <h2 class="fw-900 text-dark mb-2">{{ p_name }}</h2>
@@ -193,7 +193,7 @@
                                     {% if p_code == 'PTIK' %}<i class="fa fa-code" style="color: #3b82f6;"></i>
                                     {% elif p_code == 'PTE' %}<i class="fa fa-bolt" style="color: #dc2626;"></i>
                                     {% elif p_code == 'TE' %}<i class="fa fa-cogs" style="color: #7c3aed;"></i>
-                                    {% elif p_code == 'TEKKOM' %}<i class="fa fa-microchip" style="color: #059669;"></i>
+                                    {% elif p_code == 'TK' %}<i class="fa fa-microchip" style="color: #059669;"></i>
                                     {% else %}<i class="fa fa-university" style="color: #d97706;"></i>{% endif %}
                                 </div>
                                 <h2 class="fw-900 text-dark mb-2">{{ p_name }}</h2>
@@ -227,10 +227,6 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
 
-    .navbar .container-fluid { justify-content: space-between !important; padding: 0 15px !important; }
-    .navbar-brand { margin-right: auto !important; }
-    #navbarNav { margin-left: auto !important; }
-
     .breadcrumb-item a {
         text-decoration: none;
         color: #6c757d;
@@ -258,6 +254,7 @@
     /* --- LOGIKA KHUSUS LAPTOP --- */
     @media (min-width: 1201px) {
         .navbar .container-fluid { padding: 0 15px !important; }
+        .navbar-brand { margin-right: auto !important; }
         
         .hero-library-modern { height: 60vh !important; min-height: 500px !important; }
         .hero-content { padding-top: 150px !important; }
@@ -292,9 +289,29 @@
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP & MOBILE --- */
     @media (max-width: 1200px) {
-        .navbar .container-fluid { padding-left: 0 !important; padding-right: 0 !important; }
-        .navbar-brand { margin-left: 0 !important; padding-left: 5px !important; }
-        .navbar-nav { margin-right: 0 !important; padding-right: 5px !important; flex-direction: row !important; gap: 15px !important; }
+        /* Note 1: Navbar Disamakan Persis dengan Home.html */
+        .navbar .container { 
+            padding-left: 25px !important; 
+            padding-right: 25px !important; 
+            justify-content: space-between !important;
+        }
+        .navbar-brand { 
+            margin-left: 0 !important; 
+            padding-left: 0 !important;
+            font-size: 1.5rem !important; /* Diperbesar */
+        }
+        .navbar-nav { 
+            margin-right: 0 !important; 
+            padding-right: 0 !important;
+            flex-direction: row !important;
+            gap: 15px !important;
+        }
+        .nav-link {
+            font-size: 0.9rem !important; /* Diperbesar */
+        }
+        .btn-nav-upload {
+            font-size: 0.85rem !important; /* Diperbesar */
+        }
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
         .navbar-toggler { display: none !important; }
         
@@ -317,9 +334,8 @@
         .hp-row-gap { margin-bottom: 5rem !important; } 
         .g-5 { --bs-gutter-y: 2rem !important; }
 
-        /* Note 1: Menambah jarak antar baris pada grid semester di HP */
         .semester-gap-responsive { 
-            row-gap: 4rem !important; /* Jarak vertikal diperbesar */
+            row-gap: 4rem !important; 
         } 
 
         .card-protrude-library-large { padding: 60px 20px !important; border-radius: 45px !important; text-align: center; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.06); transition: 0.3s; display: block; }
