@@ -161,22 +161,28 @@
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
         .navbar-toggler { display: none !important; }
 
-        /* Note 1: Mengurangi tinggi hero (sebelumnya 35vh) */
+        /* Note 1: Mengurangi tinggi hero (25vh -> 22vh) */
         .hero-library-modern { 
-            height: 21vh !important; /* Dikurangi agar tidak terlalu tinggi */
-            min-height: 250px !important;
+            height: 22vh !important; /* Lebih pendek */
+            min-height: 220px !important;
             padding: 0 !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
         }
-        .hero-content { padding-top: 140px !important; }
+        
+        /* Note 1: Menurunkan posisi judul (Padding Top ditambah) */
+        .hero-content { padding-top: 120px !important; }
 
-        /* Note 2: Grid Container diperlebar tapi diberi padding lebih besar agar tidak mepet ujung layar */
+        /* Note 1: Memperbesar Font Judul & Deskripsi */
+        .hero-brand-title { font-size: 2.5rem !important; letter-spacing: 2px !important; }
+        .hero-description { font-size: 1.1rem !important; }
+
+        /* Note 2: Grid Container diperlebar & diberi padding lebih besar */
         .container { 
-            max-width: 92% !important; /* Sedikit dikurangi dari 96% agar ada gap */
-            padding-left: 20px !important; /* Jarak kiri ditambah */
-            padding-right: 20px !important; /* Jarak kanan ditambah */
+            max-width: 92% !important; 
+            padding-left: 20px !important; 
+            padding-right: 20px !important; 
         }
         
         .row.g-3 { --bs-gutter-x: 1rem !important; }
