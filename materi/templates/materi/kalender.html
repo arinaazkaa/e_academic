@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<section class="hero-library" style="padding: 200px 0 120px 0;">
+<section class="hero-library">
     <div class="container text-center text-white position-relative animate-up" style="z-index: 2;">
         <h2 class="fw-bold display-5 mb-2 hero-title">KALENDER AKADEMIK</h2>
         <p class="text-white-50 mx-auto fs-5 hero-desc" style="max-width: 600px;">
@@ -20,12 +20,12 @@
         <div class="row g-4">
             
             <div class="col-lg-8 animate-up delay-1">
-                <div class="card border-0 rounded-5 shadow-sm p-4 p-md-5 bg-white">
+                <div class="card card-rounded-custom border-0 shadow-sm p-4 p-md-5 bg-white">
                     
                     {% regroup agenda_list by tanggal_mulai|date:"F Y" as agenda_by_month %}
 
                     {% for month in agenda_by_month %}
-                        <div class="month-header d-flex align-items-center mb-4 {% if not forloop.first %}mt-5{% endif %}">
+                        <div class="month-header d-flex align-items-center mb-4 {% if not forloop.first %}mt-4{% endif %}">
                             <h5 class="fw-bold text-dark m-0">{{ month.grouper }}</h5>
                             <div class="flex-grow-1 ms-3 border-bottom opacity-10"></div>
                         </div>
@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
 
-                                <div class="info-side ms-4 flex-grow-1">
+                                <div class="info-side ms-5 flex-grow-1">
                                     <h6 class="fw-bold text-dark mb-1">{{ agenda.kegiatan }}</h6>
                                     <div class="d-flex align-items-center gap-3">
                                         <span class="text-muted small">
@@ -69,7 +69,7 @@
 
             <div class="col-lg-4 animate-up delay-2">
                 <div class="sticky-top" style="top: 100px;">
-                    <div class="card border-0 rounded-5 shadow-sm overflow-hidden mb-4 bg-slate-dark text-white">
+                    <div class="card card-rounded-custom border-0 shadow-sm overflow-hidden mb-4 bg-slate-dark text-white">
                         <div class="card-body p-4">
                             <div class="icon-circle-box mb-3">
                                 <i class="fa fa-file-pdf-o"></i>
@@ -94,7 +94,7 @@
                         </div>
                     </div>
 
-                    <div class="card border-0 rounded-5 shadow-sm p-4 bg-white">
+                    <div class="card card-rounded-custom border-0 shadow-sm p-4 bg-white">
                         <div class="d-flex align-items-start">
                             <i class="fa fa-info-circle text-primary me-3 mt-1"></i>
                             <p class="text-muted small m-0" style="line-height: 1.6;">
@@ -110,12 +110,17 @@
 </section>
 
 <style>
+    /* Default Style (Laptop) */
     .hero-library {
         background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), 
                     url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1920&auto=format&fit=crop');
         background-size: cover; background-position: center; background-attachment: fixed;
         position: relative; margin-top: -85px;
+        padding: 200px 0 120px 0; /* Default padding */
     }
+    
+    .card-rounded-custom { border-radius: 2rem !important; } /* Default radius */
+
     .curve-bottom { position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; background: #f4f6f9; border-top-left-radius: 50% 20%; border-top-right-radius: 50% 20%; }
 
     .agenda-row-modern { border-radius: 20px; transition: all 0.3s ease; }
@@ -136,7 +141,6 @@
 
     .bg-slate-dark { background-color: #0f172a; }
     
-    /* REVISI CSS TOMBOL: Pastikan warna teks hitam/gelap */
     .btn-white { background: white; color: #0f172a !important; border: none; }
     .btn-white:hover { background: #e2e8f0; transform: translateY(-3px); }
 
@@ -152,7 +156,7 @@
 
     /* --- PERBAIKAN KHUSUS HP MODE DESKTOP --- */
     @media (max-width: 1200px) {
-        /* 1. Navbar Konsisten */
+        /* Navbar Persis Home & List Lomba */
         .navbar .container { 
             padding-left: 25px !important; 
             padding-right: 25px !important; 
@@ -178,27 +182,23 @@
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
         .navbar-toggler { display: none !important; }
 
-        /* 2. Hero Background Lebih Tinggi */
+        /* Note 1: Menambah tinggi BG Hero (Padding bottom ditambah) */
+        /* Note 2: Menurunkan Judul (Padding top ditambah) */
         .hero-library {
-            padding-top: 0 !important; /* Reset padding default */
-            height: 25vh !important;   /* Tinggi Hero ditambah */
-            min-height: 220px !important; 
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
+            padding-top: 250px !important; /* Judul turun */
+            padding-bottom: 180px !important; /* BG makin tinggi */
         }
 
-        /* 3. Posisi Judul Diturunkan ke Tengah & Font Diperbesar/Tebal */
-        .hero-library .container {
-            padding-top: 150px !important; /* Menurunkan konten agar pas di tengah */
-        }
+        /* Note 2: Judul Tebal & Besar */
         .hero-title {
-            font-size: 2.5rem !important; /* Diperbesar */
-            font-weight: 900 !important;  /* Dipertebal (Extra Bold) */
-            letter-spacing: 2px !important;
+            font-size: 2.5rem !important;
+            font-weight: 900 !important; /* Lebih tebal */
+            letter-spacing: 2px;
         }
-        .hero-desc {
-            font-size: 1.1rem !important; /* Deskripsi sedikit diperbesar */
+        
+        /* Note 5: Kartu lebih tumpul (radius 40px) */
+        .card-rounded-custom {
+            border-radius: 40px !important;
         }
     }
 </style>
