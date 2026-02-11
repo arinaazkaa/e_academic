@@ -151,7 +151,6 @@
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
     /* --- PERBAIKAN KHUSUS HP MODE DESKTOP --- */
-    /* Disamakan persis dengan Home dan List Lomba */
     @media (max-width: 1200px) {
         .navbar .container { 
             padding-left: 25px !important; 
@@ -178,9 +177,10 @@
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
         .navbar-toggler { display: none !important; }
 
-        /* Penyesuaian Padding Hero di HP Desktop */
+        /* Penyesuaian Padding Hero di HP Desktop (Lebih tinggi & Tulisan Turun) */
         .hero-library {
-            padding-top: 180px !important; 
+            padding-top: 240px !important; /* Menurunkan judul */
+            padding-bottom: 160px !important; /* Menambah tinggi background */
         }
     }
 </style>
