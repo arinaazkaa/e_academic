@@ -149,6 +149,40 @@
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
     .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* --- PERBAIKAN KHUSUS HP MODE DESKTOP --- */
+    /* Disamakan persis dengan Home dan List Lomba */
+    @media (max-width: 1200px) {
+        .navbar .container { 
+            padding-left: 25px !important; 
+            padding-right: 25px !important; 
+            justify-content: space-between !important;
+        }
+        .navbar-brand { 
+            margin-left: 0 !important; 
+            padding-left: 0 !important;
+            font-size: 1.5rem !important; 
+        }
+        .navbar-nav { 
+            margin-right: 0 !important; 
+            padding-right: 0 !important;
+            flex-direction: row !important;
+            gap: 15px !important;
+        }
+        .nav-link {
+            font-size: 0.9rem !important;
+        }
+        .btn-nav-upload {
+            font-size: 0.85rem !important;
+        }
+        #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
+        .navbar-toggler { display: none !important; }
+
+        /* Penyesuaian Padding Hero di HP Desktop */
+        .hero-library {
+            padding-top: 180px !important; 
+        }
+    }
 </style>
 
 {% endblock %}
