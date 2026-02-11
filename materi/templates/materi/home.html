@@ -8,8 +8,8 @@
 <section class="hero-modern">
     <div class="hero-slider">
         <div class="slide slide-1" style="background-image: url('{% static 'img/img1.jpg' %}');"></div>
-        <div class="slide slide-2" style="background-image: url('{% static 'img/img2.JPG' %}');"></div>
-        <div class="slide slide-3" style="background-image: url('{% static 'img/img3.JPG' %}');"></div>
+        <div class="slide slide-2" style="background-image: url('{% static 'img/img2.jpg' %}');"></div>
+        <div class="slide slide-3" style="background-image: url('{% static 'img/img3.jpg' %}');"></div>
     </div>
     
     <div class="hero-overlay-black"></div>
@@ -84,7 +84,7 @@
                     </div>
                     <div class="card-body px-3 py-2 flex-grow-1"> 
                         <div class="text-center mb-2">
-                            <a href="{% url 'kalender' %}" class="link-detail-v11 text-decoration-none">Detail</a>
+                            <a href="{% url 'kalender' %}" class="link-detail-v11">Detail <i class="fa fa-arrow-right ms-1" style="font-size: 0.8em;"></i></a>
                         </div>
                         <div class="agenda-list-minimal mt-n2"> 
                             {% for agenda in agenda_list|slice:":4" %}
@@ -171,7 +171,10 @@
         .hero-content { padding-top: 160px !important; } 
         .hero-brand-title-v14 { font-size: 4rem !important; } 
         .hero-description-v12 { font-size: 1.25rem; max-width: 700px; }
-        .overlap-up-v12 { margin-top: -100px !important; position: relative; z-index: 20; }
+        
+        /* Note 1: Overlap diturunkan (dari -100px jadi -50px) agar kartu lebih turun */
+        .overlap-up-v12 { margin-top: -50px !important; position: relative; z-index: 20; }
+        
         .btn-cari-v12 { padding: 12px 35px !important; font-size: 1rem !important; }
         
         .card-modern-v11 { min-height: 400px !important; } 
@@ -195,7 +198,7 @@
         .navbar-brand { 
             margin-left: 0 !important; 
             padding-left: 0 !important;
-            font-size: 1.5rem !important; /* Diperbesar (sebelumnya 1.3rem) */
+            font-size: 1.5rem !important; 
         }
         .navbar-nav { 
             margin-right: 0 !important; 
@@ -204,10 +207,10 @@
             gap: 15px !important;
         }
         .nav-link {
-            font-size: 0.9rem !important; /* Diperbesar (sebelumnya 0.8rem) */
+            font-size: 0.9rem !important;
         }
         .btn-nav-upload {
-            font-size: 0.85rem !important; /* Diperbesar (sebelumnya 0.75rem) */
+            font-size: 0.85rem !important;
         }
         
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
@@ -248,11 +251,40 @@
 
     .btn-cari-v12 { background: transparent !important; color: #fff !important; border: 2px solid #fff; }
     .btn-animate-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
-    .btn-animate-hover:hover { transform: scale(1.06) translateY(-5px) !important; box-shadow: 0 15px 35px rgba(255,255,255,0.12) !important; background: rgba(255,255,255,0.1) !important; }
+    
+    /* Hover Effect */
+    .btn-animate-hover:hover { 
+        transform: scale(1.06) translateY(-5px) !important; 
+        box-shadow: 0 15px 35px rgba(255,255,255,0.12) !important; 
+        background: rgba(255,255,255,0.1) !important; 
+    }
+    
+    /* Note 2: Active (Click) Effect - Added for buttons */
+    .btn-animate-hover:active {
+        transform: scale(0.96) translateY(-2px) !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+        opacity: 0.9;
+    }
 
     .btn-pill-animate-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; }
     .btn-pill-animate-red { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; }
     .text-white { color: #fff !important; }
+
+    /* Note 3: Animasi Link Detail Agenda */
+    .link-detail-v11 { 
+        color: #3b82f6; 
+        font-weight: 700; 
+        text-decoration: none; 
+        transition: all 0.3s ease; 
+        display: inline-block;
+    }
+    .link-detail-v11:hover { 
+        color: #1d4ed8; 
+        transform: translateX(3px); 
+    }
+    .link-detail-v11:active {
+        transform: scale(0.95);
+    }
 
     .border-gray-prodi { border: 2px solid #e2e8f0 !important; box-shadow: 0 10px 25px rgba(0,0,0,0.03) !important; }
     .prodi-card-v13 { background: #fff; transition: 0.5s; text-align: center; }
