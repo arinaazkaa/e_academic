@@ -68,7 +68,7 @@
                         {% endfor %}
                     </div>
                     <div class="card-footer bg-white border-0 p-3 pt-0">
-                        <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-pill-animate-blue btn-animate-hover w-100 text-center text-decoration-none d-block text-white">
+                        <a href="{% url 'list_lomba' %}" class="btn rounded-pill btn-pill-animate-blue btn-animate-hover w-100 text-center text-decoration-none d-block text-white btn-press-effect">
                             LIHAT SEMUA KOMPETISI
                         </a>
                     </div>
@@ -84,7 +84,7 @@
                     </div>
                     <div class="card-body px-3 py-2 flex-grow-1"> 
                         <div class="text-center mb-2">
-                            <a href="{% url 'kalender' %}" class="link-detail-v11">Detail <i class="fa fa-arrow-right ms-1" style="font-size: 0.8em;"></i></a>
+                            <a href="{% url 'kalender' %}" class="link-detail-v11 text-decoration-none link-press-effect">Detail <i class="fa fa-arrow-right ms-1"></i></a>
                         </div>
                         <div class="agenda-list-minimal mt-n2"> 
                             {% for agenda in agenda_list|slice:":4" %}
@@ -101,7 +101,7 @@
                         </div>
                     </div>
                     <div class="card-footer bg-white border-0 p-3 pt-0">
-                        <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-animate-red btn-animate-hover w-100 text-white">
+                        <a href="{{ kalender_data.link_google_drive }}" target="_blank" class="btn rounded-pill btn-pill-animate-red btn-animate-hover w-100 text-white btn-press-effect">
                             <i class="fa fa-file-pdf-o me-2"></i> DOWNLOAD PDF KALENDER
                         </a>
                     </div>
@@ -172,8 +172,8 @@
         .hero-brand-title-v14 { font-size: 4rem !important; } 
         .hero-description-v12 { font-size: 1.25rem; max-width: 700px; }
         
-        /* Note 1: Overlap diturunkan (dari -100px jadi -50px) agar kartu lebih turun */
-        .overlap-up-v12 { margin-top: -50px !important; position: relative; z-index: 20; }
+        /* Note 1: Margin overlap diubah dari -100px jadi -160px agar turun sedikit */
+        .overlap-up-v12 { margin-top: -160px !important; position: relative; z-index: 20; }
         
         .btn-cari-v12 { padding: 12px 35px !important; font-size: 1rem !important; }
         
@@ -212,7 +212,6 @@
         .btn-nav-upload {
             font-size: 0.85rem !important;
         }
-        
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
         .navbar-toggler { display: none !important; }
 
@@ -251,39 +250,33 @@
 
     .btn-cari-v12 { background: transparent !important; color: #fff !important; border: 2px solid #fff; }
     .btn-animate-hover { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
-    
-    /* Hover Effect */
-    .btn-animate-hover:hover { 
-        transform: scale(1.06) translateY(-5px) !important; 
-        box-shadow: 0 15px 35px rgba(255,255,255,0.12) !important; 
-        background: rgba(255,255,255,0.1) !important; 
-    }
-    
-    /* Note 2: Active (Click) Effect - Added for buttons */
-    .btn-animate-hover:active {
-        transform: scale(0.96) translateY(-2px) !important;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
-        opacity: 0.9;
-    }
+    .btn-animate-hover:hover { transform: scale(1.06) translateY(-5px) !important; box-shadow: 0 15px 35px rgba(255,255,255,0.12) !important; background: rgba(255,255,255,0.1) !important; }
 
     .btn-pill-animate-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; }
     .btn-pill-animate-red { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; }
     .text-white { color: #fff !important; }
 
-    /* Note 3: Animasi Link Detail Agenda */
-    .link-detail-v11 { 
+    /* Note 2: Animasi Button Press Effect */
+    .btn-press-effect:active {
+        transform: scale(0.96) !important;
+        filter: brightness(0.9);
+        transition: 0.1s;
+    }
+
+    /* Note 3: Animasi Link Detail */
+    .link-press-effect {
         color: #3b82f6; 
-        font-weight: 700; 
-        text-decoration: none; 
-        transition: all 0.3s ease; 
+        transition: 0.2s; 
+        font-weight: 700;
         display: inline-block;
     }
-    .link-detail-v11:hover { 
-        color: #1d4ed8; 
-        transform: translateX(3px); 
+    .link-press-effect:hover {
+        color: #1d4ed8;
+        transform: translateX(5px);
     }
-    .link-detail-v11:active {
+    .link-press-effect:active {
         transform: scale(0.95);
+        color: #1e3a8a;
     }
 
     .border-gray-prodi { border: 2px solid #e2e8f0 !important; box-shadow: 0 10px 25px rgba(0,0,0,0.03) !important; }
