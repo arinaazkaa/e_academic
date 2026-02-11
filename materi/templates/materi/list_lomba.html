@@ -49,7 +49,7 @@
 </section>
 
 <section class="py-5 section-gray" style="min-height: 50vh;">
-    <div class="container pb-5 custom-container-lomba">
+    <div class="container pb-5">
         <div class="row g-3 d-flex align-items-stretch"> {% for lomba in info_lomba_list %}
             <div class="col-laptop-5 col-md-4 col-6 reveal-on-scroll">
                 <div class="card-lomba-v2 h-100 bg-white d-flex flex-column shadow-sm border-0">
@@ -141,35 +141,45 @@
     /* Hero & Layout Styles */
     .hero-library-modern { background: linear-gradient(rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.96)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; padding: 180px 0 60px 0; margin-top: -85px; position: relative; }
     
-    /* --- LOGIKA KHUSUS LAPTOP --- */
+    /* Ukuran khusus untuk 5 kartu di laptop */
     @media (min-width: 1201px) {
         .col-laptop-5 { flex: 0 0 auto; width: 20%; }
-        /* Navbar Laptop standard padding */
+        /* Navbar Laptop Reset */
         .navbar .container-fluid { padding: 0 15px !important; }
     }
 
-    /* --- LOGIKA KHUSUS HP MODE DESKTOP --- */
+    /* --- PERBAIKAN KHUSUS HP MODE DESKTOP --- */
     @media (max-width: 1200px) {
-        /* Note 1: Navbar Mepet Kiri-Kanan */
-        .navbar .container-fluid { padding-left: 0 !important; padding-right: 0 !important; justify-content: space-between !important; }
+        /* Note 1: Navbar Fix (Mepet Kiri Kanan) */
+        .navbar .container-fluid { 
+            padding-left: 0 !important; 
+            padding-right: 0 !important; 
+            justify-content: space-between !important; 
+        }
         .navbar-brand { margin-left: 0 !important; padding-left: 5px !important; }
         .navbar-nav { margin-right: 0 !important; padding-right: 5px !important; flex-direction: row !important; gap: 15px !important; }
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
         .navbar-toggler { display: none !important; }
 
-        /* Note 2: Container diperlebar agar 3 kartu muat pas tapi ada jarak dikit */
-        .custom-container-lomba { padding-left: 10px !important; padding-right: 10px !important; max-width: 100% !important; }
-
-        /* Note 3: Tinggi Hero disesuaikan dengan list_materi (25vh) */
+        /* Note 3: Menambah tinggi hero, dibuat flex agar vertikal center */
         .hero-library-modern { 
-            height: 25vh !important; 
-            min-height: 280px !important; 
-            padding: 0 !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 35vh !important; /* Tinggi ditambah */
+            min-height: 300px !important;
+            padding: 0 !important; /* Reset padding manual */
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
-        .hero-content { padding-top: 110px !important; }
+        .hero-content { padding-top: 100px !important; }
+
+        /* Note 2: Grid Container diperlebar agar 3 kartu pas & mepet tapi tetap ada jarak */
+        .container { 
+            max-width: 96% !important; 
+            padding-left: 5px !important; 
+            padding-right: 5px !important; 
+        }
+        /* Memastikan gap antar kartu tidak terlalu lebar di mode ini */
+        .row.g-3 { --bs-gutter-x: 1rem !important; }
     }
 
     .hero-brand-title { font-family: 'Montserrat', sans-serif; letter-spacing: 4px; font-size: 1.8rem; }
