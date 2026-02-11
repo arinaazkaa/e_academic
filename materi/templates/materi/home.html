@@ -187,13 +187,12 @@
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP --- */
     @media (max-width: 1200px) {
-        /* FIX: Ubah dari .container-fluid ke .container agar cocok dengan base.html */
+        /* FIX: Menggunakan selector .navbar .container agar tidak bentrok */
         .navbar .container { 
             padding-left: 25px !important; 
             padding-right: 25px !important; 
             justify-content: space-between !important;
         }
-        /* Reset padding internal */
         .navbar-brand { 
             margin-left: 0 !important; 
             padding-left: 0 !important;
@@ -204,6 +203,19 @@
             flex-direction: row !important;
             gap: 15px !important;
         }
+        
+        /* Note: Ukuran Font Diperbesar Sesuai Permintaan */
+        .nav-link {
+            margin-left: 0 !important;
+            font-size: 1rem !important; /* Diperbesar */
+            padding: 8px 5px !important;
+        }
+        .btn-nav-upload {
+            margin-left: 0 !important;
+            padding: 8px 15px !important;
+            font-size: 0.9rem !important; /* Diperbesar */
+        }
+
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
         .navbar-toggler { display: none !important; }
 
