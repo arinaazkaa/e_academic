@@ -49,7 +49,7 @@
 </section>
 
 <section class="py-5 section-gray" style="min-height: 50vh;">
-    <div class="container pb-5">
+    <div class="container-custom pb-5">
         <div class="row g-3 d-flex align-items-stretch"> {% for lomba in info_lomba_list %}
             <div class="col-laptop-5 col-md-4 col-6 reveal-on-scroll">
                 <div class="card-lomba-v2 h-100 bg-white d-flex flex-column shadow-sm border-0">
@@ -138,17 +138,49 @@
 </section>
 
 <style>
+    /* Note 1: Navbar & Global Styles (Sama persis dengan Home) */
+    .navbar .container-fluid { justify-content: space-between !important; padding: 0 15px !important; }
+    .navbar-brand { margin-right: auto !important; }
+    #navbarNav { margin-left: auto !important; }
+
     /* Hero & Layout Styles */
     .hero-library-modern { background: linear-gradient(rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.96)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; padding: 180px 0 60px 0; margin-top: -85px; position: relative; }
     
-    /* Note 2: Menambah tinggi hero sedikit di HP mode desktop */
-    @media (max-width: 1200px) {
-        .hero-library-modern { padding: 210px 0 90px 0 !important; }
+    /* --- LOGIKA KHUSUS LAPTOP --- */
+    @media (min-width: 1201px) {
+        .navbar .container-fluid { padding: 0 15px !important; }
+        
+        .col-laptop-5 { flex: 0 0 auto; width: 20%; }
+        
+        .container-custom {
+            max-width: 1320px;
+            margin-right: auto;
+            margin-left: auto;
+            padding-right: 0.75rem;
+            padding-left: 0.75rem;
+        }
     }
 
-    /* Note 1: Ukuran khusus untuk 5 kartu di laptop */
-    @media (min-width: 1201px) {
-        .col-laptop-5 { flex: 0 0 auto; width: 20%; }
+    /* --- LOGIKA KHUSUS HP MODE DESKTOP --- */
+    @media (max-width: 1200px) {
+        /* Note 1: Navbar HP Mepet Kiri-Kanan */
+        .navbar .container-fluid { padding-left: 0 !important; padding-right: 0 !important; }
+        .navbar-brand { margin-left: 0 !important; padding-left: 5px !important; }
+        .navbar-nav { margin-right: 0 !important; padding-right: 5px !important; flex-direction: row !important; gap: 15px !important; }
+        #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
+        .navbar-toggler { display: none !important; }
+
+        .hero-library-modern { padding: 210px 0 90px 0 !important; }
+        
+        /* Note 2: Container mepet ujung di HP agar 3 kartu pas */
+        .container-custom {
+            width: 100% !important;
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            max-width: 100% !important;
+        }
     }
 
     .hero-brand-title { font-family: 'Montserrat', sans-serif; letter-spacing: 4px; font-size: 1.8rem; }
@@ -175,7 +207,7 @@
 
     .card-title-aligned {
         font-weight: 700;
-        font-size: 0.9rem; /* sedikit diperkecil agar pas 5 kolom */
+        font-size: 0.9rem;
         line-height: 1.4;
         color: #1e293b;
         min-height: 2.6rem;
