@@ -9,12 +9,12 @@
     <div class="hero-overlay-refined"></div>
     <div class="container hero-content text-center animate-up">
         <div class="mb-3">
-            <span class="badge rounded-pill bg-soft-primary text-primary px-3 py-2 fw-bold text-uppercase shadow-sm">
+            <span class="badge rounded-pill bg-soft-primary text-primary px-3 py-2 fw-bold text-uppercase shadow-sm hero-badge">
                 <i class="fa fa-tag me-1"></i> {{ info_lomba.kategori|default:"Kompetisi" }}
             </span>
         </div>
-        <h1 class="fw-bold text-white mb-3 hero-title-detail">{{ info_lomba.judul }}</h1>
-        <p class="text-white-50 fs-5 mb-0">
+        <h1 class="fw-900 text-white mb-3 hero-title-detail">{{ info_lomba.judul }}</h1>
+        <p class="text-white-50 fs-5 mb-0 hero-organizer">
             <i class="fa fa-university me-2"></i> {{ info_lomba.penyelenggara }}
         </p>
     </div>
@@ -22,17 +22,20 @@
 
 <section class="py-5 section-gray">
     <div class="container overlap-up-detail">
-        <div class="row g-4">
+        <div class="row g-4 justify-content-center">
             
-            <div class="col-lg-4 animate-up delay-1">
+            <div class="col-12 col-lg-4 animate-up delay-1 sidebar-column">
                 <div class="sticky-sidebar">
                     
-                    <div class="card-modern shadow-sm border-0 mb-4 p-2">
-                        <div class="poster-preview-container bg-light rounded-4 overflow-hidden" style="min-height: 250px;">
+                    <div class="card-modern shadow-sm border-0 mb-4 p-2 poster-card">
+                        <div class="poster-preview-container bg-light rounded-4 overflow-hidden position-relative">
                             {% if info_lomba.link_poster %}
-                                <img src="{{ info_lomba.link_poster }}" class="w-100 img-fluid" alt="Poster {{ info_lomba.judul }}">
+                                <img src="{{ info_lomba.link_poster }}" class="w-100 img-fluid poster-img" alt="Poster {{ info_lomba.judul }}">
+                                <a href="{{ info_lomba.link_poster }}" target="_blank" class="btn-zoom-poster">
+                                    <i class="fa fa-search-plus"></i>
+                                </a>
                             {% else %}
-                                <div class="p-5 text-center text-muted opacity-25">
+                                <div class="p-5 text-center text-muted opacity-25 d-flex flex-column justify-content-center align-items-center" style="min-height: 300px;">
                                     <i class="fa fa-picture-o fa-5x mb-3"></i>
                                     <p class="fw-bold">Poster Tidak Tersedia</p>
                                 </div>
@@ -40,26 +43,29 @@
                         </div>
                     </div>
 
-                    <div class="card-modern shadow-sm border-0 mb-4">
+                    <div class="card-modern shadow-sm border-0 mb-4 info-action-card">
                         <div class="text-center mb-4">
                             {% if info_lomba.is_active %}
-                                <span class="badge-modern status-open"><i class="fa fa-check-circle me-1"></i> Pendaftaran Dibuka</span>
+                                <span class="badge-modern status-open w-100 d-block"><i class="fa fa-check-circle me-1"></i> Pendaftaran Dibuka</span>
                             {% else %}
-                                <span class="badge-modern status-closed"><i class="fa fa-lock me-1"></i> Pendaftaran Ditutup</span>
+                                <span class="badge-modern status-closed w-100 d-block"><i class="fa fa-lock me-1"></i> Pendaftaran Ditutup</span>
                             {% endif %}
                         </div>
 
                         <div class="deadline-card mb-4">
                             <div class="deadline-accent"></div>
-                            <div class="deadline-body">
-                                <small class="label">BATAS PENDAFTARAN</small>
-                                <h4 class="value text-danger">{{ info_lomba.tanggal_deadline|date:"d F Y"|default:"-" }}</h4>
+                            <div class="deadline-body flex-grow-1">
+                                <small class="label d-block mb-1">BATAS PENDAFTARAN</small>
+                                <h4 class="value text-danger mb-0">{{ info_lomba.tanggal_deadline|date:"d F Y"|default:"-" }}</h4>
+                            </div>
+                            <div class="deadline-icon">
+                                <i class="fa fa-calendar-times-o"></i>
                             </div>
                         </div>
 
                         <div class="d-grid gap-3">
                             {% if info_lomba.link_pendaftaran %}
-                                <a href="{{ info_lomba.link_pendaftaran }}" target="_blank" class="btn-action btn-main shadow-sm">
+                                <a href="{{ info_lomba.link_pendaftaran }}" target="_blank" class="btn-action btn-main shadow-sm btn-press-effect">
                                     <span>DAFTAR SEKARANG</span> <i class="fa fa-paper-plane"></i>
                                 </a>
                             {% endif %}
@@ -67,7 +73,7 @@
                             <div class="row g-2">
                                 {% if info_lomba.link_booklet %}
                                 <div class="col-6">
-                                    <a href="{{ info_lomba.link_booklet }}" target="_blank" class="btn-action btn-soft btn-cyan">
+                                    <a href="{{ info_lomba.link_booklet }}" target="_blank" class="btn-action btn-soft btn-cyan btn-press-effect">
                                         <i class="fa fa-file-text-o"></i> <span>BOOKLET</span>
                                     </a>
                                 </div>
@@ -75,7 +81,7 @@
                                 
                                 {% if info_lomba.link_sosmed %}
                                 <div class="col-6">
-                                    <a href="{{ info_lomba.link_sosmed }}" target="_blank" class="btn-action btn-soft btn-rose">
+                                    <a href="{{ info_lomba.link_sosmed }}" target="_blank" class="btn-action btn-soft btn-rose btn-press-effect">
                                         <i class="fa fa-instagram"></i> <span>SOSMED</span>
                                     </a>
                                 </div>
@@ -86,20 +92,20 @@
                 </div>
             </div>
 
-            <div class="col-lg-8 animate-up delay-2">
-                <div class="card-modern shadow-sm border-0 p-4 p-md-5">
-                    <div class="row mb-4 pb-3 border-bottom g-3 align-items-center">
+            <div class="col-12 col-lg-8 animate-up delay-2 content-column">
+                <div class="card-modern shadow-sm border-0 p-4 p-md-5 content-card">
+                    <div class="row mb-4 pb-3 border-bottom g-3 align-items-center section-header">
                         <div class="col-auto">
                             <div class="icon-box-detail">
-                                <i class="fa fa-file-text-o"></i>
+                                <i class="fa fa-align-left"></i>
                             </div>
                         </div>
                         <div class="col">
-                            <h4 class="fw-bold text-dark m-0">Deskripsi & Ketentuan</h4>
+                            <h4 class="fw-bold text-dark m-0 section-title">Deskripsi & Ketentuan</h4>
                         </div>
-                        <div class="col-md-auto">
-                             <div class="p-2 px-3 rounded-3 bg-light border-start border-primary border-4">
-                                <small class="text-muted text-uppercase fw-bold d-block" style="font-size: 0.6rem;">Pelaksanaan</small>
+                        <div class="col-md-auto execution-date-wrapper">
+                             <div class="p-2 px-3 rounded-3 bg-light border-start border-primary border-4 execution-box">
+                                <small class="text-muted text-uppercase fw-bold d-block" style="font-size: 0.65rem;">Pelaksanaan</small>
                                 <span class="fw-bold text-dark small">{{ info_lomba.tanggal_pelaksanaan|date:"d F Y"|default:"-" }}</span>
                              </div>
                         </div>
@@ -111,7 +117,7 @@
                                 {{ info_lomba.deskripsi|linebreaks }}
                             </div>
                         {% else %}
-                            <div class="text-center py-5 opacity-50">
+                            <div class="text-center py-5 opacity-50 empty-desc">
                                 <i class="fa fa-info-circle fa-3x mb-3"></i>
                                 <p>Deskripsi detail belum ditambahkan oleh Admin.</p>
                             </div>
@@ -119,7 +125,7 @@
                     </div>
 
                     <div class="mt-5 border-top pt-4">
-                        <a href="{% url 'list_lomba' %}" class="btn-back text-decoration-none">
+                        <a href="{% url 'list_lomba' %}" class="btn-back text-decoration-none link-press-effect">
                             <i class="fa fa-arrow-left me-2"></i> Kembali ke Daftar Lomba
                         </a>
                     </div>
@@ -131,96 +137,132 @@
 </section>
 
 <style>
-    /* Hero Section Styles */
+    /* --- BASE STYLES (Laptop & Umum) --- */
     .hero-lomba-detail {
         background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), 
                     url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1920&auto=format&fit=crop');
         background-size: cover; background-position: center; background-attachment: fixed;
-        padding: 180px 0 100px 0; margin-top: -85px; position: relative;
+        padding: 180px 0 120px 0; margin-top: -85px; position: relative;
     }
-    .hero-title-detail { font-size: 2.8rem; font-weight: 800; text-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-    .bg-soft-primary { background-color: #eff6ff; color: #3b82f6; }
-    .section-gray { background-color: #fcfdfe; min-height: 60vh; }
-    .overlap-up-detail { margin-top: -60px; position: relative; z-index: 100; }
+    .hero-title-detail { font-size: 3rem; font-weight: 900; letter-spacing: -1px; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .hero-badge { font-size: 0.8rem; letter-spacing: 1px; }
+    
+    .section-gray { background-color: #f8fafc; min-height: 60vh; }
+    .overlap-up-detail { margin-top: -80px; position: relative; z-index: 100; }
 
-    /* Modern Card Styles */
-    .card-modern { background: #ffffff; border-radius: 20px; padding: 24px; transition: all 0.3s ease; }
-    .sticky-sidebar { position: sticky; top: 100px; }
+    /* Cards */
+    .card-modern { background: #ffffff; border-radius: 24px; padding: 24px; transition: all 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.04) !important; }
+    .sticky-sidebar { position: sticky; top: 110px; }
 
-    /* Deadline Card Design */
-    .deadline-card { background: #f8fafc; border-radius: 12px; display: flex; overflow: hidden; border: 1px solid #f1f5f9; }
-    .deadline-accent { width: 4px; background: #ef4444; }
-    .deadline-body { padding: 12px 16px; }
-    .deadline-body .label { font-size: 0.65rem; font-weight: 800; color: #64748b; letter-spacing: 1px; }
-    .deadline-body .value { font-size: 1.1rem; font-weight: 800; margin: 0; }
+    /* Poster */
+    .poster-preview-container { position: relative; overflow: hidden; border-radius: 20px; box-shadow: inset 0 0 20px rgba(0,0,0,0.05); }
+    .btn-zoom-poster { 
+        position: absolute; bottom: 15px; right: 15px; 
+        width: 40px; height: 40px; background: rgba(255,255,255,0.9); 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        color: #334155; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .btn-zoom-poster:hover { transform: scale(1.1); color: #2563eb; }
 
-    /* Action Buttons (Soft UI) */
+    /* Deadline Card */
+    .deadline-card { background: #fff1f2; border-radius: 16px; display: flex; align-items: center; overflow: hidden; border: 1px solid #ffe4e6; }
+    .deadline-accent { width: 5px; background: #e11d48; align-self: stretch; }
+    .deadline-body { padding: 16px 20px; }
+    .deadline-body .label { font-size: 0.7rem; font-weight: 800; color: #9f1239; letter-spacing: 1px; opacity: 0.8; }
+    .deadline-body .value { font-size: 1.2rem; font-weight: 800; margin: 0; color: #881337; }
+    .deadline-icon { padding-right: 20px; font-size: 1.8rem; color: #fb7185; opacity: 0.5; }
+
+    /* Buttons */
     .btn-action {
-        border-radius: 14px; padding: 14px; font-weight: 800; font-size: 0.8rem;
-        display: flex; align-items: center; justify-content: center; gap: 10px;
-        border: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 16px; padding: 16px; font-weight: 800; font-size: 0.85rem;
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+        border: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px;
     }
-    .btn-main { background: #2563eb; color: #ffffff; }
-    .btn-main:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3) !important; }
+    .btn-main { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2); }
+    .btn-main:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(37, 99, 235, 0.3); color: white; }
 
-    .btn-soft { background: #f1f5f9; }
-    .btn-cyan { background: #ecfeff; color: #0891b2; }
-    .btn-cyan:hover { background: #cffafe; transform: translateY(-2px); color: #0891b2; }
-    
-    .btn-rose { background: #fff1f2; color: #e11d48; }
-    .btn-rose:hover { background: #ffe4e6; transform: translateY(-2px); color: #e11d48; }
+    .btn-soft { background: #f8fafc; border: 1px solid #e2e8f0; }
+    .btn-cyan { background: #ecfeff; color: #0891b2; border-color: #cffafe; }
+    .btn-cyan:hover { background: #cffafe; color: #06748f; transform: translateY(-2px); }
+    .btn-rose { background: #fff1f2; color: #e11d48; border-color: #ffe4e6; }
+    .btn-rose:hover { background: #ffe4e6; color: #be123c; transform: translateY(-2px); }
 
-    /* Badge & Icons */
-    .badge-modern { font-size: 0.7rem; font-weight: 800; padding: 8px 16px; border-radius: 50px; letter-spacing: 0.5px; }
-    .status-open { background: #f0fdf4; color: #16a34a; }
-    .status-closed { background: #fef2f2; color: #dc2626; }
-    .icon-box-detail { width: 45px; height: 45px; background: #f1f5f9; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #3b82f6; font-size: 1.2rem; }
+    /* Status Badge */
+    .badge-modern { font-size: 0.75rem; font-weight: 800; padding: 12px 20px; border-radius: 12px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .status-open { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+    .status-closed { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
 
-    /* Description Typography */
+    .icon-box-detail { width: 50px; height: 50px; background: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: #2563eb; font-size: 1.4rem; }
+
+    /* Content */
     .description-text .content-body {
-        font-family: 'Inter', sans-serif; line-height: 1.85; color: #334155; font-size: 1.05rem; text-align: justify;
+        font-family: 'Inter', sans-serif; line-height: 1.8; color: #334155; font-size: 1.05rem; text-align: justify;
     }
-    .description-text p { margin-bottom: 1.5rem; }
+    .description-text p { margin-bottom: 1.2rem; }
 
-    /* Others */
-    .btn-back { color: #6b7280; font-weight: 600; font-size: 0.9rem; transition: 0.3s; display: inline-block; }
-    .btn-back:hover { color: #3b82f6; transform: translateX(-5px); }
+    .btn-back { color: #64748b; font-weight: 700; font-size: 0.95rem; transition: 0.3s; display: inline-flex; align-items: center; }
+    .btn-back:hover { color: #2563eb; transform: translateX(-5px); }
+
+    /* Animation */
     .animate-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
-    .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.4s; }
+    .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* --- PERBAIKAN KHUSUS HP MODE DESKTOP --- */
-    /* Disamakan persis dengan Home, List Lomba, dll */
+    .btn-press-effect:active { transform: scale(0.96) !important; filter: brightness(0.95); }
+    .link-press-effect:active { transform: scale(0.95); color: #1e3a8a; }
+
+
+    /* --- KHUSUS HP MODE DESKTOP (Max-Width 1200px) --- */
+    /* Desain yang lebih polished dan proporsional */
     @media (max-width: 1200px) {
+        /* 1. Navbar Konsisten */
         .navbar .container { 
             padding-left: 25px !important; 
             padding-right: 25px !important; 
             justify-content: space-between !important;
         }
-        .navbar-brand { 
-            margin-left: 0 !important; 
-            padding-left: 0 !important;
-            font-size: 1.5rem !important; 
-        }
-        .navbar-nav { 
-            margin-right: 0 !important; 
-            padding-right: 0 !important;
-            flex-direction: row !important;
-            gap: 15px !important;
-        }
-        .nav-link {
-            font-size: 0.9rem !important;
-        }
-        .btn-nav-upload {
-            font-size: 0.85rem !important;
-        }
+        .navbar-brand { margin-left: 0 !important; padding-left: 0 !important; font-size: 1.5rem !important; }
+        .navbar-nav { margin-right: 0 !important; padding-right: 0 !important; flex-direction: row !important; gap: 15px !important; }
+        .nav-link { font-size: 0.9rem !important; }
+        .btn-nav-upload { font-size: 0.85rem !important; }
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
         .navbar-toggler { display: none !important; }
 
-        /* Penyesuaian Padding Hero di Detail Lomba HP Desktop */
+        /* 2. Hero Section: Lebih Tinggi & Judul Menonjol */
         .hero-lomba-detail {
-            padding-top: 150px !important; 
+            padding-top: 160px !important; 
+            padding-bottom: 140px !important; /* Tambah ruang bawah */
+        }
+        .hero-title-detail { 
+            font-size: 2.8rem !important; 
+            line-height: 1.2 !important;
+            margin-bottom: 1rem !important;
+        }
+        .hero-organizer { font-size: 1.1rem !important; opacity: 0.9; }
+
+        /* 3. Layout Grid yang Lebih Rapi */
+        .overlap-up-detail { margin-top: -100px !important; } /* Naikkan lebih banyak */
+        
+        /* 4. Sidebar Card (Poster & Info) */
+        .sidebar-column { margin-bottom: 2rem !important; }
+        .poster-card, .info-action-card {
+            border-radius: 30px !important; /* Lebih bulat */
+            padding: 20px !important;
+        }
+        
+        /* 5. Main Content Card */
+        .content-card {
+            border-radius: 35px !important;
+            padding: 40px 30px !important; /* Padding nyaman */
+        }
+        .section-title { font-size: 1.5rem !important; }
+        
+        /* 6. Execution Date Box (Pelaksanaan) */
+        .execution-box {
+            background: #f8fafc !important;
+            border-left-width: 6px !important; /* Aksen lebih tebal */
+            padding: 15px 20px !important;
         }
     }
 </style>
