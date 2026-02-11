@@ -150,7 +150,7 @@
 
     /* --- PERBAIKAN KHUSUS HP MODE DESKTOP --- */
     @media (max-width: 1200px) {
-        /* Note 1: Navbar Fix (Mepet Kiri Kanan) */
+        /* Note: Navbar Fix (Mepet Kiri Kanan) */
         .navbar .container-fluid { 
             padding-left: 0 !important; 
             padding-right: 0 !important; 
@@ -161,24 +161,24 @@
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
         .navbar-toggler { display: none !important; }
 
-        /* Note 3: Menambah tinggi hero, dibuat flex agar vertikal center */
+        /* Note 1: Mengurangi tinggi hero (sebelumnya 35vh) */
         .hero-library-modern { 
-            height: 35vh !important; /* Tinggi ditambah */
-            min-height: 300px !important;
-            padding: 0 !important; /* Reset padding manual */
+            height: 25vh !important; /* Dikurangi agar tidak terlalu tinggi */
+            min-height: 250px !important;
+            padding: 0 !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
         }
         .hero-content { padding-top: 100px !important; }
 
-        /* Note 2: Grid Container diperlebar agar 3 kartu pas & mepet tapi tetap ada jarak */
+        /* Note 2: Grid Container diperlebar tapi diberi padding lebih besar agar tidak mepet ujung layar */
         .container { 
-            max-width: 96% !important; 
-            padding-left: 5px !important; 
-            padding-right: 5px !important; 
+            max-width: 92% !important; /* Sedikit dikurangi dari 96% agar ada gap */
+            padding-left: 20px !important; /* Jarak kiri ditambah */
+            padding-right: 20px !important; /* Jarak kanan ditambah */
         }
-        /* Memastikan gap antar kartu tidak terlalu lebar di mode ini */
+        
         .row.g-3 { --bs-gutter-x: 1rem !important; }
     }
 
