@@ -122,6 +122,48 @@
             transform: translateX(5px);
         }
 
+        /* --- GLOBAL CSS UTK HP MODE DESKTOP (Max-Width 1200px) --- */
+        /* Note: Ini akan menimpa/mengatur ulang Navbar di SEMUA halaman saat di HP Desktop */
+        @media (max-width: 1200px) {
+            .navbar .container { 
+                padding-left: 0 !important; 
+                padding-right: 0 !important; 
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                max-width: 100% !important;
+                display: flex !important;
+                justify-content: space-between !important;
+            }
+            .navbar-brand { 
+                margin-left: 0 !important; 
+                padding-left: 10px !important; /* Jarak aman kiri */
+                font-size: 1.3rem !important; /* Sedikit disesuaikan */
+            }
+            .navbar-collapse {
+                flex-basis: auto !important; /* Mencegah collapse mengambil 100% width */
+                flex-grow: 0 !important;
+            }
+            .navbar-nav { 
+                flex-direction: row !important; /* Paksa Horizontal */
+                margin-right: 0 !important; 
+                padding-right: 10px !important; /* Jarak aman kanan */
+                gap: 10px !important; /* Jarak antar item */
+            }
+            .nav-link {
+                margin-left: 0 !important;
+                font-size: 0.8rem !important;
+                padding: 8px 5px !important;
+            }
+            /* Tombol Pendataan di HP */
+            .btn-nav-upload {
+                margin-left: 0 !important;
+                padding: 8px 15px !important;
+                font-size: 0.75rem !important;
+            }
+            /* Sembunyikan Toggler Bawaan Bootstrap jika ada */
+            .navbar-toggler { display: none !important; }
+        }
+
         /* SIMPEL FOOTER */
         .simple-footer { 
             background-color: var(--dark-navy); 
@@ -136,7 +178,7 @@
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">E-ACADEMIC</a>
             
-            <div class="navbar-collapse justify-content-end">
+            <div class="navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">BERANDA</a>
