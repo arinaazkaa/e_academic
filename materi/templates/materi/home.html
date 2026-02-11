@@ -187,13 +187,13 @@
 
     /* --- LOGIKA KHUSUS HP MODE DESKTOP --- */
     @media (max-width: 1200px) {
-        /* Note: Memberi jarak 25px dari kiri & kanan agar tidak terlalu mepet */
+        /* PERBAIKAN DI SINI: Memberi jarak 25px dari kiri & kanan */
         .navbar .container-fluid { 
-            padding-left: 100px !important; 
-            padding-right: 100px !important; 
+            padding-left: 25px !important; 
+            padding-right: 25px !important; 
             justify-content: space-between !important;
         }
-        /* Reset padding internal element agar tidak dobel */
+        /* Reset padding internal agar tidak dobel dengan container */
         .navbar-brand { 
             margin-left: 0 !important; 
             padding-left: 0 !important;
