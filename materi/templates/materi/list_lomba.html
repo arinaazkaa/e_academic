@@ -150,20 +150,35 @@
 
     /* --- PERBAIKAN KHUSUS HP MODE DESKTOP --- */
     @media (max-width: 1200px) {
-        /* Note: Navbar Fix (Mepet Kiri Kanan) */
-        .navbar .container-fluid { 
-            padding-left: 0 !important; 
-            padding-right: 0 !important; 
-            justify-content: space-between !important; 
+        /* Note 1: Navbar Disamakan Persis dengan Home.html */
+        .navbar .container { 
+            padding-left: 25px !important; 
+            padding-right: 25px !important; 
+            justify-content: space-between !important;
         }
-        .navbar-brand { margin-left: 0 !important; padding-left: 5px !important; }
-        .navbar-nav { margin-right: 0 !important; padding-right: 5px !important; flex-direction: row !important; gap: 15px !important; }
+        .navbar-brand { 
+            margin-left: 0 !important; 
+            padding-left: 0 !important;
+            font-size: 1.5rem !important; /* Diperbesar */
+        }
+        .navbar-nav { 
+            margin-right: 0 !important; 
+            padding-right: 0 !important;
+            flex-direction: row !important;
+            gap: 15px !important;
+        }
+        .nav-link {
+            font-size: 0.9rem !important; /* Diperbesar */
+        }
+        .btn-nav-upload {
+            font-size: 0.85rem !important; /* Diperbesar */
+        }
         #navbarNav { margin-right: 0 !important; justify-content: flex-end !important; }
         .navbar-toggler { display: none !important; }
 
-        /* Note 1: Mengurangi tinggi hero (25vh -> 22vh) */
+        /* Note: Style Hero & Konten Halaman List Lomba */
         .hero-library-modern { 
-            height: 22vh !important; /* Lebih pendek */
+            height: 22vh !important;
             min-height: 220px !important;
             padding: 0 !important;
             display: flex !important;
@@ -171,14 +186,12 @@
             justify-content: center !important;
         }
         
-        /* Note 1: Menurunkan posisi judul (Padding Top ditambah) */
-        .hero-content { padding-top: 150px !important; }
+        .hero-content { padding-top: 120px !important; }
 
-        /* Note 1: Memperbesar Font Judul & Deskripsi */
         .hero-brand-title { font-size: 2.5rem !important; letter-spacing: 2px !important; }
         .hero-description { font-size: 1.1rem !important; }
 
-        /* Note 2: Grid Container diperlebar & diberi padding lebih besar */
+        /* Grid Container diperlebar & diberi padding lebih besar */
         .container { 
             max-width: 92% !important; 
             padding-left: 20px !important; 
