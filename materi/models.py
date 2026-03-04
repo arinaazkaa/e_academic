@@ -18,15 +18,19 @@ STATUS_CHOICES = [
 
 # --- FUNGSI HELPER: CONVERTER GOOGLE DRIVE ---
 def convert_to_direct_link(url):
-    """Mengubah link pratinjau Drive menjadi link langsung (Direct Link)."""
+    """Mengubah link pratinjau Drive menjadi link langsung (Direct Link), kecuali Folder."""
     if url and "drive.google.com" in url:
+        # JANGAN konversi jika ini adalah link FOLDER
+        if "/folders/" in url:
+            return url
+        
         # Mencari ID file (biasanya 25+ karakter acak)
         match = re.search(r'[-\w]{25,}', url)
         if match:
             file_id = match.group()
             return f"https://drive.google.com/uc?export=view&id={file_id}"
+            
     return url
-
 # --- 1. MODEL MATERI ---
 class Materi(models.Model):
     prodi = models.CharField(max_length=10, choices=PRODI_CHOICES)
